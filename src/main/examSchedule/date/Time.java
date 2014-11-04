@@ -61,11 +61,15 @@ public class Time implements Comparable<Time>
 		return minute;
 	}
 
-	@Override
-	public int compareTo(Time o)
+	public Integer toInteger()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return Integer.parseInt(Integer.toString(hour) + Integer.toString(minute));
+	}
+
+	@Override
+	public int compareTo(Time otherTime)
+	{
+		return this.toInteger().compareTo(otherTime.toInteger());
 	}
 
 	@Override
