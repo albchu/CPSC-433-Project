@@ -1,7 +1,7 @@
 package main.examSchedule.date;
 
 import main.examSchedule.exceptions.InvalidTimeFormatException;
-
+import static main.examSchedule.common.Utilities.*;
 /**
  * Takes a single string in its constructor. Breaks apart to hour and minute. Implement comparable such that we can organize times.
  * @author achu
@@ -16,6 +16,7 @@ public class Time implements Comparable<Time>
 
 		public Builder(String timeString)
 		{
+			nullCheck(timeString);
 			String[] tokenized = timeString.split(":");
 			if(tokenized.length != 2) throw new InvalidTimeFormatException("Time is expected in 24 hours format: 'HH:MM'. Actual input was: '" + timeString + "'");
 			try

@@ -43,3 +43,7 @@ target/
 *.rar
 *.tar
 #*.zip
+
+# OSX index files
+#################
+.DS_Store

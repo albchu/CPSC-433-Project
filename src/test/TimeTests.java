@@ -5,6 +5,7 @@ import main.examSchedule.date.Time;
 import org.junit.*;
 
 import main.examSchedule.exceptions.InvalidTimeFormatException;
+import main.examSchedule.exceptions.NullParameterException;
 
 public class TimeTests
 {
@@ -55,6 +56,12 @@ public class TimeTests
 		Assert.assertEquals("Invalid hour", validHour, time.getHour());
 		Assert.assertEquals("Invalid minute", validMinute, time.getMinute());
 		Assert.assertEquals("Invalid output format", validTimeSmaller, time.toString());
+	}
+	
+	@Test(expected = NullParameterException.class)
+	public void buildNullTime()
+	{
+		time = new Time.Builder(null).build();
 	}
 	
 	@Test(expected = InvalidTimeFormatException.class)
