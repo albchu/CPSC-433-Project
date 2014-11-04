@@ -52,14 +52,16 @@ public class ExamSchedule {
 			System.out.println("Synopsis: ExamSchedule <env-file> [<solution-file>|<time-in-ms>]");
 		}
 
-
+/*	Commenting out block to focus on specific behavior involving importing input file.
+ * 
+ * 
     // if there's a second argument on the command line, it's either 
 		// a solution file name or a time in milliseconds to limit our run to...
 		if (args.length>1) {
 			// let's assume it's a time in milliseconds: we'll do a search on it.
 			try {
 				long timeLimit = new Long(args[1]).longValue();
-        doSearch(env, fromFile+".out", timeLimit);
+				doSearch(env, fromFile+".out", timeLimit);
 			}
 			// not a time, so it must be a filename to read a solution to evaluate from...
 			catch (NumberFormatException ex) {
@@ -79,6 +81,8 @@ public class ExamSchedule {
 		else {
 			commandMode(env);
 		}
+		
+		*/
 	}
 
 	/**
