@@ -1,4 +1,4 @@
-package examSchedule.parser;
+package main.examSchedule.parser;
 
 public abstract class Solution extends Entity implements SolutionInterface {
 

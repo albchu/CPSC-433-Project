@@ -1,6 +1,6 @@
-package examSchedule.parser;
+package main.examSchedule.parser;
 
-import examSchedule.Environment;
+import main.examSchedule.Environment;
 
 /**
  * This class can function as the main() for your assignment program.  Use it in conjunction
@@ -20,7 +20,7 @@ import examSchedule.Environment;
  * @author <a href="http://www.cpsc.ucalgary.ca/~kremer/">Rob Kremer</a>
  *
  */
-public class ExamSchedule {
+public class main.examSchedule {
 
 	/**
 	 * Interpret the command line, and either run in command mode, perform a search, or evaluate 
@@ -49,7 +49,7 @@ public class ExamSchedule {
 			env.fromFile(fromFile);
 		}
 		else {
-			System.out.println("Synopsis: ExamSchedule <env-file> [<solution-file>|<time-in-ms>]");
+			System.out.println("Synopsis: main.examSchedule <env-file> [<solution-file>|<time-in-ms>]");
 		}
 
 /*	Commenting out block to focus on specific behavior involving importing input file.

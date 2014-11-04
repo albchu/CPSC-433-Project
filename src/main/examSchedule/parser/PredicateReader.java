@@ -1,7 +1,7 @@
 /**
  * 
  */
-package examSchedule.parser;
+package main.examSchedule.parser;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -40,9 +40,9 @@ import java.util.Vector;
  * <tr><td>"{any-except-double-quote}*"</td><td>"6", "Mary Jones"</td><td>String</tr>
  * <tr><td>["0"-"9"|-]{"0"-"9"}*</td><td>-8, 98767897800</td><td>Long (not long)!</td></tr>
  * <tr><td>"[" comma-separated-list-of-valid-identifiers "]"</td><td>[97, Mary, "My favourite Martian"], [1,2,3]</td>
- *     <td>Vector&lt;{@link examSchedule.parser.Pair Pair}&lt;{@link examSchedule.parser.Predicate.ParamType ParamType},Object>></td></tr>
+ *     <td>Vector&lt;{@link main.examSchedule.parser.Pair Pair}&lt;{@link main.examSchedule.parser.Predicate.ParamType ParamType},Object>></td></tr>
  * <tr><td>"{" comma-separated-list-of-valid-identifiers "}"</td><td>{fred, [1,1,2,3,5]}, {}</td>
- *     <td>TreeSet&lt;{@link examSchedule.parser.Pair Pair}&lt;{@link examSchedule.parser.Predicate.ParamType ParamType},Object>></td></tr>
+ *     <td>TreeSet&lt;{@link main.examSchedule.parser.Pair Pair}&lt;{@link main.examSchedule.parser.Predicate.ParamType ParamType},Object>></td></tr>
  * </table>
  * <p>
  * So, it's simple to use this class -- you need only define appropriately methods with

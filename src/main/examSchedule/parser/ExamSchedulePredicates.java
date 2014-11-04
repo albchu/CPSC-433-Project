@@ -1,23 +1,23 @@
 /**
  * 
  */
-package examSchedule.parser;
+package main.examSchedule.parser;
 
 import java.util.Vector;
 
-import examSchedule.parser.Predicate.ParamType;
+import main.examSchedule.parser.Predicate.ParamType;
 
 
 
 /**
  * This interface should be <code>implement</code>ed by any class that reads Student allocation 
  * predicates.  The implementing class should also <code>extend</code> the
- * class {@link examSchedule.parser.PredicateReader}.  
+ * class {@link main.examSchedule.parser.PredicateReader}.  
  * <p>
  * The method declarations here form the
  * stubs you will need to implement all the predicates for the assignments.
  * The static String definitions here don't need to be overridden: they will
- * automatically work with {@link examSchedule.parser.PredicateReader} to yield help 
+ * automatically work with {@link main.examSchedule.parser.PredicateReader} to yield help 
  * information when the predicate "!help()" is interpreted. 
  * <p>
  * For more information on the semantics of these predicates, see the 
@@ -35,7 +35,7 @@ import examSchedule.parser.Predicate.ParamType;
  * @author <a href="http://www.cpsc.ucalgary.ca/~kremer/">Rob Kremer</a>
  *
  */
-public interface ExamSchedulePredicates {
+public interface main.examSchedulePredicates {
 	public static String h_student = "query or assert <id> is a Student";
 	public void a_student(String p);
 	public boolean e_student(String p);

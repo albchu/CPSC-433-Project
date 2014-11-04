@@ -1,11 +1,11 @@
-package examSchedule;
+package main.examSchedule;
 
 import java.util.Vector;
 
-import examSchedule.parser.*;
-import examSchedule.parser.Predicate.ParamType;
+import main.examSchedule.parser.*;
+import main.examSchedule.parser.Predicate.ParamType;
 
-public class Environment extends PredicateReader implements ExamSchedulePredicates, EnvironmentInterface
+public class Environment extends PredicateReader implements main.examSchedulePredicates, EnvironmentInterface
 {
 	private static EnvironmentInterface singletonEnv;
 
@@ -38,7 +38,7 @@ public class Environment extends PredicateReader implements ExamSchedulePredicat
 		return super.fromFile(fromFile);
 	}
 
-	// getter method used by main() in ExamSchedule.java
+	// getter method used by main() in main.examSchedule.java
 	public static EnvironmentInterface get()
 	{
 		if (singletonEnv == null)

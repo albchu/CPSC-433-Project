@@ -1,7 +1,7 @@
 /**
  * 
  */
-package examSchedule.parser;
+package main.examSchedule.parser;
 
 /**
  * The base class for named things.  It implements <code>Comparable</code> so

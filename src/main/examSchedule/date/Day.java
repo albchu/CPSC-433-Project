@@ -1,5 +1,10 @@
-package examSchedule;
+package main.examSchedule.date;
 
+/**
+ * Enum that contains all days of the week. Useful for immutable data
+ * @author achu
+ *
+ */
 public enum Day
 {
 	MONDAY("monday"),

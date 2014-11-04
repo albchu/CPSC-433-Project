@@ -1,7 +1,7 @@
 /**
  * 
  */
-package examSchedule.parser;
+package main.examSchedule.parser;
 
 import java.util.Map;
 
