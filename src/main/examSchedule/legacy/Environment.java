@@ -1,9 +1,8 @@
-package main.examSchedule;
+package main.examSchedule.legacy;
 
 import java.util.Vector;
 
-import main.examSchedule.parser.*;
-import main.examSchedule.parser.Predicate.ParamType;
+import main.examSchedule.legacy.*;
 
 public class Environment extends PredicateReader implements main.examSchedulePredicates, EnvironmentInterface
 {

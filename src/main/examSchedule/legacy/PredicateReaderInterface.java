@@ -1,4 +1,4 @@
-package main.examSchedule.parser;
+package main.examSchedule.legacy;
 
 public interface PredicateReaderInterface {
 

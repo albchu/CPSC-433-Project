@@ -40,8 +40,37 @@ public class Lecture
 		return examLength;
 	}
 	
+	public void setClassSize(int classSize)
+	{
+		this.classSize = classSize;
+	}
+
 	public void setExamLength(double examLength)
 	{
 		this.examLength = examLength;
 	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Lecture other = (Lecture) obj;
+		if (classSize != other.classSize)
+			return false;
+		if (Double.doubleToLongBits(examLength) != Double.doubleToLongBits(other.examLength))
+			return false;
+		if (lectureName == null)
+		{
+			if (other.lectureName != null)
+				return false;
+		} else if (!lectureName.equals(other.lectureName))
+			return false;
+		return true;
+	}
+	
 }

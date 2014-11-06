@@ -1,7 +1,7 @@
 /**
  * 
  */
-package main.examSchedule.parser;
+package main.examSchedule.legacy;
 
 import java.util.Vector;
 

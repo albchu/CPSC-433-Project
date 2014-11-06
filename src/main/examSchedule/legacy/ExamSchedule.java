@@ -1,6 +1,5 @@
-package main.examSchedule.parser;
+package main.examSchedule.legacy;
 
-import main.examSchedule.Environment;
 
 /**
  * This class can function as the main() for your assignment program.  Use it in conjunction
