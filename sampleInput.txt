@@ -4487,13 +4487,13 @@ capacity(KNES38,72)
 room(SS171)
 capacity(SS171,65)
 
-room(SS297)
 capacity(SS297,86)
+room(SS297)
 
 
 // SESSIONS
-session(M11-2-SS171)
 roomAssign(M11-2-SS171,SS171)
+session(M11-2-SS171)
 at(M11-2-SS171,M,11,2)
 
 session(M11-2-SS297)

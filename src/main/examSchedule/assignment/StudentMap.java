@@ -23,6 +23,11 @@ public class StudentMap
 		return studentMap.get(studentID);
 	}
 	
+	public boolean contains(String studentID)
+	{
+		return studentMap.containsKey(studentID);
+	}
+	
 	public void addStudent(String studentID)
 	{
 		if(studentMap.containsKey(studentID)) throw new DuplicateSessionException("student has already been added in student map");

@@ -27,8 +27,7 @@ public class CourseMap
 	
 	public void addLecture(String courseName, String lectureName)
 	{
-		if(!courseMap.containsKey(courseName)) //The addLecture() method will create a blank list of lectures for the course before loading it if this is the case. 
-			addCourse(courseName);
+		if(!courseMap.containsKey(courseName)) throw new ElementDoesNotExistException("Could not find course: " + courseName + " in course map");
 		courseMap.get(courseName).add(new CourseLecturePair(courseName, lectureName));
 	}
 	
@@ -40,7 +39,7 @@ public class CourseMap
 	 */
 	public CourseLecturePair getCourseLecturePair(String courseName, String lectureName)
 	{
-		if(!courseMap.containsKey(courseName)) throw new ElementDoesNotExistException("Could not find course in course map");
+		if(!courseMap.containsKey(courseName)) throw new ElementDoesNotExistException("Could not find course: " + courseName + " in course map");
 		
 		for (CourseLecturePair pair : courseMap.get(courseName))
 		{

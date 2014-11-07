@@ -16,6 +16,7 @@ import main.examSchedule.course.CourseMap;
 import main.examSchedule.course.Lecture;
 import main.examSchedule.date.Time;
 import main.examSchedule.exceptions.ElementDoesNotExistException;
+import main.examSchedule.exceptions.PredicateNotRecognizedException;
 import main.examSchedule.exceptions.UnexpectedPredicateArgumentsException;
 
 /**
@@ -69,7 +70,7 @@ public class Environment
 			courseMap.addLecture(courseName, lectureName);
 			break;
 			
-		case ("examLength"):
+		case ("examlength"):
 			argsLengthCheck(predicateList, 3);
 			courseName = predicateList.get(0);
 			lectureName = predicateList.get(1);
@@ -100,6 +101,7 @@ public class Environment
 			studentID = predicateList.get(0);
 			courseName = predicateList.get(1);
 			lectureName = predicateList.get(2);
+			if(!studentMap.contains(studentID)) throw new ElementDoesNotExistException("The student id: '" + studentID + "' is not in the studentMap");
 			studentMap.enroll(studentID, courseMap.getCourseLecturePair(courseName, lectureName));	// Important to use the same object from courseMap to point to the same objects
 			break;
 		
@@ -135,7 +137,7 @@ public class Environment
 			dayList.add(dayID);
 			break;
 		
-		case ("roomAssign"):
+		case ("roomassign"):
 			argsLengthCheck(predicateList, 2);
 			sessionID = predicateList.get(0);
 			roomID = predicateList.get(1);
@@ -156,7 +158,9 @@ public class Environment
 			sessionID = predicateList.get(2);
 			sessionMap.updateSessionInfo(sessionID, courseMap.getCourseLecturePair(courseName, lectureName));
 			break;
-		
+			
+		default:
+			throw new PredicateNotRecognizedException("Could not recognize predicate: '" + predicateName + "'");
 		}
 	}
 
