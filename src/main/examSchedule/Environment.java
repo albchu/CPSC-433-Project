@@ -3,6 +3,7 @@ package main.examSchedule;
 import static main.examSchedule.common.Utilities.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -240,6 +241,7 @@ public class Environment
 			// day
 			output.add(predicateForm("day", day));
 			
+		Collections.sort(output);
 		return output;
 	}
 }
