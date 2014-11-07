@@ -1,6 +1,5 @@
 package main.examSchedule.assignment;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
