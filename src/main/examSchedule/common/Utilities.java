@@ -46,6 +46,7 @@ public class Utilities
 	 */
 	public static List<String> readToList(String filename)
 	{
+		System.out.println("Reading file: " + filename);
 		Scanner sc = null;
 		try
 		{
@@ -64,19 +65,32 @@ public class Utilities
 
 		return lines;
 	}
-	
+
 	public static void writeToFile(List<String> fileContents, String filename)
 	{
+		System.out.println("Writing to file: " + filename);
 		FileWriter writer;
 		try
 		{
 			writer = new FileWriter(filename);
-			for(String str: fileContents)
-				writer.write(str);
+			for (String str : fileContents)
+				writer.write(str + "\n");
 			writer.close();
 		} catch (IOException e)
 		{
 			e.printStackTrace();
-		} 
+		}
+	}
+
+	// join(String array,delimiter)
+	public static String join(String array[], String delimiter)
+	{
+		if (array.length == 0)
+			return "";
+		StringBuilder sb = new StringBuilder();
+		int i;
+		for (i = 0; i < array.length - 1; i++)
+			sb.append(array[i] + delimiter);
+		return sb.toString() + array[i];
 	}
 }

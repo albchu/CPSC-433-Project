@@ -48,10 +48,19 @@ public class CourseMap
 				return pair;
 		}
 		
-		throw new ElementDoesNotExistException("Could not find lecture: " + lectureName + " in course map");
+		throw new ElementDoesNotExistException("Could not find lecture: " + lectureName + " in course map for course: " + courseName);
 	}
 	
-	public void updateExamLength(String courseName, String lectureName, double examLength)
+	public List<Lecture> getLectures(String courseName)
+	{
+		if(!courseMap.containsKey(courseName)) throw new ElementDoesNotExistException("Could not find course in course map");
+		List<Lecture> lectures = new ArrayList<Lecture>();
+		for (CourseLecturePair pair : courseMap.get(courseName))
+			lectures.add(pair.getLecture());
+		return lectures;
+	}
+	
+	public void updateExamLength(String courseName, String lectureName, int examLength)
 	{
 		getCourseLecturePair(courseName, lectureName).getLecture().setExamLength(examLength);
 	}

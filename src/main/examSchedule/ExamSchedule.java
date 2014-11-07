@@ -24,5 +24,6 @@ public class ExamSchedule
 		PredicateParser.importList(env, inputList);
 		
 		List<String> outputList = env.exportList();
+		writeToFile(outputList, filename + ".out");
 	}
 }

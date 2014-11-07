@@ -13,6 +13,7 @@ public class PredicateParser
 	 */
 	public static void importList (Environment env, List<String> predicateList)
 	{
+		// Requires reordering input in order to ensure data objects are loaded correctly
 		for (String line : predicateList)
 		{
 			if (!isPredicate(line)) // Skip all lines that are comments or not valid predicates
@@ -85,7 +86,7 @@ public class PredicateParser
 		Matcher match = pattern.matcher(line);
 		if(match.find())
 		{
-			String argsString = match.group().replaceAll("[()]", "");
+			String argsString = match.group().replaceAll("[(\\s)]", "");
 			return Arrays.asList(argsString.split(","));
 		}
 		else throw new RuntimeException("Should have been a valid predicate line: " + line );

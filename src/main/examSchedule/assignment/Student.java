@@ -7,17 +7,22 @@ import main.examSchedule.course.CourseLecturePair;
 public class Student
 {
 	private String studentID;
-	private List<CourseLecturePair> enrolledLectures;
+	private List<CourseLecturePair> enrolledLecturePairs;
 	
 	public Student(String studentID)
 	{
 		this.studentID = studentID;
-		enrolledLectures = new ArrayList<CourseLecturePair>();
+		enrolledLecturePairs = new ArrayList<CourseLecturePair>();
 	}
 	
 	public void enroll(CourseLecturePair courseLecturePair)
 	{
 		courseLecturePair.getLecture().incrementClassSize();
-		enrolledLectures.add(courseLecturePair);
+		enrolledLecturePairs.add(courseLecturePair);
+	}
+
+	public List<CourseLecturePair> getEnrolledLecturePairs()
+	{
+		return enrolledLecturePairs;
 	}
 }

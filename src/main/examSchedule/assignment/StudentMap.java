@@ -1,6 +1,8 @@
 package main.examSchedule.assignment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import main.examSchedule.course.CourseLecturePair;
 import main.examSchedule.exceptions.DuplicateSessionException;
@@ -30,5 +32,15 @@ public class StudentMap
 	public void enroll(String studentID, CourseLecturePair courseLecturePair)
 	{
 		getStudent(studentID).enroll(courseLecturePair);
+	}
+
+	public List<CourseLecturePair> getEnrollments(String studentID)
+	{
+		return getStudent(studentID).getEnrolledLecturePairs();
+	}
+	
+	public HashMap<String, Student> getStudentMap()
+	{
+		return studentMap;
 	}
 }

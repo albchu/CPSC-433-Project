@@ -4472,10 +4472,7 @@ enrolled(S06995011,CPSC396,L03)
 enrolled(S06995011,CPSC417,L02)
 
 
-// DAYS
-day(M)
-day(T)
-day(W)
+
 
 // ROOMS
 room(EDU162)
@@ -4654,4 +4651,8 @@ at(W8-3-EDU162,W,8,3)
 session(W8-3-EDU272)
 roomAssign(W8-3-EDU272,EDU272)
 at(W8-3-EDU272,W,8,3)
-
+// DAYS
+day(M)
+day(T)
+day(W)
+assign(ASTR538, L01, W15-3-EDU272)

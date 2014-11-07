@@ -18,7 +18,7 @@ public class Session
 	private Room room;
 	private String dayID;
 	private Time time;
-	private double length;
+	private int length;
 	private int remainingCapacity;
 	
 	private List<CourseLecturePair> sessionAssignments;
@@ -41,12 +41,12 @@ public class Session
 		return room;
 	}
 	
-	public double getLength()
+	public int getLength()
 	{
 		return length;
 	}
 	
-	public void setLength(double length)
+	public void setLength(int length)
 	{
 		this.length = length;
 	}

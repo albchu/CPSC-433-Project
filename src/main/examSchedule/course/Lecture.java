@@ -11,7 +11,7 @@ public class Lecture
 {
 	private String lectureName;
 	private String instructor;
-	private double examLength;
+	private int examLength;
 	private int classSize;
 	
 	public Lecture(String lectureName)
@@ -36,7 +36,7 @@ public class Lecture
 		this.classSize++;
 	}
 
-	public double getExamLength()
+	public int getExamLength()
 	{
 		return examLength;
 	}
@@ -46,7 +46,7 @@ public class Lecture
 		this.classSize = classSize;
 	}
 
-	public void setExamLength(double examLength)
+	public void setExamLength(int examLength)
 	{
 		this.examLength = examLength;
 	}

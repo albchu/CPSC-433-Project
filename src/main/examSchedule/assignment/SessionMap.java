@@ -2,6 +2,7 @@ package main.examSchedule.assignment;
 
 import java.util.HashMap;
 
+import main.examSchedule.course.CourseLecturePair;
 import main.examSchedule.date.Time;
 import main.examSchedule.exceptions.DuplicateSessionException;
 import main.examSchedule.exceptions.ElementDoesNotExistException;
@@ -22,7 +23,7 @@ public class SessionMap
 		return sessionMap.get(sessionID);
 	}
 	
-	public void updateSessionInfo(String sessionID, String dayID, Time time, double length)
+	public void updateSessionInfo(String sessionID, String dayID, Time time, int length)
 	{
 		Session session = getSession(sessionID);
 		session.setDay(dayID);
@@ -35,7 +36,17 @@ public class SessionMap
 		Session session = getSession(sessionID);
 		session.setRoom(room);
 	}
+	public void updateSessionInfo(String sessionID, CourseLecturePair courseLecturePair)
+	{
+		Session session = getSession(sessionID);
+		session.addSessionAssignment(courseLecturePair);;
+	}
 	
+	public HashMap<String, Session> getSessionMap()
+	{
+		return sessionMap;
+	}
+
 	public void addSession(String sessionID)
 	{
 		if(sessionMap.containsKey(sessionID)) throw new DuplicateSessionException("Session has already been added in session map");
