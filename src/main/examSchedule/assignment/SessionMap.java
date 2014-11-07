@@ -1,7 +1,6 @@
 package main.examSchedule.assignment;
 
 import java.util.HashMap;
-import java.util.List;
 
 import main.examSchedule.date.Time;
 import main.examSchedule.exceptions.DuplicateSessionException;
@@ -29,6 +28,12 @@ public class SessionMap
 		session.setDay(dayID);
 		session.setLength(length);
 		session.setTime(time);
+	}
+	
+	public void updateSessionInfo(String sessionID, Room room)
+	{
+		Session session = getSession(sessionID);
+		session.setRoom(room);
 	}
 	
 	public void addSession(String sessionID)

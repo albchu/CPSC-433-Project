@@ -17,6 +17,7 @@ public class Student
 	
 	public void enroll(CourseLecturePair courseLecturePair)
 	{
+		courseLecturePair.getLecture().incrementClassSize();
 		enrolledLectures.add(courseLecturePair);
 	}
 }
