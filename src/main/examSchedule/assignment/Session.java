@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.examSchedule.course.CourseLecturePair;
-import main.examSchedule.date.Day;
 import main.examSchedule.date.Time;
 import main.examSchedule.exceptions.SessionAssignmentExceedsSizeException;
 import main.examSchedule.exceptions.SessionAssignmentExceedsTimeException;
@@ -17,8 +16,8 @@ public class Session
 {
 	private String sessionID;
 	private Room room;
-	private Day day;
-	private Time timeStart;
+	private String dayID;
+	private Time time;
 	private double length;
 	private int remainingCapacity;
 	
@@ -52,9 +51,9 @@ public class Session
 		this.length = length;
 	}
 
-	public Day getDay()
+	public String getDay()
 	{
-		return day;
+		return dayID;
 	}
 
 	public List<CourseLecturePair> getSessionAssignments()
@@ -78,19 +77,19 @@ public class Session
 		return remainingCapacity;
 	}
 
-	public void setDay(Day day)
+	public void setDay(String dayID)
 	{
-		this.day = day;
+		this.dayID = dayID;
 	}
 
-	public Time getTimeStart()
+	public Time getTime()
 	{
-		return timeStart;
+		return time;
 	}
 
-	public void setTimeStart(Time timeStart)
+	public void setTime(Time time)
 	{
-		this.timeStart = timeStart;
+		this.time = time;
 	}
 
 	/**

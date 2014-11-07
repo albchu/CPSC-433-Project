@@ -3,11 +3,9 @@ package main.examSchedule;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.examSchedule.assignment.Session;
 import main.examSchedule.assignment.SessionMap;
 import main.examSchedule.assignment.StudentMap;
 import main.examSchedule.course.CourseMap;
-import main.examSchedule.date.Day;
 import main.examSchedule.date.Time;
 import main.examSchedule.exceptions.UnexpectedPredicateArgumentsException;
 
@@ -39,11 +37,9 @@ public class Environment
 	
 	public void importPredicate(String predicateName, List<String> predicateList)
 	{
-		String courseName, lectureName, instructor, studentID, sessionID;
+		String courseName, lectureName, instructor, studentID, sessionID, dayID;
 		double length;
-		Day day;
 		Time timeStart;
-		Time timeEnd;
 		switch (predicateName)
 		{
 		case ("course"):	//Technically not needed
@@ -96,10 +92,10 @@ public class Environment
 		case ("at"):
 			argsLengthCheck(predicateList, 4);
 			sessionID = predicateList.get(0);
-			day = Day.getDayFromString(predicateList.get(1));
+			dayID = predicateList.get(1);
 			timeStart = new Time.Builder(predicateList.get(2)).build();
 			length = Double.parseDouble(predicateList.get(3));
-			//sessionMap.setDate(day, timeStart, timeEnd);
+			sessionMap.updateSessionInfo(sessionID, dayID, timeStart, length);
 			break;
 		
 		case ("capacity"):

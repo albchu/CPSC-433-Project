@@ -3,6 +3,7 @@ package main.examSchedule.assignment;
 import java.util.HashMap;
 import java.util.List;
 
+import main.examSchedule.date.Time;
 import main.examSchedule.exceptions.DuplicateSessionException;
 import main.examSchedule.exceptions.ElementDoesNotExistException;
 
@@ -20,6 +21,14 @@ public class SessionMap
 	{
 		if(!sessionMap.containsKey(sessionID)) throw new ElementDoesNotExistException("Could not find session in session map");
 		return sessionMap.get(sessionID);
+	}
+	
+	public void updateSessionInfo(String sessionID, String dayID, Time time, double length)
+	{
+		Session session = getSession(sessionID);
+		session.setDay(dayID);
+		session.setLength(length);
+		session.setTime(time);
 	}
 	
 	public void addSession(String sessionID)

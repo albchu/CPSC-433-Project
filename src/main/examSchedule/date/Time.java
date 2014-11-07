@@ -18,11 +18,13 @@ public class Time implements Comparable<Time>
 		{
 			nullCheck(timeString);
 			String[] tokenized = timeString.split(":");
-			if(tokenized.length != 2) throw new InvalidTimeFormatException("Time is expected in 24 hours format: 'HH:MM'. Actual input was: '" + timeString + "'");
+			if(tokenized.length > 2 || tokenized.length < 1) throw new InvalidTimeFormatException("Time is expected in 24 hours format: 'HH:MM'. Actual input was: '" + timeString + "'");
+			minute = 0; // It is not neccessary to give this value on input. This is the default value
 			try
 			{
 				hour = Integer.parseInt(tokenized[0]);
-				minute = Integer.parseInt(tokenized[1]);
+				if(tokenized.length == 2)
+					minute = Integer.parseInt(tokenized[1]);
 			}
 			catch(NumberFormatException e)
 			{
