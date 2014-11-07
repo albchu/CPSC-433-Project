@@ -12,6 +12,7 @@ public class TimeTests
 	private Time time;
 	private String validTimeSmaller = "14:00";
 	private String validTimeLarger = "16:00";
+	private String validTimeLarger2 = "16:30";
 	private int validHour = 14;
 	private int validMinute = 0;
 	private String invalidTime = "24:00";
@@ -41,11 +42,27 @@ public class TimeTests
 	}
 	
 	@Test
-	public void compareequalTime()
+	public void compareEqualTime()
 	{
 		time = new Time.Builder(validTimeSmaller).build();
 		Time time2 = new Time.Builder(validTimeSmaller).build();
 		Assert.assertTrue("Invalid output format", time.compareTo(time2) == 0);
+	}
+	
+	@Test
+	public void getDifferenceTest()
+	{
+		time = new Time.Builder(validTimeSmaller).build();
+		Time time2 = new Time.Builder(validTimeLarger).build();
+		Time time3 = new Time.Builder(validTimeLarger2).build();
+		double difference = 2;
+		double difference2 = -2;
+		double difference3 = 0;
+		double difference4 = 2.5;
+		Assert.assertEquals("Invalid output format", difference, time2.getDifference(time), 0.01);
+		Assert.assertEquals("Invalid output format", difference2, time.getDifference(time2), 0.01);
+		Assert.assertEquals("Invalid output format", difference3, time.getDifference(time), 0.01);
+		Assert.assertEquals("Invalid output format", difference4, time3.getDifference(time), 0.01);
 	}
 	
 	@Test

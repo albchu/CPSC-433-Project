@@ -51,6 +51,16 @@ public class CourseMap
 		throw new ElementDoesNotExistException("Could not find lecture: " + lectureName + " in course map");
 	}
 	
+	public void updateExamLength(String courseName, String lectureName, double examLength)
+	{
+		getCourseLecturePair(courseName, lectureName).getLecture().setExamLength(examLength);
+	}
+	
+	public void updateInstructor(String courseName, String lectureName, String instructor)
+	{
+		getCourseLecturePair(courseName, lectureName).getLecture().setInstructor(instructor);
+	}
+	
 	public void incrementLectureSize(String courseName, String lectureName)
 	{
 		getCourseLecturePair(courseName, lectureName).getLecture().incrementClassSize();

@@ -26,4 +26,13 @@ public enum Day
 		return this.day;
 	}
 	
+	public static Day getDayFromString(String day)
+	{
+		for (Day d : Day.values())
+		{
+			if(d.getString().startsWith(day))
+				return d;
+		}
+		return null;
+	}
 }

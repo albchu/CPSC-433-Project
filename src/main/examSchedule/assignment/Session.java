@@ -18,7 +18,7 @@ public class Session
 	private String sessionID;
 	private Room room;
 	private Day day;
-	private Time time;
+	private Time timeStart;
 	private double length;
 	private int remainingCapacity;
 	
@@ -57,11 +57,6 @@ public class Session
 		return day;
 	}
 
-	public Time getTime()
-	{
-		return time;
-	}
-
 	public List<CourseLecturePair> getSessionAssignments()
 	{
 		return sessionAssignments;
@@ -88,9 +83,14 @@ public class Session
 		this.day = day;
 	}
 
-	public void setTime(Time time)
+	public Time getTimeStart()
 	{
-		this.time = time;
+		return timeStart;
+	}
+
+	public void setTimeStart(Time timeStart)
+	{
+		this.timeStart = timeStart;
 	}
 
 	/**

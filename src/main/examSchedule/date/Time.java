@@ -61,10 +61,26 @@ public class Time implements Comparable<Time>
 	{
 		return minute;
 	}
+	
+	public String getHourStr()
+	{
+		return String.format("%02d", hour);
+	}
+	
+	public String getMinuteStr()
+	{
+		return String.format("%02d", minute);
+	}
 
+	public double getDifference(Time secondTime)
+	{
+		System.out.println(((this.getMinute() - secondTime.getMinute())));
+		return this.getHour() - secondTime.getHour() + ((double)(this.getMinute() - secondTime.getMinute())/60);
+	}
+	
 	public Integer toInteger()
 	{
-		return Integer.parseInt(Integer.toString(hour) + Integer.toString(minute));
+		return Integer.parseInt(getHourStr() + getMinuteStr());
 	}
 
 	@Override
@@ -76,6 +92,6 @@ public class Time implements Comparable<Time>
 	@Override
 	public String toString()
 	{
-		return String.format("%02d", hour) + ":" + String.format("%02d", minute);
+		return getHourStr() + ":" + getMinuteStr();
 	}
 }

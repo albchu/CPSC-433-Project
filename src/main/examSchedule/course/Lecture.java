@@ -10,6 +10,7 @@ import static main.examSchedule.common.Utilities.*;
 public class Lecture
 {
 	private String lectureName;
+	private String instructor;
 	private double examLength;
 	private int classSize;
 	
@@ -48,6 +49,16 @@ public class Lecture
 	public void setExamLength(double examLength)
 	{
 		this.examLength = examLength;
+	}
+
+	public String getInstructor()
+	{
+		return instructor;
+	}
+
+	public void setInstructor(String instructor)
+	{
+		this.instructor = instructor;
 	}
 
 	@Override
