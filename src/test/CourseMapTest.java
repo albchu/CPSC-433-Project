@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.junit.*;
 
-import main.examSchedule.course.CourseLecturePair;
-import main.examSchedule.course.CourseMap;
+import examSchedule.course.CourseLecturePair;
+import examSchedule.course.CourseMap;
 
 public class CourseMapTest
 {

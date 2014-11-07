@@ -1,13 +1,13 @@
 package test;
 
-import main.examSchedule.assignment.Room;
-import main.examSchedule.assignment.Session;
-import main.examSchedule.course.CourseLecturePair;
-import main.examSchedule.exceptions.NullParameterException;
-import main.examSchedule.exceptions.SessionAssignmentExceedsSizeException;
-import main.examSchedule.exceptions.SessionAssignmentExceedsTimeException;
-import main.examSchedule.exceptions.SessionDuplicateAssignmentException;
-import main.examSchedule.exceptions.SessionRoomNotAssignedException;
+import examSchedule.assignment.Room;
+import examSchedule.assignment.Session;
+import examSchedule.course.CourseLecturePair;
+import examSchedule.exceptions.NullParameterException;
+import examSchedule.exceptions.SessionAssignmentExceedsSizeException;
+import examSchedule.exceptions.SessionAssignmentExceedsTimeException;
+import examSchedule.exceptions.SessionDuplicateAssignmentException;
+import examSchedule.exceptions.SessionRoomNotAssignedException;
 
 import org.junit.*;
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import main.examSchedule.PredicateParser;
+import examSchedule.parser.PredicateParser;
 import junit.framework.Assert;
 
 public class PredicateParserTests

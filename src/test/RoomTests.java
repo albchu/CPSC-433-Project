@@ -2,9 +2,9 @@ package test;
 
 import org.junit.Test;
 
-import main.examSchedule.assignment.Room;
-import main.examSchedule.exceptions.RoomCapacityUnassignedException;
-import main.examSchedule.exceptions.RoomNegativeCapacityAssignmentException;
+import examSchedule.assignment.Room;
+import examSchedule.exceptions.RoomCapacityUnassignedException;
+import examSchedule.exceptions.RoomNegativeCapacityAssignmentException;
 
 public class RoomTests
 {

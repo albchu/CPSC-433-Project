@@ -1,11 +1,11 @@
 package test;
 
-import main.examSchedule.date.Time;
+import examSchedule.date.Time;
 
 import org.junit.*;
 
-import main.examSchedule.exceptions.InvalidTimeFormatException;
-import main.examSchedule.exceptions.NullParameterException;
+import examSchedule.exceptions.InvalidTimeFormatException;
+import examSchedule.exceptions.NullParameterException;
 
 public class TimeTests
 {
