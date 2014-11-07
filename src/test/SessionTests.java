@@ -61,9 +61,9 @@ public class SessionTests
 	{
 		int lectureSize1 = 5;
 		int lectureSize2 = 10;
-		double examLength1 = 2;
-		double examLength2 = 2;
-		double sessionLength = 2;
+		int examLength1 = 2;
+		int examLength2 = 2;
+		int sessionLength = 2;
 		Integer expectedSize = lectureSize1 + lectureSize2 - 1;
 
 		Room room = new Room(roomID);
@@ -89,8 +89,8 @@ public class SessionTests
 	{
 		int lectureSize1 = 5;
 		int lectureSize2 = 10;
-		double examLength1 = 3;
-		double sessionLength = 2;
+		int examLength1 = 3;
+		int sessionLength = 2;
 		Integer expectedSize = lectureSize1 + lectureSize2;
 		
 		Room room = new Room(roomID);
@@ -112,9 +112,9 @@ public class SessionTests
 	{
 		int lectureSize1 = 5;
 		int lectureSize2 = 10;
-		double examLength1 = 2;
-		double examLength2 = 2;
-		double sessionLength = 2;
+		int examLength1 = 2;
+		int examLength2 = 2;
+		int sessionLength = 2;
 		Integer expectedSize = lectureSize1 + lectureSize2;
 		
 		Room room = new Room(roomID);
