@@ -45,13 +45,11 @@ public class CourseMap
 //		System.out.println("Searching in course: " + courseName);
 		for (CourseLecturePair pair : courseMap.get(courseName))
 		{
-//			System.out.println("map holds: " + pair.getLecture().getLectureName());
 			if (pair.getLecture().getLectureName().equals(lectureName))
 				return pair;
 		}
 		addLecture(courseName, lectureName);
 		return getCourseLecturePair(courseName, lectureName);	//TODO: this is ugly, fucking fix this albert. dont let it stay recursion
-		//throw new ElementDoesNotExistException("Could not find lecture: '" + lectureName + "' in course map for course: '" + courseName + "'");
 	}
 	
 	public List<Lecture> getLectures(String courseName)

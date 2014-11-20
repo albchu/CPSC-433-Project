@@ -3,11 +3,14 @@ package examSchedule.parser;
 import static examSchedule.common.Utilities.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ExamSchedule
 {
 	public static void main(String[] args)
 	{
+		long startTime = System.nanoTime();
+		
 		// There has to be at least two arguments according to assignment spec page
 		if (args.length != 2)
 		{
@@ -25,5 +28,8 @@ public class ExamSchedule
 		
 		List<String> outputList = env.exportList();
 		writeToFile(outputList, filename + ".out");
+		
+		long endTime = System.nanoTime();
+		System.out.println("Took "+ TimeUnit.MILLISECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS) + " ms"); 
 	}
 }
