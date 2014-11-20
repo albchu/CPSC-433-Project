@@ -35,9 +35,6 @@ public class Session
 		return sessionID;
 	}
 
-	
-	
-	
 	public Room getRoom()
 	{
 		if (room == null) throw new SessionRoomNotAssignedException();
