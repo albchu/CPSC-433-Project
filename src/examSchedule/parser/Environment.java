@@ -59,20 +59,20 @@ public class Environment
 		switch (predicateName)
 		{
 		case ("course"):	//Technically not needed
-			argsLengthCheck(predicateList, 1);
+			//argsLengthCheck(predicateList, 1);
 			courseName = predicateList.get(0);
 			courseMap.addCourse(courseName);
 			break;
 			
 		case ("lecture"):
-			argsLengthCheck(predicateList, 2);
+			//argsLengthCheck(predicateList, 2);
 			courseName = predicateList.get(0);
 			lectureName = predicateList.get(1);
 			courseMap.addLecture(courseName, lectureName);
 			break;
 			
 		case ("examlength"):
-			argsLengthCheck(predicateList, 3);
+			//argsLengthCheck(predicateList, 3);
 			courseName = predicateList.get(0);
 			lectureName = predicateList.get(1);
 			length = Integer.parseInt(predicateList.get(2));
@@ -80,85 +80,113 @@ public class Environment
 			break;
 			
 		case ("instructor"):	//Technically not needed
-			argsLengthCheck(predicateList, 1);
+			//argsLengthCheck(predicateList, 1);
 			instructorID = predicateList.get(0);
 			instructors.add(instructorID);
 			break;
 			
 		case ("student"):
-			argsLengthCheck(predicateList, 1);
+			//argsLengthCheck(predicateList, 1);
 			studentID = predicateList.get(0);
 			studentMap.addStudent(studentID);
 			break;
 	
 		case ("session"):
-			argsLengthCheck(predicateList, 1);
+			//argsLengthCheck(predicateList, 1);
 			sessionID = predicateList.get(0);
 			sessionMap.addSession(sessionID);
 			break;
 		
 		case ("enrolled"):
-			argsLengthCheck(predicateList, 3);
+			//System.out.println("Enrolled: " + predicateName + " " + predicateList.toString());
+			//argsLengthCheck(predicateList, 3);
 			studentID = predicateList.get(0);
 			courseName = predicateList.get(1);
 			lectureName = predicateList.get(2);
-			if(!studentMap.contains(studentID)) throw new ElementDoesNotExistException("The student id: '" + studentID + "' is not in the studentMap");
+			if(!studentMap.contains(studentID)) //throw new ElementDoesNotExistException("The student id: '" + studentID + "' is not in the studentMap");
+				studentMap.addStudent(studentID);
 			studentMap.enroll(studentID, courseMap.getCourseLecturePair(courseName, lectureName));	// Important to use the same object from courseMap to point to the same objects
 			break;
 		
 		case ("at"):
-			argsLengthCheck(predicateList, 4);
+			//argsLengthCheck(predicateList, 4);
 			sessionID = predicateList.get(0);
 			dayID = predicateList.get(1);
 			timeStart = new Time.Builder(predicateList.get(2)).build();
 			length = Integer.parseInt(predicateList.get(3));
-			if(!dayList.contains(dayID)) throw new ElementDoesNotExistException("The day id: " + dayID + " is not in the list of dayIDs" + dayList);
+			if(!dayList.contains(dayID)) //throw new ElementDoesNotExistException("The day id: " + dayID + " is not in the list of dayIDs" + dayList);
+			{
+				dayList.add(dayID);
+				System.out.println("added day: " + dayID);
+			}
 			sessionMap.updateSessionInfo(sessionID, dayID, timeStart, length);
 			break;
 		
 		case ("capacity"):
-			argsLengthCheck(predicateList, 2);
+			//argsLengthCheck(predicateList, 2);
 			roomID = predicateList.get(0);
 			capacity = Integer.parseInt(predicateList.get(1));
 			roomMap.updateRoomInfo(roomID, capacity);
 			break;
 		
 		case ("instructs"):
-			argsLengthCheck(predicateList, 3);
+			//argsLengthCheck(predicateList, 3);
 			instructorID = predicateList.get(0);
 			courseName = predicateList.get(1);
 			lectureName = predicateList.get(2);
-			if(!instructors.contains(instructorID)) throw new ElementDoesNotExistException("The instructor id: " + instructorID + " is not in the list of instructorIDs" + instructors);
+			if(!instructors.contains(instructorID)) //throw new ElementDoesNotExistException("The instructor id: " + instructorID + " is not in the list of instructorIDs" + instructors);
+				instructors.add(instructorID);
 			courseMap.updateInstructor(courseName, lectureName, instructorID);
 			break;
 		
 		case ("day"):
-			argsLengthCheck(predicateList, 1);
+			//argsLengthCheck(predicateList, 1);
 			dayID = predicateList.get(0);
 			dayList.add(dayID);
 			break;
 		
 		case ("roomassign"):
-			argsLengthCheck(predicateList, 2);
+			//argsLengthCheck(predicateList, 2);
 			sessionID = predicateList.get(0);
 			roomID = predicateList.get(1);
 			sessionMap.updateSessionInfo(sessionID, roomMap.getRoom(roomID));
 			break;
 		
 		case ("room"):
-			argsLengthCheck(predicateList, 1);
+			//argsLengthCheck(predicateList, 1);
 			roomID = predicateList.get(0);
 			roomMap.addRoom(roomID);
 			break;
 			
 			
 		case ("assign"):
-			argsLengthCheck(predicateList, 3);
+			//argsLengthCheck(predicateList, 3);
 			courseName = predicateList.get(0);
 			lectureName = predicateList.get(1);
 			sessionID = predicateList.get(2);
 			sessionMap.updateSessionInfo(sessionID, courseMap.getCourseLecturePair(courseName, lectureName));
 			break;
+			
+		case ("dayassign"):
+			//argsLengthCheck(predicateList, 3);
+		sessionID = predicateList.get(0);
+		dayID = predicateList.get(1);
+		sessionMap.updateSessionInfo(sessionID, dayID);
+		break;
+		
+		case ("time"):
+			//argsLengthCheck(predicateList, 3);
+			sessionID = predicateList.get(0);
+		timeStart = new Time.Builder(predicateList.get(1)).build();
+		sessionMap.updateSessionInfo(sessionID, timeStart);
+		break;
+		
+		case ("length"):
+			//argsLengthCheck(predicateList, 3);
+			sessionID = predicateList.get(0);
+		length = Integer.parseInt(predicateList.get(1));
+		sessionMap.updateSessionInfo(sessionID, length);
+		break;
 			
 		default:
 			throw new PredicateNotRecognizedException("Could not recognize predicate: '" + predicateName + "'");
@@ -216,7 +244,21 @@ public class Environment
 			Session session = sessionMap.getSession(sessionID);
 
 			// at
+//			System.out.println(sessionID);
+//			System.out.println(session.getDay());
+//			System.out.println(session.getTime().toString());
+//			System.out.println(session.getLength());
 			output.add(predicateForm("at", sessionID, session.getDay(), session.getTime().toString(), Integer.toString(session.getLength())));
+
+			// dayassign
+			output.add(predicateForm("dayassign", sessionID, session.getDay()));
+			
+			// time
+			output.add(predicateForm("time", sessionID, session.getTime().toString()));
+			
+			//length
+			output.add(predicateForm("length", sessionID, Integer.toString(session.getLength())));
+			
 			
 			// roomAssign
 			output.add(predicateForm("roomAssign", sessionID, session.getRoom().getRoomID()));
@@ -240,7 +282,10 @@ public class Environment
 		for (String day : dayList)
 			// day
 			output.add(predicateForm("day", day));
-			
+		
+		
+		
+		
 		Collections.sort(output);
 		return output;
 	}

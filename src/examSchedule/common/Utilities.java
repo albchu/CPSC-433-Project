@@ -69,10 +69,9 @@ public class Utilities
 	public static void writeToFile(List<String> fileContents, String filename)
 	{
 		System.out.println("Writing to file: " + filename);
-		FileWriter writer;
 		try
 		{
-			writer = new FileWriter(filename);
+			FileWriter writer = new FileWriter(filename);
 			for (String str : fileContents)
 				writer.write(str + "\n");
 			writer.close();

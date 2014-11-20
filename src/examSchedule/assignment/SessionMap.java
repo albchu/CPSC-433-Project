@@ -19,7 +19,8 @@ public class SessionMap
 	
 	public Session getSession(String sessionID)
 	{
-		if(!sessionMap.containsKey(sessionID)) throw new ElementDoesNotExistException("Could not find session in session map");
+		if(!sessionMap.containsKey(sessionID)) //throw new ElementDoesNotExistException("Could not find session in session map");
+			addSession(sessionID);
 		return sessionMap.get(sessionID);
 	}
 	
@@ -28,6 +29,24 @@ public class SessionMap
 		Session session = getSession(sessionID);
 		session.setDay(dayID);
 		session.setLength(length);
+		session.setTime(time);
+	}
+	
+	public void updateSessionInfo(String sessionID, int length)
+	{
+		Session session = getSession(sessionID);
+		session.setLength(length);
+	}
+	
+	public void updateSessionInfo(String sessionID, String dayID)
+	{
+		Session session = getSession(sessionID);
+		session.setDay(dayID);
+	}
+	
+	public void updateSessionInfo(String sessionID, Time time)
+	{
+		Session session = getSession(sessionID);
 		session.setTime(time);
 	}
 	

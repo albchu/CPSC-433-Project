@@ -62,6 +62,18 @@ public class Lecture
 	}
 
 	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + classSize;
+		result = prime * result + examLength;
+		result = prime * result + ((instructor == null) ? 0 : instructor.hashCode());
+		result = prime * result + ((lectureName == null) ? 0 : lectureName.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj)
 	{
 		if (this == obj)
@@ -83,5 +95,4 @@ public class Lecture
 			return false;
 		return true;
 	}
-	
 }

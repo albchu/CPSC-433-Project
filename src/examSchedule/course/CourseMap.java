@@ -27,7 +27,8 @@ public class CourseMap
 	
 	public void addLecture(String courseName, String lectureName)
 	{
-		if(!courseMap.containsKey(courseName)) throw new ElementDoesNotExistException("Could not find course: " + courseName + " in course map");
+		if(!courseMap.containsKey(courseName)) //throw new ElementDoesNotExistException("Could not find course: " + courseName + " in course map");
+			addCourse(courseName);
 		courseMap.get(courseName).add(new CourseLecturePair(courseName, lectureName));
 	}
 	
@@ -39,15 +40,18 @@ public class CourseMap
 	 */
 	public CourseLecturePair getCourseLecturePair(String courseName, String lectureName)
 	{
-		if(!courseMap.containsKey(courseName)) throw new ElementDoesNotExistException("Could not find course: " + courseName + " in course map");
-		
+		if(!courseMap.containsKey(courseName)) //throw new ElementDoesNotExistException("Could not find course: " + courseName + " in course map");
+			addCourse(courseName);
+//		System.out.println("Searching in course: " + courseName);
 		for (CourseLecturePair pair : courseMap.get(courseName))
 		{
+//			System.out.println("map holds: " + pair.getLecture().getLectureName());
 			if (pair.getLecture().getLectureName().equals(lectureName))
 				return pair;
 		}
-		
-		throw new ElementDoesNotExistException("Could not find lecture: " + lectureName + " in course map for course: " + courseName);
+		addLecture(courseName, lectureName);
+		return getCourseLecturePair(courseName, lectureName);	//TODO: this is ugly, fucking fix this albert. dont let it stay recursion
+		//throw new ElementDoesNotExistException("Could not find lecture: '" + lectureName + "' in course map for course: '" + courseName + "'");
 	}
 	
 	public List<Lecture> getLectures(String courseName)

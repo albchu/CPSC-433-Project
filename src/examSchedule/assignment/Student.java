@@ -15,6 +15,11 @@ public class Student
 		enrolledLecturePairs = new ArrayList<CourseLecturePair>();
 	}
 	
+	public String getStudentID()
+	{
+		return studentID;
+	}
+
 	public void enroll(CourseLecturePair courseLecturePair)
 	{
 		courseLecturePair.getLecture().incrementClassSize();

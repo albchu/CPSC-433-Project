@@ -17,7 +17,8 @@ public class RoomMap
 	
 	public Room getRoom(String roomID)
 	{
-		if(!roomMap.containsKey(roomID)) throw new ElementDoesNotExistException("Could not find room in room map");
+		if(!roomMap.containsKey(roomID)) //throw new ElementDoesNotExistException("Could not find room in room map");
+			addRoom(roomID);
 		return roomMap.get(roomID);
 	}
 	
