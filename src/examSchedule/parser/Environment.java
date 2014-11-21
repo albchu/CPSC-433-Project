@@ -15,7 +15,6 @@ import examSchedule.assignment.StudentMap;
 import examSchedule.course.CourseMap;
 import examSchedule.course.Lecture;
 import examSchedule.date.Time;
-import examSchedule.exceptions.ElementDoesNotExistException;
 import examSchedule.exceptions.PredicateNotRecognizedException;
 import examSchedule.exceptions.UnexpectedPredicateArgumentsException;
 
@@ -287,5 +286,35 @@ public class Environment
 		
 		Collections.sort(output);
 		return output;
+	}
+
+	public CourseMap getCourseMap()
+	{
+		return courseMap;
+	}
+
+	public List<String> getInstructors()
+	{
+		return instructors;
+	}
+
+	public SessionMap getSessionMap()
+	{
+		return sessionMap;
+	}
+
+	public StudentMap getStudentMap()
+	{
+		return studentMap;
+	}
+
+	public RoomMap getRoomMap()
+	{
+		return roomMap;
+	}
+
+	public List<String> getDayList()
+	{
+		return dayList;
 	}
 }
