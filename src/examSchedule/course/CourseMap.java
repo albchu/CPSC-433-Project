@@ -91,4 +91,15 @@ public class CourseMap
 		return courseMap;
 	}
 	
+	/** 
+	 * Returns all lectures in one massive list
+	 * @return
+	 */
+	public List<Lecture> getAllLectures()
+	{
+		List<Lecture> allLectures = new ArrayList<Lecture>();
+		for(String courseName : courseMap.keySet())
+			allLectures.addAll(this.getLectures(courseName));
+		return allLectures;
+	}
 }
