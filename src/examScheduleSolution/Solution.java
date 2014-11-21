@@ -27,7 +27,7 @@ public class Solution {
 		// Get all lectures 
 		List<Lecture> allLectures = courseMapCopy.getAllLectures();
 		// Get all sessions
-		//List<Session> allSessions = sessionMapCopy.getAllSessions();
+		List<Session> allSessions = sessionMapCopy.getAllSessions();
 		
 		//testing
 		for(int i = 0; i < allLectures.size(); i++)
@@ -72,12 +72,7 @@ public class Solution {
 			}
 		}
 		
-
-		// if false don't save it and continue
-		// Take new list of validPair and calculate soft constraints on them all
-		// Find the best
-		// Save the best in List of bests
-		// flag lecture as assigned and decrement session capacity
-		// grab next lecture and repeat
+		// grab next lecture and repeat until all assigned
 	}
+	//return final assignment list
 }
