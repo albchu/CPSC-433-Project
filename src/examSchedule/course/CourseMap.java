@@ -3,6 +3,7 @@ package examSchedule.course;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import examSchedule.exceptions.ElementDoesNotExistException;
 
@@ -59,6 +60,15 @@ public class CourseMap
 		for (Lecture lecture : courseMap.get(courseName))
 			lectures.add(lecture);
 		return lectures;
+	}
+	
+	/**
+	 * Returns a set of all course keys in the map
+	 * @return
+	 */
+	public Set<String> getCourses()
+	{
+		return courseMap.keySet();
 	}
 	
 	public void updateExamLength(String courseName, String lectureName, int examLength)
