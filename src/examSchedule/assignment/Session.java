@@ -5,7 +5,7 @@ import static examSchedule.common.Utilities.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import examSchedule.course.CourseLecturePair;
+import examSchedule.course.Lecture;
 import examSchedule.date.Time;
 import examSchedule.exceptions.SessionAssignmentExceedsSizeException;
 import examSchedule.exceptions.SessionAssignmentExceedsTimeException;
@@ -21,13 +21,13 @@ public class Session
 	private int length;
 	private int remainingCapacity;
 	
-	private List<CourseLecturePair> sessionAssignments;
+	private List<Lecture> sessionAssignments;
 	
 	public Session(String sessionID)
 	{
 		nullCheck(sessionID);
 		this.sessionID = sessionID;
-		sessionAssignments = new ArrayList<CourseLecturePair>();
+		sessionAssignments = new ArrayList<Lecture>();
 	}
 
 	public String getSessionID()
@@ -59,7 +59,7 @@ public class Session
 		return dayID;
 	}
 
-	public List<CourseLecturePair> getSessionAssignments()
+	public List<Lecture> getSessionAssignments()
 	{
 		return sessionAssignments;
 	}
@@ -99,13 +99,13 @@ public class Session
 	 * Adds a courseLecturePair to the session's list of assignments if it obeys constraints
 	 * @param sessionAssignment
 	 */
-	public void addSessionAssignment(CourseLecturePair sessionAssignment)
+	public void addSessionAssignment(Lecture sessionAssignment)
 	{
 		
 		if(sessionAssignments.contains(sessionAssignment)) throw new SessionDuplicateAssignmentException();
-		if(remainingCapacity < sessionAssignment.getLecture().getClassSize()) throw new SessionAssignmentExceedsSizeException();
-		if(sessionAssignment.getLecture().getExamLength() > length) throw new SessionAssignmentExceedsTimeException();
-		remainingCapacity -= sessionAssignment.getLecture().getClassSize();
+		if(remainingCapacity < sessionAssignment.getClassSize()) throw new SessionAssignmentExceedsSizeException();
+		if(sessionAssignment.getExamLength() > length) throw new SessionAssignmentExceedsTimeException();
+		remainingCapacity -= sessionAssignment.getClassSize();
 		sessionAssignments.add(sessionAssignment);
 		
 	}

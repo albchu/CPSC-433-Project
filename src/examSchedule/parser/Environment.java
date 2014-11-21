@@ -12,7 +12,6 @@ import examSchedule.assignment.RoomMap;
 import examSchedule.assignment.Session;
 import examSchedule.assignment.SessionMap;
 import examSchedule.assignment.StudentMap;
-import examSchedule.course.CourseLecturePair;
 import examSchedule.course.CourseMap;
 import examSchedule.course.Lecture;
 import examSchedule.date.Time;
@@ -105,7 +104,7 @@ public class Environment
 			lectureName = predicateList.get(2);
 			if(!studentMap.contains(studentID)) //throw new ElementDoesNotExistException("The student id: '" + studentID + "' is not in the studentMap");
 				studentMap.addStudent(studentID);
-			studentMap.enroll(studentID, courseMap.getCourseLecturePair(courseName, lectureName));	// Important to use the same object from courseMap to point to the same objects
+			studentMap.enroll(studentID, courseMap.getLecture(courseName, lectureName));	// Important to use the same object from courseMap to point to the same objects
 			break;
 		
 		case ("at"):
@@ -164,7 +163,7 @@ public class Environment
 			courseName = predicateList.get(0);
 			lectureName = predicateList.get(1);
 			sessionID = predicateList.get(2);
-			sessionMap.updateSessionInfo(sessionID, courseMap.getCourseLecturePair(courseName, lectureName));
+			sessionMap.updateSessionInfo(sessionID, courseMap.getLecture(courseName, lectureName));
 			break;
 			
 		case ("dayassign"):
@@ -231,9 +230,9 @@ public class Environment
 			// student
 			output.add(predicateForm("student", studentID));
 			
-			for(CourseLecturePair courseLecturePair : studentMap.getEnrollments(studentID))
+			for(Lecture lecture : studentMap.getEnrollments(studentID))
 				// enrolled
-				output.add(predicateForm("enrolled", studentID, courseLecturePair.getCourseName(), courseLecturePair.getLecture().getLectureName()));
+				output.add(predicateForm("enrolled", studentID, lecture.getCourseName(), lecture.getLectureName()));
 		}
 		
 		for (String sessionID : sessionMap.getSessionMap().keySet())
@@ -263,9 +262,9 @@ public class Environment
 			// roomAssign
 			output.add(predicateForm("roomAssign", sessionID, session.getRoom().getRoomID()));
 			
-			for(CourseLecturePair courseLecturePair : session.getSessionAssignments())
+			for(Lecture lecture : session.getSessionAssignments())
 				// assign
-				output.add(predicateForm("assign", courseLecturePair.getCourseName(), courseLecturePair.getLecture().getLectureName(), sessionID));
+				output.add(predicateForm("assign", lecture.getCourseName(), lecture.getLectureName(), sessionID));
 			
 		}
 		

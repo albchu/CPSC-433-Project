@@ -2,17 +2,17 @@ package examSchedule.assignment;
 
 import java.util.*;
 
-import examSchedule.course.CourseLecturePair;
+import examSchedule.course.Lecture;
 
 public class Student
 {
 	private String studentID;
-	private List<CourseLecturePair> enrolledLecturePairs;
+	private List<Lecture> enrolledLectures;
 	
 	public Student(String studentID)
 	{
 		this.studentID = studentID;
-		enrolledLecturePairs = new ArrayList<CourseLecturePair>();
+		enrolledLectures = new ArrayList<Lecture>();
 	}
 	
 	public String getStudentID()
@@ -20,14 +20,14 @@ public class Student
 		return studentID;
 	}
 
-	public void enroll(CourseLecturePair courseLecturePair)
+	public void enroll(Lecture lecture)
 	{
-		courseLecturePair.getLecture().incrementClassSize();
-		enrolledLecturePairs.add(courseLecturePair);
+		lecture.incrementClassSize();
+		enrolledLectures.add(lecture);
 	}
 
-	public List<CourseLecturePair> getEnrolledLecturePairs()
+	public List<Lecture> getEnrolledLectures()
 	{
-		return enrolledLecturePairs;
+		return enrolledLectures;
 	}
 }

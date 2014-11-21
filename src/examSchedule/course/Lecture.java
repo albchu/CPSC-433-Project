@@ -11,12 +11,14 @@ public class Lecture
 {
 	private String lectureName;
 	private String instructor;
+	private String courseName;
 	private int examLength;
 	private int classSize;
 	
-	public Lecture(String lectureName)
+	public Lecture(String courseName, String lectureName)
 	{
-		nullCheck(lectureName);
+		nullCheck(courseName, lectureName);
+		this.courseName = courseName;
 		this.lectureName = lectureName;
 		classSize = 0;
 	}
@@ -59,6 +61,11 @@ public class Lecture
 	public void setInstructor(String instructor)
 	{
 		this.instructor = instructor;
+	}
+
+	public String getCourseName()
+	{
+		return courseName;
 	}
 
 	@Override

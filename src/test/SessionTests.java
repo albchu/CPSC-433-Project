@@ -2,7 +2,7 @@ package test;
 
 import examSchedule.assignment.Room;
 import examSchedule.assignment.Session;
-import examSchedule.course.CourseLecturePair;
+import examSchedule.course.Lecture;
 import examSchedule.exceptions.NullParameterException;
 import examSchedule.exceptions.SessionAssignmentExceedsSizeException;
 import examSchedule.exceptions.SessionAssignmentExceedsTimeException;
@@ -31,8 +31,8 @@ public class SessionTests
 	@Test(expected = SessionDuplicateAssignmentException.class)
 	public void duplicateAssignmentTest()
 	{
-		CourseLecturePair assign1 = new CourseLecturePair(courseName1, lectureName1);
-		CourseLecturePair assign2 = new CourseLecturePair(courseName1, lectureName1);
+		Lecture assign1 = new Lecture(courseName1, lectureName1);
+		Lecture assign2 = new Lecture(courseName1, lectureName1);
 		session.addSessionAssignment(assign1);
 		session.addSessionAssignment(assign2);
 		System.out.println("hi");
@@ -71,14 +71,14 @@ public class SessionTests
 		session.setRoom(room);
 		session.setLength(sessionLength);
 		
-		CourseLecturePair assign1 = new CourseLecturePair(courseName1, lectureName1);
-		CourseLecturePair assign2 = new CourseLecturePair(courseName1, lectureName2);
+		Lecture assign1 = new Lecture(courseName1, lectureName1);
+		Lecture assign2 = new Lecture(courseName1, lectureName2);
 		
-		assign1.getLecture().setClassSize(lectureSize1);
-		assign2.getLecture().setClassSize(lectureSize2);
+		assign1.setClassSize(lectureSize1);
+		assign2.setClassSize(lectureSize2);
 		
-		assign1.getLecture().setExamLength(examLength1);
-		assign2.getLecture().setExamLength(examLength2);
+		assign1.setExamLength(examLength1);
+		assign2.setExamLength(examLength2);
 		
 		session.addSessionAssignment(assign1);
 		session.addSessionAssignment(assign2);
@@ -98,11 +98,11 @@ public class SessionTests
 		session.setRoom(room);
 		session.setLength(sessionLength);
 		
-		CourseLecturePair assign1 = new CourseLecturePair(courseName1, lectureName1);
+		Lecture assign1 = new Lecture(courseName1, lectureName1);
 		
-		assign1.getLecture().setClassSize(lectureSize1);
+		assign1.setClassSize(lectureSize1);
 		
-		assign1.getLecture().setExamLength(examLength1);
+		assign1.setExamLength(examLength1);
 		
 		session.addSessionAssignment(assign1);
 	}
@@ -122,23 +122,23 @@ public class SessionTests
 		session.setRoom(room);
 		session.setLength(sessionLength);
 		
-		CourseLecturePair assign1 = new CourseLecturePair(courseName1, lectureName1);
-		CourseLecturePair assign2 = new CourseLecturePair(courseName1, lectureName2);
+		Lecture assign1 = new Lecture(courseName1, lectureName1);
+		Lecture assign2 = new Lecture(courseName1, lectureName2);
 		
-		assign1.getLecture().setClassSize(lectureSize1);
-		assign2.getLecture().setClassSize(lectureSize2);
+		assign1.setClassSize(lectureSize1);
+		assign2.setClassSize(lectureSize2);
 		
-		assign1.getLecture().setExamLength(examLength1);
-		assign2.getLecture().setExamLength(examLength2);
+		assign1.setExamLength(examLength1);
+		assign2.setExamLength(examLength2);
 		
 		session.addSessionAssignment(assign1);
 		Assert.assertEquals("Wrong remaining size", lectureSize2, session.getRemainingCapacity());
 		session.addSessionAssignment(assign2);
 		Assert.assertEquals("Wrong remaining size", 0, session.getRemainingCapacity());
 		Assert.assertEquals("Did not expect this number of assignments", 2, session.getSessionAssignments().size());
-		Assert.assertEquals("Did not expect this assignment", lectureName1, session.getSessionAssignments().get(0).getLecture().getLectureName());
+		Assert.assertEquals("Did not expect this assignment", lectureName1, session.getSessionAssignments().get(0).getLectureName());
 		Assert.assertEquals("Did not expect this assignment", courseName1, session.getSessionAssignments().get(0).getCourseName());
-		Assert.assertEquals("Did not expect this assignment", lectureName2, session.getSessionAssignments().get(1).getLecture().getLectureName());
+		Assert.assertEquals("Did not expect this assignment", lectureName2, session.getSessionAssignments().get(1).getLectureName());
 		Assert.assertEquals("Did not expect this assignment", courseName1, session.getSessionAssignments().get(1).getCourseName());
 	}
 	
