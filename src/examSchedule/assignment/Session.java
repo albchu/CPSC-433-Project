@@ -94,16 +94,17 @@ public class Session
 
 	/**
 	 * Adds a courseLecturePair to the session's list of assignments if it obeys constraints
-	 * @param sessionAssignment
+	 * @param lecture
 	 */
-	public void addSessionAssignment(Lecture sessionAssignment)
+	public void addSessionAssignment(Lecture lecture)
 	{
 		
-		if(sessionAssignments.contains(sessionAssignment)) throw new SessionDuplicateAssignmentException();
-		if(remainingCapacity < sessionAssignment.getClassSize()) throw new SessionAssignmentExceedsSizeException();
-		if(sessionAssignment.getExamLength() > length) throw new SessionAssignmentExceedsTimeException();
-		remainingCapacity -= sessionAssignment.getClassSize();
-		sessionAssignments.add(sessionAssignment);
+		if(sessionAssignments.contains(lecture)) throw new SessionDuplicateAssignmentException();
+		if(remainingCapacity < lecture.getClassSize()) throw new SessionAssignmentExceedsSizeException();
+		if(lecture.getExamLength() > length) throw new SessionAssignmentExceedsTimeException();
+		remainingCapacity -= lecture.getClassSize();
+		lecture.setAssigned(true);		// TODO: this is some bad shit and should be handled by assignment. Allow lectures to know that they are assigned.
+		sessionAssignments.add(lecture);
 		
 	}
 }

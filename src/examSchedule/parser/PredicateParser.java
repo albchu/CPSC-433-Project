@@ -14,13 +14,13 @@ public class PredicateParser
 	public static void importList (Environment env, List<String> predicateList)
 	{
 		// Requires reordering input in order to ensure data objects are loaded correctly
-		List<Predicate> days = new ArrayList<Predicate>();
-		List<Predicate> instructors = new ArrayList<Predicate>();
-		List<Predicate> courses = new ArrayList<Predicate>();
-		List<Predicate> lectures = new ArrayList<Predicate>();
-		List<Predicate> students = new ArrayList<Predicate>();
-		List<Predicate> sessions = new ArrayList<Predicate>();
-		List<Predicate> rooms = new ArrayList<Predicate>();
+//		List<Predicate> days = new ArrayList<Predicate>();
+//		List<Predicate> instructors = new ArrayList<Predicate>();
+//		List<Predicate> courses = new ArrayList<Predicate>();
+//		List<Predicate> lectures = new ArrayList<Predicate>();
+//		List<Predicate> students = new ArrayList<Predicate>();
+//		List<Predicate> sessions = new ArrayList<Predicate>();
+//		List<Predicate> rooms = new ArrayList<Predicate>();
 		List<Predicate> remainingPredicates = new ArrayList<Predicate>();	// All the pairs that can all come after 
 		
 		for (String line : predicateList)
@@ -30,32 +30,33 @@ public class PredicateParser
 			
 			String predicateName = getPredicateName(line).toLowerCase();
 			List<String> predicateArgs = extractArguments(line);
+			env.importPredicate(predicateName, predicateArgs);
 			
-			if(predicateName.equals("day"))
-				days.add(new Predicate(predicateName, predicateArgs));
-			else if(predicateName.equals("instructor"))
-				instructors.add(new Predicate(predicateName, predicateArgs));
-			else if(predicateName.equals("course"))
-				courses.add(new Predicate(predicateName, predicateArgs));
-			else if(predicateName.equals("lecture"))
-				lectures.add(new Predicate(predicateName, predicateArgs));
-			else if(predicateName.equals("student"))
-				students.add(new Predicate(predicateName, predicateArgs));
-			else if(predicateName.equals("session"))
-				sessions.add(new Predicate(predicateName, predicateArgs));
-			else if(predicateName.equals("room"))
-				rooms.add(new Predicate(predicateName, predicateArgs));
-			else
-				remainingPredicates.add(new Predicate(predicateName, predicateArgs));
+//			if(predicateName.equals("day"))
+//				days.add(new Predicate(predicateName, predicateArgs));
+//			else if(predicateName.equals("instructor"))
+//				instructors.add(new Predicate(predicateName, predicateArgs));
+//			else if(predicateName.equals("course"))
+//				courses.add(new Predicate(predicateName, predicateArgs));
+//			else if(predicateName.equals("lecture"))
+//				lectures.add(new Predicate(predicateName, predicateArgs));
+//			else if(predicateName.equals("student"))
+//				students.add(new Predicate(predicateName, predicateArgs));
+//			else if(predicateName.equals("session"))
+//				sessions.add(new Predicate(predicateName, predicateArgs));
+//			else if(predicateName.equals("room"))
+//				rooms.add(new Predicate(predicateName, predicateArgs));
+//			else
+//				remainingPredicates.add(new Predicate(predicateName, predicateArgs));
 		}
-		exportToEnv(env, days);
-		exportToEnv(env, courses);
-		exportToEnv(env, lectures);
-		exportToEnv(env, instructors);
-		exportToEnv(env, students);
-		exportToEnv(env, sessions);
-		exportToEnv(env, rooms);
-		exportToEnv(env, remainingPredicates);
+//		exportToEnv(env, days);
+//		exportToEnv(env, courses);
+//		exportToEnv(env, lectures);
+//		exportToEnv(env, instructors);
+//		exportToEnv(env, students);
+//		exportToEnv(env, sessions);
+//		exportToEnv(env, rooms);
+//		exportToEnv(env, remainingPredicates);
 	}
 
 	public static void exportToEnv(Environment env, List<Predicate> list)
