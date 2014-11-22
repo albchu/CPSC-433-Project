@@ -26,6 +26,7 @@ public class Solution {
 		//Create copy of lectures and sessions
 		courseMapCopy = env.getCourseMap();
 		sessionMapCopy = env.getSessionMap();
+		
 		unassignedLectures = assignmentMapCopy.getUnassignedLectures();
 		
 		
@@ -43,15 +44,16 @@ public class Solution {
 		index = 0;
 		//Iterate through lectures until all are assigned
 		while(!unassignedLectures.isEmpty()){
-			allLectures.get(index);
+			Lecture currentLecture = allLectures.get(index);
 			
 			//calulate hard constraints and save valids
 			for(Session currentSession : allSessions){
 				//WAITING FOR ARTHUR
 				//Calculate hardconstraints
-				if(hardConstraint.calculateAllHard(currentLecture, currentSession)){
+				if(Constraints.hardConsEachAssign(currentSession, currentLecture)){
 					validSessions.add(currentSession);
 				}
+				//if validSessions.isEmpty(), Back track
 			}
 			//Calculate Soft Constraints
 			int bestSoftConstraint = 100000;
@@ -65,8 +67,8 @@ public class Solution {
 					bestSession = validSession;
 				}
 				//ALBERT CHANGES
-				//assignmentMap.assign(currentLecture, bestSession);
-				//decrement bestSession remaining capacity
+				assignmentMapCopy.addAssignment(bestSession, currentLecture);
+				
 				//set currentLecture flag to assigned
 			}
 		}

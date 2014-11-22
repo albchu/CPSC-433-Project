@@ -16,7 +16,7 @@ public class Constraints {
 	
 	// Lecture capacity check
 	private static boolean capacity(Session session, Lecture lecture) {
-		if (session.getRemainingCapacity() < 1) 
+		if ((session.getRemainingCapacity()-lecture.getClassSize()) < 0) 
 			return false;
 		else {
 			return true;
