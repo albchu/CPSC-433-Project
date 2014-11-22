@@ -6,7 +6,7 @@ import examSchedule.course.Lecture;
 public class Constraints {
 
 	// Hard constraint checks for each assignment
-	public boolean hardConsEachAssign(Session session, Lecture lecture) {
+	public static boolean hardConsEachAssign(Session session, Lecture lecture) {
 		if (capacity(session, lecture) && length(session, lecture))
 			return true;
 		else {
@@ -15,7 +15,7 @@ public class Constraints {
 	}
 	
 	// Lecture capacity check
-	private boolean capacity(Session session, Lecture lecture) {
+	private static boolean capacity(Session session, Lecture lecture) {
 		if (session.getRemainingCapacity() < 1) 
 			return false;
 		else {
@@ -24,7 +24,7 @@ public class Constraints {
 	}
 	
 	// Session length check
-	private boolean length(Session session, Lecture lecture) {
+	private static boolean length(Session session, Lecture lecture) {
 		if (lecture.getExamLength() > session.getLength()) 
 			return false;
 		else {

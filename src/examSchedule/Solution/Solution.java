@@ -1,6 +1,7 @@
 package examSchedule.Solution;
 import java.util.*;
 
+import examSchedule.assignment.AssignmentMap;
 import examSchedule.assignment.Session;
 import examSchedule.assignment.SessionMap;
 import examSchedule.course.CourseMap;
@@ -11,19 +12,23 @@ import examSchedule.parser.Environment;
 public class Solution {
 	private CourseMap courseMapCopy;
 	private SessionMap sessionMapCopy;
-	private boolean existsLectureNotAssigned;
+	private AssignmentMap assignmentMapCopy;
 	private int index;
-	private Lecture currentLecture;
 	
 	public Solution(Environment env){
 		courseMapCopy = new CourseMap();
 		sessionMapCopy = new SessionMap();
 		List<Session> validSessions = new ArrayList<Session>();
+		List<Lecture> unassignedLectures = new ArrayList<Lecture>();
+
+		assignmentMapCopy = env.getAssignmentMap();
 		
 		//Create copy of lectures and sessions
 		courseMapCopy = env.getCourseMap();
 		sessionMapCopy = env.getSessionMap();
-			
+		unassignedLectures = assignmentMapCopy.getUnassignedLectures();
+		
+		
 		// Get all lectures 
 		List<Lecture> allLectures = courseMapCopy.getAllLectures();
 		// Get all sessions
@@ -36,23 +41,17 @@ public class Solution {
 		}
 		
 		index = 0;
-		existsLectureNotAssigned = true;
 		//Iterate through lectures until all are assigned
-		while(existsLectureNotAssigned){
-			//get a single lecture
-			currentLecture = allLectures.get(index);
-			//Make sure lecture is not assigned yet
-			if(!currentLecture.isAssigned()){
-				index ++;
-				continue;
-			}
+		while(!unassignedLectures.isEmpty()){
+			allLectures.get(index);
+			
 			//calulate hard constraints and save valids
 			for(Session currentSession : allSessions){
 				//WAITING FOR ARTHUR
 				//Calculate hardconstraints
-				//if(hardConstraint.calculateAllHard(currentLecture, currentSession)){
+				if(hardConstraint.calculateAllHard(currentLecture, currentSession)){
 					validSessions.add(currentSession);
-				//}
+				}
 			}
 			//Calculate Soft Constraints
 			int bestSoftConstraint = 100000;
