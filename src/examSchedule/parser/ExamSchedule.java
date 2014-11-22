@@ -5,6 +5,8 @@ import static examSchedule.common.Utilities.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import examSchedule.Solution.GetSolution;
+
 public class ExamSchedule
 {
 	public static void main(String[] args)
@@ -25,8 +27,10 @@ public class ExamSchedule
 		
 		Environment env = new Environment();
 		PredicateParser.importList(env, inputList);
+		GetSolution sol = new GetSolution(env);
+		List<String> outputList = sol.generateSolution();
 		
-		List<String> outputList = env.exportList();
+	//	List<String> outputList = env.exportList();
 		writeToFile(outputList, filename + ".out");
 		
 		long endTime = System.nanoTime();
