@@ -33,22 +33,26 @@ public class AssignmentMap
 
 	/**
 	 * Pops off the last assignment
+	 * @return 
 	 */
-	public void removeAssignment()
+	public Assignment removeAssignment()
 	{
 		Assignment assignment = assignments.remove(assignments.size()-1);
 		assignment.getSession().incrementRemainingCapacity(assignment.getLecture().getClassSize());
 		assignment.getLecture().setSession(null);
+		return assignment;
 	}
 	
 	/**
 	 * Removes the last n assignments
 	 * @param n
 	 */
-	public void removeAssignment(int n)
+	public List<Assignment> removeAssignment(int n)
 	{
+		List<Assignment> removed = new ArrayList<Assignment>();
 		for (int i = 0; i < n; i++)
-			removeAssignment();
+			removed.add(removeAssignment());
+		return removed;
 	}
 	
 	/**
