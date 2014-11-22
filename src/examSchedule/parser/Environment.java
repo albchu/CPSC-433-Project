@@ -292,6 +292,11 @@ public class Environment
 		return output;
 	}
 
+	public AssignmentMap getAssignmentMap()
+	{
+		return assignmentMap;
+	}
+
 	public CourseMap getCourseMap()
 	{
 		return courseMap;
