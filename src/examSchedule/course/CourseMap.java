@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
 
 import examSchedule.exceptions.ElementDoesNotExistException;
 
@@ -62,15 +63,6 @@ public class CourseMap
 		return lectures;
 	}
 	
-	/**
-	 * Returns a set of all course keys in the map
-	 * @return
-	 */
-	public Set<String> getCourses()
-	{
-		return courseMap.keySet();
-	}
-	
 	public void updateExamLength(String courseName, String lectureName, int examLength)
 	{
 		getLecture(courseName, lectureName).setExamLength(examLength);
@@ -101,5 +93,14 @@ public class CourseMap
 		for(String courseName : courseMap.keySet())
 			allLectures.addAll(this.getLectures(courseName));
 		return allLectures;
+	}
+	
+	/**
+	 * Returns a set of all course keys in the map
+	 * @return
+	 */
+	public Set<String> getCourses()
+	{
+		return courseMap.keySet();
 	}
 }

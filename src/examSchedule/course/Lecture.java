@@ -14,14 +14,12 @@ public class Lecture
 	private String courseName;
 	private int examLength;
 	private int classSize;
-	private boolean isAssigned;
 	
 	public Lecture(String courseName, String lectureName)
 	{
 		nullCheck(courseName, lectureName);
 		this.courseName = courseName;
 		this.lectureName = lectureName;
-		this.isAssigned = false;
 		classSize = 0;
 	}
 	
@@ -68,16 +66,6 @@ public class Lecture
 	public String getCourseName()
 	{
 		return courseName;
-	}
-
-	public boolean isAssigned()
-	{
-		return isAssigned;
-	}
-
-	public void setAssigned(boolean isAssigned)
-	{
-		this.isAssigned = isAssigned;
 	}
 
 	@Override

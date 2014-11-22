@@ -29,7 +29,7 @@ public class RoomMap
 	
 	public void addRoom(String roomID)
 	{
-		if(roomMap.containsKey(roomID)) throw new DuplicateRoomException("Room has already been added in room map");
+		//if(roomMap.containsKey(roomID)) throw new DuplicateRoomException("Room has already been added in room map");
 		roomMap.put(roomID, new Room(roomID));
 	}
 	

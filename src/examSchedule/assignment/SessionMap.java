@@ -1,11 +1,13 @@
 package examSchedule.assignment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 import examSchedule.course.Lecture;
 import examSchedule.date.Time;
 import examSchedule.exceptions.DuplicateSessionException;
-import examSchedule.exceptions.ElementDoesNotExistException;
 
 
 public class SessionMap
@@ -19,7 +21,7 @@ public class SessionMap
 	
 	public Session getSession(String sessionID)
 	{
-		if(!sessionMap.containsKey(sessionID)) //throw new ElementDoesNotExistException("Could not find session in session map");
+		if(!sessionMap.containsKey(sessionID))
 			addSession(sessionID);
 		return sessionMap.get(sessionID);
 	}
@@ -55,11 +57,11 @@ public class SessionMap
 		Session session = getSession(sessionID);
 		session.setRoom(room);
 	}
-	public void updateSessionInfo(String sessionID, Lecture lecture)
-	{
-		Session session = getSession(sessionID);
-		session.addSessionAssignment(lecture);;
-	}
+//	public void updateSessionInfo(String sessionID, Lecture lecture)
+//	{
+//		Session session = getSession(sessionID);
+//		session.addSessionAssignment(lecture);;
+//	}
 	
 	public HashMap<String, Session> getSessionMap()
 	{
@@ -68,7 +70,28 @@ public class SessionMap
 
 	public void addSession(String sessionID)
 	{
-		if(sessionMap.containsKey(sessionID)) throw new DuplicateSessionException("Session has already been added in session map");
+		//if(sessionMap.containsKey(sessionID)) throw new DuplicateSessionException("Session has already been added in session map");
 		sessionMap.put(sessionID, new Session(sessionID));
+	}
+	
+	/** 
+	 * Returns all session in one massive list
+	 * @return
+	 */
+	public List<Session> getAllSessions()
+	{
+		List<Session> sessions = new ArrayList<Session>();
+		for(String sessionID : sessionMap.keySet())
+			sessions.add(this.getSession(sessionID));
+		return sessions;
+	}
+	
+	/**
+	 * Returns a set of all course keys in the map
+	 * @return
+	 */
+	public Set<String> getSession()
+	{
+		return sessionMap.keySet();
 	}
 }
