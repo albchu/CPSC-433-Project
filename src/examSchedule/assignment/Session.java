@@ -21,13 +21,10 @@ public class Session
 	private int length;
 	private int remainingCapacity;
 	
-	private List<Lecture> sessionAssignments;
-	
 	public Session(String sessionID)
 	{
 		nullCheck(sessionID);
 		this.sessionID = sessionID;
-		sessionAssignments = new ArrayList<Lecture>();
 	}
 
 	public String getSessionID()
@@ -54,11 +51,6 @@ public class Session
 	public String getDay()
 	{
 		return dayID;
-	}
-
-	public List<Lecture> getSessionAssignments()
-	{
-		return sessionAssignments;
 	}
 
 	/**
@@ -91,20 +83,14 @@ public class Session
 	{
 		this.time = time;
 	}
-
-	/**
-	 * Adds a courseLecturePair to the session's list of assignments if it obeys constraints
-	 * @param lecture
-	 */
-	public void addSessionAssignment(Lecture lecture)
+	
+	public void incrementRemainingCapacity(int n)
 	{
-		
-		if(sessionAssignments.contains(lecture)) throw new SessionDuplicateAssignmentException();
-		if(remainingCapacity < lecture.getClassSize()) throw new SessionAssignmentExceedsSizeException();
-		if(lecture.getExamLength() > length) throw new SessionAssignmentExceedsTimeException();
-		remainingCapacity -= lecture.getClassSize();
-		lecture.setAssigned(true);		// TODO: this is some bad shit and should be handled by assignment. Allow lectures to know that they are assigned.
-		sessionAssignments.add(lecture);
-		
+		remainingCapacity += n;
+	}
+	
+	public void decrementRemainingCapacity(int n)
+	{
+		remainingCapacity -= n;
 	}
 }

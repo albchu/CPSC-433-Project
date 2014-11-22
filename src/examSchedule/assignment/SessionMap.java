@@ -57,11 +57,11 @@ public class SessionMap
 		Session session = getSession(sessionID);
 		session.setRoom(room);
 	}
-	public void updateSessionInfo(String sessionID, Lecture lecture)
-	{
-		Session session = getSession(sessionID);
-		session.addSessionAssignment(lecture);;
-	}
+//	public void updateSessionInfo(String sessionID, Lecture lecture)
+//	{
+//		Session session = getSession(sessionID);
+//		session.addSessionAssignment(lecture);;
+//	}
 	
 	public HashMap<String, Session> getSessionMap()
 	{
@@ -70,7 +70,7 @@ public class SessionMap
 
 	public void addSession(String sessionID)
 	{
-		if(sessionMap.containsKey(sessionID)) throw new DuplicateSessionException("Session has already been added in session map");
+		//if(sessionMap.containsKey(sessionID)) throw new DuplicateSessionException("Session has already been added in session map");
 		sessionMap.put(sessionID, new Session(sessionID));
 	}
 	

@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import examSchedule.assignment.Assignment;
+import examSchedule.assignment.AssignmentMap;
 import examSchedule.assignment.Room;
 import examSchedule.assignment.RoomMap;
 import examSchedule.assignment.Session;
@@ -32,12 +34,14 @@ public class Environment
 	private StudentMap studentMap;
 	private RoomMap roomMap;
 	private List<String> dayList;
+	private AssignmentMap assignmentMap;
 
 	public Environment()
 	{
 		courseMap = new CourseMap();
 		sessionMap = new SessionMap();
 		studentMap = new StudentMap();
+		assignmentMap = new AssignmentMap();
 		roomMap = new RoomMap();
 		instructors = new ArrayList<String>();
 		dayList = new ArrayList<String>();
@@ -162,7 +166,7 @@ public class Environment
 			courseName = predicateList.get(0);
 			lectureName = predicateList.get(1);
 			sessionID = predicateList.get(2);
-			sessionMap.updateSessionInfo(sessionID, courseMap.getLecture(courseName, lectureName));
+			assignmentMap.addAssignment(sessionMap.getSession(sessionID), courseMap.getLecture(courseName, lectureName));
 			break;
 			
 		case ("dayassign"):
@@ -261,11 +265,11 @@ public class Environment
 			// roomAssign
 			output.add(predicateForm("roomAssign", sessionID, session.getRoom().getRoomID()));
 			
-			for(Lecture lecture : session.getSessionAssignments())
-				// assign
-				output.add(predicateForm("assign", lecture.getCourseName(), lecture.getLectureName(), sessionID));
-			
 		}
+		for(Assignment assignment : assignmentMap.getAssignments())
+			// assign
+			output.add(predicateForm("assign", assignment.getLecture().getCourseName(), assignment.getLecture().getLectureName(), assignment.getSession().getSessionID()));
+		
 		
 		for (String roomID : roomMap.getRoomMap().keySet())
 		{
