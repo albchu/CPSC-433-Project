@@ -8,23 +8,15 @@ import examSchedule.parser.Environment;
 
 public class AssignmentMap
 {
-	private List<Lecture> unassignedLectures;
 	private List<Assignment> assignments;
-	
-	public AssignmentMap()
-	{
-		this(new ArrayList<Lecture>());
-	}
 
 	public List<Assignment> getAssignments()
 	{
 		return assignments;
 	}
 
-	public AssignmentMap(List<Lecture> unassignedLectures)
+	public AssignmentMap()
 	{
-		// TODO: This needs to be a deep level clone eventually
-		this.unassignedLectures = unassignedLectures;
 		this.assignments = new ArrayList<Assignment>();	// Holds all assignments to be printed at the end
 	}
 	
@@ -33,8 +25,8 @@ public class AssignmentMap
 	 */
 	public void addAssignment(Session session, Lecture lecture)
 	{
-		unassignedLectures.remove(lecture);
 		Assignment assignment = new Assignment(session, lecture);
+		lecture.setSession(session);
 		session.decrementRemainingCapacity(lecture.getClassSize());
 		assignments.add(assignment);
 	}
@@ -44,7 +36,9 @@ public class AssignmentMap
 	 */
 	public void removeAssignment()
 	{
-		assignments.remove(assignments.size()-1);
+		Assignment assignment = assignments.remove(assignments.size()-1);
+		assignment.getSession().incrementRemainingCapacity(assignment.getLecture().getClassSize());
+		assignment.getLecture().setSession(null);
 	}
 	
 	/**
@@ -63,10 +57,5 @@ public class AssignmentMap
 		List<String> output = new ArrayList<String>();
 		output.add("EXPORT FROM ASSIGNMENT MAP HAS NOT BEEN WRITTEN. SORRY GUYS");
 		return output;
-	}
-
-	public List<Lecture> getUnassignedLectures()
-	{
-		return unassignedLectures;
 	}
 }

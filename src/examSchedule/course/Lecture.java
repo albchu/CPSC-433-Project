@@ -1,6 +1,7 @@
 package examSchedule.course;
 
 import static examSchedule.common.Utilities.*;
+import examSchedule.assignment.Session;
 
 /**
  * Simple class that holds lecture level information: class size, exam length, and the name of the lecture
@@ -12,6 +13,17 @@ public class Lecture
 	private String lectureName;
 	private String instructor;
 	private String courseName;
+	private Session session;
+	public Session getSession()
+	{
+		return session;
+	}
+
+	public void setSession(Session session)
+	{
+		this.session = session;
+	}
+
 	private int examLength;
 	private int classSize;
 	
