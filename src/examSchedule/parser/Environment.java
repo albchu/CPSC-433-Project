@@ -194,11 +194,6 @@ public class Environment
 			throw new PredicateNotRecognizedException("Could not recognize predicate: '" + predicateName + "'");
 		}
 	}
-
-	public String predicateForm(String predicateName, String... args)
-	{
-		return predicateName.toUpperCase() + "(" + join(args, ", ") + ")";
-	}
 	
 	public List<String> exportList()
 	{
