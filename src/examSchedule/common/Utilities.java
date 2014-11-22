@@ -1,5 +1,6 @@
 package examSchedule.common;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,6 +16,17 @@ public class Utilities
 	public static boolean isNull(Object obj)
 	{
 		return (obj == null);
+	}
+	
+	/**
+	 * Returns a string in the predicate form
+	 * @param predicateName
+	 * @param args
+	 * @return
+	 */
+	public static String predicateForm(String predicateName, String... args)
+	{
+		return predicateName.toUpperCase() + "(" + join(args, ", ") + ")";
 	}
 
 	/**
