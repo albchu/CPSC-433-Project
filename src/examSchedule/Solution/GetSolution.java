@@ -39,12 +39,18 @@ public class GetSolution {
 		}
 		
 		index = 0;
+		int backTracks = 0;
 		//Iterate through lectures until all are assigned
 		while(!unassignedLectures.isEmpty()){
 			Lecture currentLecture = allLectures.get(index);
 			
 			//calulate hard constraints and save valids
 			validSessions = getValidSessions(currentLecture, allSessions);
+			//If no valid sessions we need to backtrack
+			if(validSessions.isEmpty()){
+				assignmentMapCopy.removeAssignment();
+			}
+			backTracks = 0;
 			//Calculate Soft Constraints
 			Session bestSession = getBestSessions(validSessions);
 			//Add assignment
@@ -54,7 +60,6 @@ public class GetSolution {
 		//Save solution
 		return assignmentMapCopy.exportList();
 	}		
-		// grab next lecture and repeat until all assigned
 	
 	private List<Session> getValidSessions(Lecture aLecture, List<Session> allSessions){
 		Lecture currentLecture = aLecture;
@@ -62,7 +67,7 @@ public class GetSolution {
 		for(Session currentSession : allSessions){
 			//WAITING FOR ARTHUR
 			//Calculate hardconstraints
-			if(Constraints.hardConsEachAssign(currentSession, currentLecture)){
+			if(Constraints.calcAllHardCons(currentSession, currentLecture)){
 				validSessions.add(currentSession);
 			}
 			//if validSessions.isEmpty(), Back track
