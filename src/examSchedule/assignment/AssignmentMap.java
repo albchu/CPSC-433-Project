@@ -26,6 +26,7 @@ public class AssignmentMap
 	public void addAssignment(Session session, Lecture lecture)
 	{
 		Assignment assignment = new Assignment(session, lecture);
+		lecture.setSession(session);
 		session.decrementRemainingCapacity(lecture.getClassSize());
 		assignments.add(assignment);
 	}
@@ -37,6 +38,7 @@ public class AssignmentMap
 	{
 		Assignment assignment = assignments.remove(assignments.size()-1);
 		assignment.getSession().incrementRemainingCapacity(assignment.getLecture().getClassSize());
+		assignment.getLecture().setSession(null);
 	}
 	
 	/**
