@@ -18,8 +18,6 @@ public class GetSolution {
 	public GetSolution(Environment env){
 		courseMapCopy = new CourseMap();
 		sessionMapCopy = new SessionMap();
-
-
 		assignmentMapCopy = env.getAssignmentMap();
 		
 		//Create copy of lectures and sessions
@@ -36,7 +34,7 @@ public class GetSolution {
 		List<Session> allSessions = sessionMapCopy.getAllSessions();
 		//REFACTORABLE, SHOULDN'T NEED TO ITERATE THROUGH THE LIST
 		for(Lecture currentLecture : allLectures){
-			if(currentLecture.getSession()!= null)
+			if(currentLecture.getSession()== null)
 				unassignedLectures.add(currentLecture);
 		}
 		
@@ -49,10 +47,9 @@ public class GetSolution {
 			validSessions = getValidSessions(currentLecture, allSessions);
 			//Calculate Soft Constraints
 			Session bestSession = getBestSessions(validSessions);
-				//ALBERT CHANGES
+			//Add assignment
 			assignmentMapCopy.addAssignment(bestSession, currentLecture);
 			unassignedLectures.remove(currentLecture);
-				//set currentLecture flag to assigned
 		}
 		//Save solution
 		return assignmentMapCopy.exportList();
