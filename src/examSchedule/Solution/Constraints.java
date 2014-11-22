@@ -1,10 +1,9 @@
 package examSchedule.Solution;
 
-import sun.org.mozilla.javascript.internal.ast.Assignment;
 import examSchedule.assignment.Session;
 import examSchedule.course.Lecture;
 
-public class constraints {
+public class Constraints {
 
 	// Hard constraint checks for each assignment
 	public boolean hardConsEachAssign(Session session, Lecture lecture) {

@@ -1,4 +1,4 @@
-package examScheduleSolution;
+package examSchedule.Solution;
 import java.util.*;
 
 import examSchedule.assignment.Session;
