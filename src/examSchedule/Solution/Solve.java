@@ -25,7 +25,7 @@ public class Solve {
 		//Create copy of lectures and sessions
 		courseMapCopy = env.getCourseMap();
 		sessionMapCopy = env.getSessionMap();
-		;
+		
 	}
 	
 	public List<String> generateSolution(){
@@ -75,9 +75,9 @@ public class Solve {
 				continue;
 			}
 			//Calculate Soft Constraints
-			//if(backTrackIndex==0 || sortedSessions.size()==0){
+			if(backTrackIndex==0 || sortedSessions.size()==0){
 				sortedSessions = getBestSessions(validSessions);
-			//}
+			}
 			//Add assignment
 			Session bestSession = sortedSessions.get(backTrackIndex).getSession();
 			assignmentMapCopy.addAssignment(bestSession, currentLecture, backTrackIndex);
