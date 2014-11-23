@@ -11,7 +11,7 @@ public class SessionWorthPair implements Comparable<SessionWorthPair>
 		this.worth = worth;
 	}
 	
-	public int getWorth()
+	public Integer getWorth()
 	{
 		return worth;
 	}
