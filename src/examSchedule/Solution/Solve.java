@@ -15,7 +15,6 @@ public class Solve {
 	private CourseMap courseMapCopy;
 	private SessionMap sessionMapCopy;
 	private AssignmentMap assignmentMapCopy;
-	private int index;
 	private List<SessionWorthPair> sortedSessions;
 
 	
@@ -44,7 +43,6 @@ public class Solve {
 		}
 		
 		//COMMENTING OUT TO TRY RECURSION FML
-		index = 0;
 		int backTrackIndex = 0;
 		
 		//Iterate through lectures until all are assigned
