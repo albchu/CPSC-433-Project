@@ -1,28 +1,31 @@
 package examSchedule.Solution;
 import java.util.*;
 
+import examSchedule.assignment.Assignment;
 import examSchedule.assignment.AssignmentMap;
 import examSchedule.assignment.Session;
 import examSchedule.assignment.SessionMap;
+import examSchedule.assignment.SessionWorthPair;
 import examSchedule.course.CourseMap;
 import examSchedule.course.Lecture;
 import examSchedule.parser.Environment;
  
 
-public class GetSolution {
+public class Solve {
 	private CourseMap courseMapCopy;
 	private SessionMap sessionMapCopy;
 	private AssignmentMap assignmentMapCopy;
-	private int index;
+	private List<SessionWorthPair> sortedSessions;
+
 	
-	public GetSolution(Environment env){
+	public Solve(Environment env){
 		courseMapCopy = new CourseMap();
 		sessionMapCopy = new SessionMap();
 		assignmentMapCopy = env.getAssignmentMap();
-		
 		//Create copy of lectures and sessions
 		courseMapCopy = env.getCourseMap();
 		sessionMapCopy = env.getSessionMap();
+		
 	}
 	
 	public List<String> generateSolution(){
@@ -32,34 +35,65 @@ public class GetSolution {
 		List<Lecture> allLectures = courseMapCopy.getAllLectures();
 		// Get all sessions
 		List<Session> allSessions = sessionMapCopy.getAllSessions();
+		sortedSessions = new ArrayList<SessionWorthPair>();
 		//REFACTORABLE, SHOULDN'T NEED TO ITERATE THROUGH THE LIST
 		for(Lecture currentLecture : allLectures){
 			if(currentLecture.getSession()== null)
 				unassignedLectures.add(currentLecture);
 		}
 		
-		index = 0;
-		int backTracks = 0;
+		//COMMENTING OUT TO TRY RECURSION FML
+		int backTrackIndex = 0;
+		
 		//Iterate through lectures until all are assigned
 		while(!unassignedLectures.isEmpty()){
-			Lecture currentLecture = allLectures.get(index);
+			Lecture currentLecture = unassignedLectures.get(0);
 			
-			//calulate hard constraints and save valids
+			//calculate hard constraints and save valids
 			validSessions = getValidSessions(currentLecture, allSessions);
+			
 			//If no valid sessions we need to backtrack
 			if(validSessions.isEmpty()){
-				assignmentMapCopy.removeAssignment();
+				//B
+				Assignment removedAssignment = assignmentMapCopy.removeAssignment();
+				Lecture removedLecture = removedAssignment.getLecture();
+				unassignedLectures.add(0, removedLecture);
+				//index = 0;
+				backTrackIndex = removedAssignment.getBacktrackIndex() + 1;
+				continue;
 			}
-			backTracks = 0;
+			//Backtrack up one more level
+			//No more valid sessions to try, all have been tried
+			if(backTrackIndex >=validSessions.size()){
+				//A
+				Assignment removedAssignment = assignmentMapCopy.removeAssignment();
+				Lecture removedLecture = removedAssignment.getLecture();
+				unassignedLectures.add(0, removedLecture);
+				//index = 0;
+				backTrackIndex = removedAssignment.getBacktrackIndex() + 1;
+				sortedSessions.clear();
+				continue;
+			}
 			//Calculate Soft Constraints
-			Session bestSession = getBestSessions(validSessions);
+			if(backTrackIndex==0 || sortedSessions.size()==0){
+				sortedSessions = getBestSessions(validSessions);
+			}
 			//Add assignment
-			assignmentMapCopy.addAssignment(bestSession, currentLecture);
+			Session bestSession = sortedSessions.get(backTrackIndex).getSession();
+			assignmentMapCopy.addAssignment(bestSession, currentLecture, backTrackIndex);
 			unassignedLectures.remove(currentLecture);
+			backTrackIndex = 0;
 		}
 		//Save solution
 		return assignmentMapCopy.exportList();
 	}		
+	
+/*	private Assignment generateSolutionRec(Lecture currentLecture, List<Session> allSessions, List<Lecture> unassignedLectures, int width){
+		
+			List<Session> validSessions = getValidSessions(currentLecture, allSessions);
+			return null;
+	}*/
+
 	
 	private List<Session> getValidSessions(Lecture aLecture, List<Session> allSessions){
 		Lecture currentLecture = aLecture;
@@ -75,19 +109,18 @@ public class GetSolution {
 		return validSessions;
 	}
 	
-	private Session getBestSessions(List<Session> validSessions){
-		int bestSoftConstraint = 100000;
-		Session bestSession = null;
+	private List<SessionWorthPair> getBestSessions(List<Session> validSessions){
+		List<SessionWorthPair> sessionWorthPairList = new ArrayList<SessionWorthPair>();
 		for(Session validSession : validSessions){
 			int curSoftConstraint = 0;
 			//WAITING FOR ANTHONY/ARTHUR(?)
-			//currentSoftConstraint = softConstraint.calculateAllSoft(currentLecture, validSession, assignedSessions);
-			if(curSoftConstraint < bestSoftConstraint){
-				bestSoftConstraint = curSoftConstraint;
-				bestSession = validSession;
-			}
+			//currentSoftConstraint = Constraints.calculateAllSoft(currentLecture, validSession, assignedSessions);
+			sessionWorthPairList.add(new SessionWorthPair(validSession, curSoftConstraint));
 		}
-	return bestSession;
+		
+		//
+		Collections.sort(sessionWorthPairList);
+	return sessionWorthPairList;
 	}
 }
 

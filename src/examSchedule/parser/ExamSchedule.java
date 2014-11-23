@@ -5,7 +5,7 @@ import static examSchedule.common.Utilities.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import examSchedule.Solution.GetSolution;
+import examSchedule.Solution.Solve;
 
 public class ExamSchedule
 {
@@ -27,7 +27,7 @@ public class ExamSchedule
 		
 		Environment env = new Environment();
 		PredicateParser.importList(env, inputList);
-		GetSolution sol = new GetSolution(env);
+		Solve sol = new Solve(env);
 		List<String> outputList = sol.generateSolution();
 		
 	//	List<String> outputList = env.exportList();
