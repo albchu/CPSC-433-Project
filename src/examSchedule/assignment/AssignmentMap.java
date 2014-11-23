@@ -23,9 +23,9 @@ public class AssignmentMap
 	/*
 	 * Adds an assignment to the map
 	 */
-	public void addAssignment(Session session, Lecture lecture)
+	public void addAssignment(Session session, Lecture lecture, int backTrackIndex)
 	{
-		Assignment assignment = new Assignment(session, lecture);
+		Assignment assignment = new Assignment(session, lecture, backTrackIndex);
 		lecture.setSession(session);
 		session.decrementRemainingCapacity(lecture.getClassSize());
 		assignments.add(assignment);
