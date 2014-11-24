@@ -22,7 +22,7 @@ public class Student
 
 	public void enroll(Lecture lecture)
 	{
-		lecture.incrementClassSize();
+		lecture.enrollStudent(this);
 		enrolledLectures.add(lecture);
 	}
 
