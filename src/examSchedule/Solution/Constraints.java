@@ -1,5 +1,7 @@
 package examSchedule.Solution;
 
+import java.util.List;
+
 import examSchedule.assignment.AssignmentMap;
 import examSchedule.assignment.Session;
 import examSchedule.course.Lecture;
@@ -78,7 +80,6 @@ public class Constraints {
 		totalSoft += calcSoftFive(aMap, aSession, aLecture);
 		totalSoft += calcSoftSix(aMap, aSession, aLecture);
 		totalSoft += calcSoftSeven(aMap, aSession, aLecture);
-		
 		return totalSoft;
 	}
 
@@ -103,8 +104,27 @@ public class Constraints {
 	 * @return int penalty of constraints
 	 */
 	private static int calcSoftTwo(AssignmentMap aMap, Session aSession, Lecture aLecture) {
-		// TODO Auto-generated method stub
 		int penalty = 0;
+		Instructor anInstructor = aLecture.getInstructor();
+		List<Lecture> coursesTaughtByInstructor = anInstructor.getLectures();
+		List<Session> sessionsbyInstructor;
+		for(int i = 0; i < coursesTaughtByInstructor.size(); i++){
+			Session session1;
+			session1 = coursesTaughtByInstructor.get(i).getSession();
+			if(session1==null){
+				continue;
+			}	
+			for (int j = i+1; j < coursesTaughtByInstructor.size(); j++)
+			{
+				Session session2;
+				session2 = coursesTaughtByInstructor.get(i).getSession();
+				if(session2 ==null){
+					continue; // Shane: check that this aint null
+				}
+				if(session1.getTime().equals(session2.getTime()) && session1.getDay().equals(session2.getDay()) && !session1.getRoom().equals(session2.getRoom()))
+					penalty += 20;
+			}
+		}
 		return penalty;
 	}
 	
