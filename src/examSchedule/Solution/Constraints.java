@@ -1,9 +1,12 @@
 package examSchedule.Solution;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import examSchedule.assignment.Assignment;
 import examSchedule.assignment.AssignmentMap;
 import examSchedule.assignment.Session;
+import examSchedule.assignment.Student;
 import examSchedule.course.Lecture;
 
 public class Constraints {
@@ -114,16 +117,8 @@ public class Constraints {
 			if(session1==null){
 				continue;
 			}	
-			for (int j = i+1; j < coursesTaughtByInstructor.size(); j++)
-			{
-				Session session2;
-				session2 = coursesTaughtByInstructor.get(i).getSession();
-				if(session2 ==null){
-					continue; // Shane: check that this aint null
-				}
-				if(session1.getTime().equals(session2.getTime()) && session1.getDay().equals(session2.getDay()) && !session1.getRoom().equals(session2.getRoom()))
-					penalty += 20;
-			}
+			if(session1.getTime().equals(aSession.getTime()) && session1.getDay().equals(aSession.getDay()) && !session1.getRoom().equals(aSession.getRoom()))
+				penalty += 20;
 		}
 		return penalty;
 	}
@@ -149,8 +144,25 @@ public class Constraints {
 	 * @return int penalty of constraints
 	 */
 	private static int calcSoftFour(AssignmentMap aMap, Session aSession, Lecture aLecture) {
-		// TODO Auto-generated method stub
 		int penalty = 0;
+		List<Student> studentsEnrolledInLec = aLecture.getEnrolledStudents();
+		for(Student student : studentsEnrolledInLec){
+			List<Lecture> studentsLectures = student.getEnrolledLectures();
+			List<Session> studentSessions = new ArrayList<Session>();
+			for(Lecture lecture: studentsLectures){
+				studentSessions.add(lecture.getSession());
+			}
+			int totalTimeOnDay = 0;
+			for(Session session: studentSessions){
+				if(session.getDay().equals(aSession.getDay())){
+					totalTimeOnDay += (session.getLength() + aSession.getLength());
+				}
+			}
+			if(totalTimeOnDay > 5){
+				penalty+=50;
+			}
+		}
+		
 		return penalty;
 	}
 	
@@ -177,7 +189,9 @@ public class Constraints {
 	private static int calcSoftSix(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		// TODO Auto-generated method stub
 		int penalty = 0;
+		
 		return penalty;
+		
 	}
 	
 	/**
