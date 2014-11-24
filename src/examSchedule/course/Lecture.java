@@ -16,7 +16,7 @@ import examSchedule.assignment.Student;
 public class Lecture
 {
 	private String lectureName;
-	private String instructor;
+	private Instructor instructor;
 	private String courseName;
 	private Session session;
 
@@ -66,12 +66,12 @@ public class Lecture
 		this.session = session;
 	}
 	
-	public String getInstructor()
+	public Instructor getInstructor()
 	{
 		return instructor;
 	}
 
-	public void setInstructor(String instructor)
+	public void setInstructor(Instructor instructor)
 	{
 		this.instructor = instructor;
 	}
