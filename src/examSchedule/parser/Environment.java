@@ -15,6 +15,7 @@ import examSchedule.assignment.Session;
 import examSchedule.assignment.SessionMap;
 import examSchedule.assignment.StudentMap;
 import examSchedule.course.CourseMap;
+import examSchedule.course.Instructor;
 import examSchedule.course.Lecture;
 import examSchedule.date.Time;
 import examSchedule.exceptions.PredicateNotRecognizedException;
@@ -29,7 +30,7 @@ import examSchedule.exceptions.UnexpectedPredicateArgumentsException;
 public class Environment
 {
 	private CourseMap courseMap;
-	private List<String> instructors;
+	private List<Instructor> instructors;
 	private SessionMap sessionMap;
 	private StudentMap studentMap;
 	private RoomMap roomMap;
@@ -43,7 +44,7 @@ public class Environment
 		studentMap = new StudentMap();
 		assignmentMap = new AssignmentMap();
 		roomMap = new RoomMap();
-		instructors = new ArrayList<String>();
+		instructors = new ArrayList<Instructor>();
 		dayList = new ArrayList<String>();
 	}
 	
@@ -84,7 +85,7 @@ public class Environment
 		case ("instructor"):	//Technically not needed
 			//argsLengthCheck(predicateList, 1);
 			instructorID = predicateList.get(0);
-			instructors.add(instructorID);
+			instructors.add(new Instructor(instructorID));
 			break;
 			
 		case ("student"):
@@ -116,7 +117,7 @@ public class Environment
 			dayID = predicateList.get(1);
 			timeStart = new Time.Builder(predicateList.get(2)).build();
 			length = Integer.parseInt(predicateList.get(3));
-			if(!dayList.contains(dayID)) //throw new ElementDoesNotExistException("The day id: " + dayID + " is not in the list of dayIDs" + dayList);
+			if(!dayList.contains(dayID))
 			{
 				dayList.add(dayID);
 				System.out.println("added day: " + dayID);
@@ -136,8 +137,8 @@ public class Environment
 			instructorID = predicateList.get(0);
 			courseName = predicateList.get(1);
 			lectureName = predicateList.get(2);
-			if(!instructors.contains(instructorID)) //throw new ElementDoesNotExistException("The instructor id: " + instructorID + " is not in the list of instructorIDs" + instructors);
-				instructors.add(instructorID);
+			if(!instructors.contains(instructorID))
+				instructors.add(new Instructor(instructorID));
 			courseMap.updateInstructor(courseName, lectureName, instructorID);
 			break;
 		
@@ -217,10 +218,10 @@ public class Environment
 			}
 		}
 		
-		for (String instructor : instructors)
+		for (Instructor instructor : instructors)
 		{
 			// instructor
-			output.add(predicateForm("instructor", instructor));
+			output.add(predicateForm("instructor", instructor.getInstructorID()));
 		}
 		
 		for (String studentID : studentMap.getStudentMap().keySet())
@@ -297,7 +298,7 @@ public class Environment
 		return courseMap;
 	}
 
-	public List<String> getInstructors()
+	public List<Instructor> getInstructors()
 	{
 		return instructors;
 	}
