@@ -96,7 +96,16 @@ public class Constraints {
 	 */
 	public static int calcSoftOne(Session aSession, Lecture aLecture) {
 		int penalty = 0;
-		
+		List<Student>enrolledStudents = aLecture.getEnrolledStudents();
+		for(Student student : enrolledStudents){
+			List<Lecture> enrolledLectures = student.getEnrolledLectures();
+			for(Lecture lecture : enrolledLectures){
+				if(lecture.getSession().getDay().equals(aSession.getDay()) && lecture.getSession().getTime().equals(aSession.getTime())){
+					//NEED TO EVENTUALLY CHECK OVERLAP NOT NECESSARILY SAME START
+					penalty+=100;
+				}
+			}
+		}
 		return penalty;
 	}
 	
