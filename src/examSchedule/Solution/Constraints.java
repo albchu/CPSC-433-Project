@@ -116,11 +116,10 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	/*public static int calcSoftTwo(Session aSession, Lecture aLecture) {
+	public static int calcSoftTwo(Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		Instructor anInstructor = aLecture.getInstructor();
 		List<Lecture> coursesTaughtByInstructor = anInstructor.getInstructedLectures();
-		List<Session> sessionsbyInstructor;
 		for(int i = 0; i < coursesTaughtByInstructor.size(); i++){
 			Session session1;
 			session1 = coursesTaughtByInstructor.get(i).getSession();
@@ -131,7 +130,7 @@ public class Constraints {
 				penalty += 20;
 		}
 		return penalty;
-	}*/
+	}
 	
 	/**
 	 * Soft Constraint Three: penalty=50/incident. Every lecture for the same course should have the same exam timeslot 
