@@ -68,7 +68,7 @@ public class CourseMap
 		getLecture(courseName, lectureName).setExamLength(examLength);
 	}
 	
-	public void updateInstructor(String courseName, String lectureName, String instructor)
+	public void updateInstructor(String courseName, String lectureName, Instructor instructor)
 	{
 		getLecture(courseName, lectureName).setInstructor(instructor);
 	}

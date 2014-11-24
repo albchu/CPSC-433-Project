@@ -214,7 +214,7 @@ public class Environment
 				output.add(predicateForm("examlength", course, lecture.getLectureName(), Integer.toString(lecture.getExamLength())));
 				
 				// instructs
-				output.add(predicateForm("instructs", lecture.getInstructor(), course, lecture.getLectureName()));
+				output.add(predicateForm("instructs", lecture.getInstructor().getInstructorID(), course, lecture.getLectureName()));
 			}
 		}
 		
