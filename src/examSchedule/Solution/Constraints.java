@@ -7,6 +7,7 @@ import examSchedule.assignment.Assignment;
 import examSchedule.assignment.AssignmentMap;
 import examSchedule.assignment.Session;
 import examSchedule.assignment.Student;
+import examSchedule.course.Instructor;
 import examSchedule.course.Lecture;
 
 public class Constraints {
@@ -93,7 +94,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	private static int calcSoftOne(AssignmentMap aMap, Session aSession, Lecture aLecture) {
+	public static int calcSoftOne(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		// TODO Auto-generated method stub
 		int penalty = 0;
 		return penalty;
@@ -106,10 +107,10 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	private static int calcSoftTwo(AssignmentMap aMap, Session aSession, Lecture aLecture) {
+	public static int calcSoftTwo(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		Instructor anInstructor = aLecture.getInstructor();
-		List<Lecture> coursesTaughtByInstructor = anInstructor.getLectures();
+		List<Lecture> coursesTaughtByInstructor = anInstructor.getInstructedLectures();
 		List<Session> sessionsbyInstructor;
 		for(int i = 0; i < coursesTaughtByInstructor.size(); i++){
 			Session session1;
@@ -130,7 +131,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	private static int calcSoftThree(AssignmentMap aMap, Session aSession, Lecture aLecture) {
+	public static int calcSoftThree(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		// TODO Auto-generated method stub
 		int penalty = 0;
 		return penalty;
@@ -143,7 +144,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	private static int calcSoftFour(AssignmentMap aMap, Session aSession, Lecture aLecture) {
+	public static int calcSoftFour(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		List<Student> studentsEnrolledInLec = aLecture.getEnrolledStudents();
 		for(Student student : studentsEnrolledInLec){
@@ -173,9 +174,25 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	private static int calcSoftFive(AssignmentMap aMap, Session aSession, Lecture aLecture) {
-		// TODO Auto-generated method stub
+	public static int calcSoftFive(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		int penalty = 0;
+		List<Student> studentsEnrolledInLec = aLecture.getEnrolledStudents();
+		for(Student student : studentsEnrolledInLec){
+			List<Lecture> studentsLectures = student.getEnrolledLectures();
+			List<Session> studentSessions = new ArrayList<Session>();
+			for(Lecture lecture: studentsLectures){
+				studentSessions.add(lecture.getSession());
+			}
+			int totalTimeOnDay = 0;
+			for(Session session: studentSessions){
+				if(session.getDay().equals(aSession.getDay())){
+				//	if(session.getTime().getHour()+session.getLength() == aSession.getTime()){
+						//STILL NEED TO DO
+					//}
+				}
+			}
+
+		}
 		return penalty;
 	}
 	
@@ -186,8 +203,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */	
-	private static int calcSoftSix(AssignmentMap aMap, Session aSession, Lecture aLecture) {
-		// TODO Auto-generated method stub
+	public static int calcSoftSix(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		List<Lecture> sessionLectures= aSession.getAssignedLectures();
 		for(Lecture lecture : sessionLectures){
@@ -205,7 +221,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	private static int calcSoftSeven(AssignmentMap aMap, Session aSession, Lecture aLecture) {
+	public static int calcSoftSeven(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		if(aLecture.getExamLength()!=aSession.getLength()){
 			penalty+=5;
