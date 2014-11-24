@@ -72,11 +72,6 @@ public class CourseMap
 	{
 		getLecture(courseName, lectureName).setInstructor(instructor);
 	}
-	
-	public void incrementLectureSize(String courseName, String lectureName)
-	{
-		getLecture(courseName, lectureName).incrementClassSize();
-	}
 
 	public HashMap<String, List<Lecture>> getCourseMap()
 	{

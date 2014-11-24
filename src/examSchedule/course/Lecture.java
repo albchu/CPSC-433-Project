@@ -1,7 +1,12 @@
 package examSchedule.course;
 
 import static examSchedule.common.Utilities.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import examSchedule.assignment.Session;
+import examSchedule.assignment.Student;
 
 /**
  * Simple class that holds lecture level information: class size, exam length, and the name of the lecture
@@ -14,25 +19,16 @@ public class Lecture
 	private String instructor;
 	private String courseName;
 	private Session session;
-	public Session getSession()
-	{
-		return session;
-	}
-
-	public void setSession(Session session)
-	{
-		this.session = session;
-	}
 
 	private int examLength;
-	private int classSize;
+	private List<Student> enrolledStudents;
 	
 	public Lecture(String courseName, String lectureName)
 	{
 		nullCheck(courseName, lectureName);
 		this.courseName = courseName;
 		this.lectureName = lectureName;
-		classSize = 0;
+		this.enrolledStudents = new ArrayList<Student>();
 	}
 	
 	public String getLectureName()
@@ -42,12 +38,7 @@ public class Lecture
 	
 	public int getClassSize()
 	{
-		return classSize;
-	}
-
-	public void incrementClassSize()
-	{
-		this.classSize++;
+		return enrolledStudents.size();
 	}
 
 	public int getExamLength()
@@ -55,9 +46,9 @@ public class Lecture
 		return examLength;
 	}
 	
-	public void setClassSize(int classSize)
+	public void enrollStudent(Student student)
 	{
-		this.classSize = classSize;
+		enrolledStudents.add(student);
 	}
 
 	public void setExamLength(int examLength)
@@ -65,6 +56,16 @@ public class Lecture
 		this.examLength = examLength;
 	}
 
+	public Session getSession()
+	{
+		return session;
+	}
+	
+	public void setSession(Session session)
+	{
+		this.session = session;
+	}
+	
 	public String getInstructor()
 	{
 		return instructor;
@@ -85,10 +86,12 @@ public class Lecture
 	{
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + classSize;
+		result = prime * result + ((courseName == null) ? 0 : courseName.hashCode());
+		result = prime * result + ((enrolledStudents == null) ? 0 : enrolledStudents.hashCode());
 		result = prime * result + examLength;
 		result = prime * result + ((instructor == null) ? 0 : instructor.hashCode());
 		result = prime * result + ((lectureName == null) ? 0 : lectureName.hashCode());
+		result = prime * result + ((session == null) ? 0 : session.hashCode());
 		return result;
 	}
 
@@ -102,9 +105,25 @@ public class Lecture
 		if (getClass() != obj.getClass())
 			return false;
 		Lecture other = (Lecture) obj;
-		if (classSize != other.classSize)
+		if (courseName == null)
+		{
+			if (other.courseName != null)
+				return false;
+		} else if (!courseName.equals(other.courseName))
 			return false;
-		if (Double.doubleToLongBits(examLength) != Double.doubleToLongBits(other.examLength))
+		if (enrolledStudents == null)
+		{
+			if (other.enrolledStudents != null)
+				return false;
+		} else if (!enrolledStudents.equals(other.enrolledStudents))
+			return false;
+		if (examLength != other.examLength)
+			return false;
+		if (instructor == null)
+		{
+			if (other.instructor != null)
+				return false;
+		} else if (!instructor.equals(other.instructor))
 			return false;
 		if (lectureName == null)
 		{
@@ -112,6 +131,18 @@ public class Lecture
 				return false;
 		} else if (!lectureName.equals(other.lectureName))
 			return false;
+		if (session == null)
+		{
+			if (other.session != null)
+				return false;
+		} else if (!session.equals(other.session))
+			return false;
 		return true;
 	}
+
+	public List<Student> getEnrolledStudents()
+	{
+		return enrolledStudents;
+	}
+
 }

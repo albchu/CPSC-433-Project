@@ -24,7 +24,7 @@ public class ExamSchedule
 		int maxTime = Integer.parseInt(args[1]);		// Time in milliseconds specifying the time limit for which the program is not allowed to exceed
 		
 		List<String> inputList = readToList(filename);
-		
+		System.out.println("Hi");
 		Environment env = new Environment();
 		PredicateParser.importList(env, inputList);
 		//Solve sol = new Solve(env);
