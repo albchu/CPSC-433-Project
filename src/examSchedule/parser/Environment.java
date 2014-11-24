@@ -16,6 +16,7 @@ import examSchedule.assignment.SessionMap;
 import examSchedule.assignment.StudentMap;
 import examSchedule.course.CourseMap;
 import examSchedule.course.Instructor;
+import examSchedule.course.InstructorMap;
 import examSchedule.course.Lecture;
 import examSchedule.date.Time;
 import examSchedule.exceptions.PredicateNotRecognizedException;
@@ -30,7 +31,7 @@ import examSchedule.exceptions.UnexpectedPredicateArgumentsException;
 public class Environment
 {
 	private CourseMap courseMap;
-	private List<Instructor> instructors;
+	private InstructorMap instructorMap;
 	private SessionMap sessionMap;
 	private StudentMap studentMap;
 	private RoomMap roomMap;
@@ -44,7 +45,7 @@ public class Environment
 		studentMap = new StudentMap();
 		assignmentMap = new AssignmentMap();
 		roomMap = new RoomMap();
-		instructors = new ArrayList<Instructor>();
+		instructorMap = new InstructorMap();
 		dayList = new ArrayList<String>();
 	}
 	
@@ -85,7 +86,7 @@ public class Environment
 		case ("instructor"):	//Technically not needed
 			//argsLengthCheck(predicateList, 1);
 			instructorID = predicateList.get(0);
-			instructors.add(new Instructor(instructorID));
+			instructorMap.addInstructor(instructorID);
 			break;
 			
 		case ("student"):
@@ -137,9 +138,7 @@ public class Environment
 			instructorID = predicateList.get(0);
 			courseName = predicateList.get(1);
 			lectureName = predicateList.get(2);
-			if(!instructors.contains(instructorID))
-				instructors.add(new Instructor(instructorID));
-			courseMap.updateInstructor(courseName, lectureName, instructorID);
+			courseMap.updateInstructor(courseName, lectureName, instructorMap.getInstructor(instructorID));
 			break;
 		
 		case ("day"):
@@ -218,7 +217,7 @@ public class Environment
 			}
 		}
 		
-		for (Instructor instructor : instructors)
+		for (Instructor instructor : instructorMap.getInstructors())
 		{
 			// instructor
 			output.add(predicateForm("instructor", instructor.getInstructorID()));
@@ -298,9 +297,9 @@ public class Environment
 		return courseMap;
 	}
 
-	public List<Instructor> getInstructors()
+	public InstructorMap getInstructorMap()
 	{
-		return instructors;
+		return instructorMap;
 	}
 
 	public SessionMap getSessionMap()
