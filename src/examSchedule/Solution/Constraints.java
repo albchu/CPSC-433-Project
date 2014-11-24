@@ -6,7 +6,13 @@ import examSchedule.course.Lecture;
 
 public class Constraints {
 
-	// Hard constraint checks for each assignment
+	//Hard Constraints
+	/**
+	 * Calculate all hard constraints
+	 * @param session
+	 * @param lecture
+	 * @return boolean true if all hard constraints are not violated
+	 */
 	public static boolean calcAllHardCons(Session session, Lecture lecture) {
 		if (capacityHardCon(session, lecture) && timeLengthHardCon(session, lecture))
 			return true;
@@ -15,7 +21,12 @@ public class Constraints {
 		}
 	}
 	
-	// Lecture capacity check
+	/**
+	 * Hard Constraint: Lecture capacity check
+	 * @param session
+	 * @param lecture
+	 * @return boolean true if hard constraint not violated
+	 */
 	private static boolean capacityHardCon(Session session, Lecture lecture) {
 		if ((session.getRemainingCapacity()-lecture.getClassSize()) < 0) 
 			return false;
@@ -24,30 +35,22 @@ public class Constraints {
 		}
 	}
 	
-	// Session length check
+	/**
+	 * Hard Constraint: Session length check
+	 * @param session
+	 * @param lecture
+	 * @return boolean true if hard constraint not violated
+	 */
 	private static boolean timeLengthHardCon(Session session, Lecture lecture) {
 		if (lecture.getExamLength() > session.getLength()) 
 			return false;
 		else {
 			return true;
 		}
-		
 	}
 	
-	// Completeness check
-/*	public boolean completeness(Lecture[] lectures, Assignment[] assignments) {
-		for (int i = 0; i < lectures.length; i++) {
-			if (lectures[i]) {
-				
-			}
-			for (int j = 0; j < assignments.length j++) {
-				if 
-			}
-		}
-	}*/
 	
 	//Soft Constaints 
-	
 	/**
 	 * LIST OF SOFT CONSTRAINTS
 	 * Soft Constraint One: penalty=100/incident. No student writes more than one exam in a timeslot (no direct conflict)
@@ -86,8 +89,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	private static int calcSoftOne(AssignmentMap aMap, Session aSession,
-			Lecture aLecture) {
+	private static int calcSoftOne(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		// TODO Auto-generated method stub
 		int penalty = 0;
 		return penalty;
@@ -100,8 +102,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	private static int calcSoftTwo(AssignmentMap aMap, Session aSession,
-			Lecture aLecture) {
+	private static int calcSoftTwo(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		// TODO Auto-generated method stub
 		int penalty = 0;
 		return penalty;
@@ -114,8 +115,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	private static int calcSoftThree(AssignmentMap aMap, Session aSession,
-			Lecture aLecture) {
+	private static int calcSoftThree(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		// TODO Auto-generated method stub
 		int penalty = 0;
 		return penalty;
@@ -128,8 +128,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	private static int calcSoftFour(AssignmentMap aMap, Session aSession,
-			Lecture aLecture) {
+	private static int calcSoftFour(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		// TODO Auto-generated method stub
 		int penalty = 0;
 		return penalty;
@@ -142,8 +141,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	private static int calcSoftFive(AssignmentMap aMap, Session aSession,
-			Lecture aLecture) {
+	private static int calcSoftFive(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		// TODO Auto-generated method stub
 		int penalty = 0;
 		return penalty;
@@ -156,8 +154,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */	
-	private static int calcSoftSix(AssignmentMap aMap, Session aSession,
-			Lecture aLecture) {
+	private static int calcSoftSix(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		// TODO Auto-generated method stub
 		int penalty = 0;
 		return penalty;
@@ -170,25 +167,11 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	private static int calcSoftSeven(AssignmentMap aMap, Session aSession,
-			Lecture aLecture) {
-		// TODO Auto-generated method stub
+	private static int calcSoftSeven(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		int penalty = 0;
+		if(aLecture.getExamLength()!=aSession.getLength()){
+			penalty+=5;
+		}
 		return penalty;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
