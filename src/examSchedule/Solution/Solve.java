@@ -79,7 +79,7 @@ public class Solve {
 			}
 			//Calculate Soft Constraints
 			if(backTrackIndex==0 || sortedSessions.size()==0){
-				sortedSessions = getBestSessions(validSessions);
+				sortedSessions = getBestSessions(validSessions, currentLecture);
 			}
 			//Add assignment
 			
@@ -90,7 +90,9 @@ public class Solve {
 			backTrackIndex = 0;
 		}
 		//Save solution
+		
 		return assignmentMapCopy.exportList();
+		
 	}		
 
 	/**
@@ -116,12 +118,12 @@ public class Solve {
 	 * @param validSessions
 	 * @return List of SessionWorthPairs 
 	 */
-	private List<SessionWorthPair> getBestSessions(List<Session> validSessions){
+	private List<SessionWorthPair> getBestSessions(List<Session> validSessions, Lecture currentLecture){
 		List<SessionWorthPair> sessionWorthPairList = new ArrayList<SessionWorthPair>();
 		for(Session validSession : validSessions){
 			//Calculate Soft constraints
 			int curSoftConstraint = 0;
-			//currentSoftConstraint = Constraints.calculateAllSoft(currentLecture, validSession, assignedSessions);
+			curSoftConstraint = Constraints.calcAllSoftCon(validSession, currentLecture);
 			sessionWorthPairList.add(new SessionWorthPair(validSession, curSoftConstraint));
 		}
 		//Sort the list in descending order of penalty

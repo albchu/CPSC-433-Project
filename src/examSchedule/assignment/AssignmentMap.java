@@ -64,10 +64,14 @@ public class AssignmentMap
 	public List<String> exportList()
 	{
 		List<String> output = new ArrayList<String>();
-		for(Assignment assignment : assignments)
+		int penalty = 0;
+		for(Assignment assignment : assignments){
 			// assign
+			penalty += assignment.getPenalty();
+			System.out.println(predicateForm("assign", assignment.getLecture().getCourseName(), assignment.getLecture().getLectureName(), assignment.getSession().getSessionID()));
 			output.add(predicateForm("assign", assignment.getLecture().getCourseName(), assignment.getLecture().getLectureName(), assignment.getSession().getSessionID()));
-		
+		}
+		System.out.println("Penalty: " + penalty);
 		return output;
 	}
 }
