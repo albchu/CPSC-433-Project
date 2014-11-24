@@ -75,7 +75,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return total soft constraint penalty calculated
 	 */
-	public static int calcAllSoftCon(AssignmentMap aMap, Session aSession, Lecture aLecture){
+	public static int calcAllSoftCon(Session aSession, Lecture aLecture){
 		int totalSoft = 0;
 		totalSoft += calcSoftOne(aSession, aLecture);
 		totalSoft += calcSoftTwo(aSession, aLecture);
@@ -116,7 +116,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	public static int calcSoftTwo(Session aSession, Lecture aLecture) {
+	/*public static int calcSoftTwo(Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		Instructor anInstructor = aLecture.getInstructor();
 		List<Lecture> coursesTaughtByInstructor = anInstructor.getInstructedLectures();
@@ -131,7 +131,7 @@ public class Constraints {
 				penalty += 20;
 		}
 		return penalty;
-	}
+	}*/
 	
 	/**
 	 * Soft Constraint Three: penalty=50/incident. Every lecture for the same course should have the same exam timeslot 
@@ -141,8 +141,8 @@ public class Constraints {
 	 * @return int penalty of constraints
 	 */
 	public static int calcSoftThree(Session aSession, Lecture aLecture) {
-		// TODO Auto-generated method stub
 		int penalty = 0;
+		//DO THIS SOMETIME AT THE END
 		return penalty;
 	}
 	
