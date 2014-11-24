@@ -57,6 +57,17 @@ public class AssignmentMap
 		return removed;
 	}
 	
+	//FUNCTION FOR TESTING PURPOSES RIGHT NOW
+	public int getPenalties(){
+		int penalty = 0;
+		for(Assignment assignment : assignments){
+			// assign
+			penalty += assignment.getPenalty();
+		}
+		return penalty;
+	}
+	
+	
 	/**
 	 * Exports information in predicate form strings
 	 * @return

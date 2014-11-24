@@ -6,6 +6,7 @@ import examSchedule.assignment.AssignmentMap;
 import examSchedule.assignment.Session;
 import examSchedule.assignment.SessionMap;
 import examSchedule.assignment.SessionWorthPair;
+import examSchedule.assignment.SolutionPenaltyPair;
 import examSchedule.course.CourseMap;
 import examSchedule.course.Lecture;
 import examSchedule.parser.Environment;
@@ -16,6 +17,9 @@ public class Solve {
 	private SessionMap sessionMapCopy;
 	private AssignmentMap assignmentMapCopy;
 	private List<SessionWorthPair> sortedSessions;
+	private List<SolutionPenaltyPair> listOfSolutions;
+
+	
 
 	
 	public Solve(Environment env){
@@ -25,6 +29,7 @@ public class Solve {
 		//Create copy of lectures and sessions
 		courseMapCopy = env.getCourseMap();
 		sessionMapCopy = env.getSessionMap();
+		
 	}
 	
 	/**
@@ -39,6 +44,8 @@ public class Solve {
 		// Get all sessions
 		List<Session> allSessions = sessionMapCopy.getAllSessions();
 		sortedSessions = new ArrayList<SessionWorthPair>();
+		listOfSolutions = new ArrayList<SolutionPenaltyPair>();
+		
 		//REFACTORABLE, SHOULDN'T NEED TO ITERATE THROUGH THE LIST
 		for(Lecture currentLecture : allLectures){
 			if(currentLecture.getSession()== null)
@@ -47,52 +54,60 @@ public class Solve {
 		
 		//COMMENTING OUT TO TRY RECURSION FML
 		int backTrackIndex = 0;
-		
-		//Iterate through lectures until all are assigned
-		while(!unassignedLectures.isEmpty()){
-			Lecture currentLecture = unassignedLectures.get(0);
-			
-			//calculate hard constraints and save valids
-			validSessions = getValidSessions(currentLecture, allSessions);
-			
-			//If no valid sessions we need to backtrack
-			if(validSessions.isEmpty()){
-				//B
-				Assignment removedAssignment = assignmentMapCopy.removeAssignment();
-				Lecture removedLecture = removedAssignment.getLecture();
-				unassignedLectures.add(0, removedLecture);
-				//index = 0;
-				backTrackIndex = removedAssignment.getBacktrackIndex() + 1;
-				continue;
+		boolean solutionsExist = true;
+			while(solutionsExist){
+			//Iterate through lectures until all are assigned
+			while(!unassignedLectures.isEmpty()){
+				Lecture currentLecture = unassignedLectures.get(0);
+				
+				//calculate hard constraints and save valids
+				validSessions = getValidSessions(currentLecture, allSessions);
+				
+				//If no valid sessions we need to backtrack
+				if(validSessions.isEmpty()){
+					//B
+					Assignment removedAssignment = assignmentMapCopy.removeAssignment();
+					Lecture removedLecture = removedAssignment.getLecture();
+					unassignedLectures.add(0, removedLecture);
+					//index = 0;
+					backTrackIndex = removedAssignment.getBacktrackIndex() + 1;
+					continue;
+				}
+				//Backtrack up one more level
+				//No more valid sessions to try, all have been tried
+				if(backTrackIndex >=validSessions.size()){
+					//A
+					Assignment removedAssignment = assignmentMapCopy.removeAssignment();
+					Lecture removedLecture = removedAssignment.getLecture();
+					unassignedLectures.add(0, removedLecture);
+					//index = 0;
+					backTrackIndex = removedAssignment.getBacktrackIndex() + 1;
+					sortedSessions.clear();
+					continue;
+				}
+				//Calculate Soft Constraints
+				if(backTrackIndex==0 || sortedSessions.size()==0){
+					sortedSessions = getBestSessions(validSessions, currentLecture);
+				}
+				//Add assignment
+				
+				Session bestSession = sortedSessions.get(backTrackIndex).getSession();
+				int penalty = sortedSessions.get(backTrackIndex).getWorth();
+				assignmentMapCopy.addAssignment(bestSession, currentLecture, backTrackIndex, penalty);
+				unassignedLectures.remove(currentLecture);
+				backTrackIndex = 0;
 			}
-			//Backtrack up one more level
-			//No more valid sessions to try, all have been tried
-			if(backTrackIndex >=validSessions.size()){
-				//A
-				Assignment removedAssignment = assignmentMapCopy.removeAssignment();
-				Lecture removedLecture = removedAssignment.getLecture();
-				unassignedLectures.add(0, removedLecture);
-				//index = 0;
-				backTrackIndex = removedAssignment.getBacktrackIndex() + 1;
-				sortedSessions.clear();
-				continue;
-			}
-			//Calculate Soft Constraints
-			if(backTrackIndex==0 || sortedSessions.size()==0){
-				sortedSessions = getBestSessions(validSessions, currentLecture);
-			}
-			//Add assignment
+			//Save solution
 			
-			Session bestSession = sortedSessions.get(backTrackIndex).getSession();
-			int penalty = sortedSessions.get(backTrackIndex).getWorth();
-			assignmentMapCopy.addAssignment(bestSession, currentLecture, backTrackIndex, penalty);
-			unassignedLectures.remove(currentLecture);
-			backTrackIndex = 0;
-		}
-		//Save solution
-		
-		return assignmentMapCopy.exportList();
-		
+			//return assignmentMapCopy.exportList();
+			
+			listOfSolutions.add(new SolutionPenaltyPair(assignmentMapCopy.exportList(), curSoftConstraint));;
+			Assignment removedAssignment = assignmentMapCopy.removeAssignment();
+			Lecture removedLecture = removedAssignment.getLecture();
+			unassignedLectures.add(0, removedLecture);
+			//index = 0;
+			backTrackIndex = removedAssignment.getBacktrackIndex() + 1;
+			}	
 	}		
 
 	/**
