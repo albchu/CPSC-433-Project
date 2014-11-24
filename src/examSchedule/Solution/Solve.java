@@ -99,7 +99,6 @@ public class Solve {
 		Lecture currentLecture = aLecture;
 		List<Session> validSessions = new ArrayList<Session>();
 		for(Session currentSession : allSessions){
-			//WAITING FOR ARTHUR
 			//Calculate hardconstraints
 			if(Constraints.calcAllHardCons(currentSession, currentLecture)){
 				validSessions.add(currentSession);
