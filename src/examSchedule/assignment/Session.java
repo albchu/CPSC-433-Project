@@ -51,6 +51,10 @@ public class Session
 		this.decrementRemainingCapacity(lecture.getClassSize());
 	}
 	
+	public List<Lecture> getAssignedLectures() {
+		return assignedLectures;
+	}
+
 	/**
 	 * Removes a lecture from the assignments and reincrements the remaining capacity accordingly
 	 * @param lecture

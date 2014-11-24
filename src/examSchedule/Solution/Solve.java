@@ -82,8 +82,10 @@ public class Solve {
 				sortedSessions = getBestSessions(validSessions);
 			}
 			//Add assignment
+			
 			Session bestSession = sortedSessions.get(backTrackIndex).getSession();
-			assignmentMapCopy.addAssignment(bestSession, currentLecture, backTrackIndex);
+			int penalty = sortedSessions.get(backTrackIndex).getWorth();
+			assignmentMapCopy.addAssignment(bestSession, currentLecture, backTrackIndex, penalty);
 			unassignedLectures.remove(currentLecture);
 			backTrackIndex = 0;
 		}

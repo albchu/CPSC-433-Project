@@ -189,9 +189,13 @@ public class Constraints {
 	private static int calcSoftSix(AssignmentMap aMap, Session aSession, Lecture aLecture) {
 		// TODO Auto-generated method stub
 		int penalty = 0;
-		
-		return penalty;
-		
+		List<Lecture> sessionLectures= aSession.getAssignedLectures();
+		for(Lecture lecture : sessionLectures){
+			if(lecture.getExamLength() < aLecture.getExamLength()){
+				penalty += 20;
+			}
+		}
+		return penalty;	
 	}
 	
 	/**
