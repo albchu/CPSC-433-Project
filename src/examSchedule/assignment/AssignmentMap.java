@@ -23,11 +23,11 @@ public class AssignmentMap
 	/*
 	 * Adds an assignment to the map
 	 */
-	public void addAssignment(Session session, Lecture lecture, int backTrackIndex)
+	public void addAssignment(Session session, Lecture lecture, int backTrackIndex, int penalty)
 	{
-		Assignment assignment = new Assignment(session, lecture, backTrackIndex);
+		Assignment assignment = new Assignment(session, lecture, backTrackIndex, penalty);
 		lecture.setSession(session);
-		session.decrementRemainingCapacity(lecture.getClassSize());
+		session.addLecture(lecture);
 		assignments.add(assignment);
 	}
 
@@ -38,8 +38,10 @@ public class AssignmentMap
 	public Assignment removeAssignment()
 	{
 		Assignment assignment = assignments.remove(assignments.size()-1);
-		assignment.getSession().incrementRemainingCapacity(assignment.getLecture().getClassSize());
-		assignment.getLecture().setSession(null);
+		Session session =  assignment.getSession();
+		Lecture lecture = assignment.getLecture();
+		lecture.setSession(null);
+		session.removeLecture(lecture);
 		return assignment;
 	}
 	

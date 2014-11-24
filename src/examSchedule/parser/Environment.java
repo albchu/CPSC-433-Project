@@ -166,7 +166,7 @@ public class Environment
 			courseName = predicateList.get(0);
 			lectureName = predicateList.get(1);
 			sessionID = predicateList.get(2);
-			assignmentMap.addAssignment(sessionMap.getSession(sessionID), courseMap.getLecture(courseName, lectureName), 0);
+			assignmentMap.addAssignment(sessionMap.getSession(sessionID), courseMap.getLecture(courseName, lectureName), 0, 0);
 			break;
 			
 		case ("dayassign"):

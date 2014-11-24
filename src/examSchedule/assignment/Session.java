@@ -7,6 +7,7 @@ import java.util.List;
 
 import examSchedule.course.Lecture;
 import examSchedule.date.Time;
+import examSchedule.exceptions.ElementDoesNotExistException;
 import examSchedule.exceptions.SessionAssignmentExceedsSizeException;
 import examSchedule.exceptions.SessionAssignmentExceedsTimeException;
 import examSchedule.exceptions.SessionDuplicateAssignmentException;
@@ -20,11 +21,13 @@ public class Session
 	private Time time;
 	private int length;
 	private int remainingCapacity;
+	private List<Lecture> assignedLectures;
 	
 	public Session(String sessionID)
 	{
 		nullCheck(sessionID);
 		this.sessionID = sessionID;
+		assignedLectures = new ArrayList<Lecture>();
 	}
 
 	public String getSessionID()
@@ -36,6 +39,26 @@ public class Session
 	{
 		if (room == null) throw new SessionRoomNotAssignedException();
 		return room;
+	}
+	
+	/**
+	 * Adds a lecture to the session and decrements the remaining capacity accordingly
+	 * @param lecture
+	 */
+	public void addLecture(Lecture lecture)
+	{
+		assignedLectures.add(lecture);
+		this.decrementRemainingCapacity(lecture.getClassSize());
+	}
+	
+	/**
+	 * Removes a lecture from the assignments and reincrements the remaining capacity accordingly
+	 * @param lecture
+	 */
+	public void removeLecture(Lecture lecture)
+	{
+		if(!assignedLectures.remove(lecture)) throw new ElementDoesNotExistException("The lecture " + lecture + " could not be removed from the session " + this + " because it never existed");
+		this.incrementRemainingCapacity(lecture.getClassSize());
 	}
 	
 	public int getLength()
