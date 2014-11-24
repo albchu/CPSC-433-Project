@@ -77,13 +77,13 @@ public class Constraints {
 	 */
 	public static int calcAllSoftCon(AssignmentMap aMap, Session aSession, Lecture aLecture){
 		int totalSoft = 0;
-		totalSoft += calcSoftOne(aMap, aSession, aLecture);
-		totalSoft += calcSoftTwo(aMap, aSession, aLecture);
-		totalSoft += calcSoftThree(aMap, aSession, aLecture);
-		totalSoft += calcSoftFour(aMap, aSession, aLecture);
-		totalSoft += calcSoftFive(aMap, aSession, aLecture);
-		totalSoft += calcSoftSix(aMap, aSession, aLecture);
-		totalSoft += calcSoftSeven(aMap, aSession, aLecture);
+		totalSoft += calcSoftOne(aSession, aLecture);
+		totalSoft += calcSoftTwo(aSession, aLecture);
+		totalSoft += calcSoftThree(aSession, aLecture);
+		totalSoft += calcSoftFour(aSession, aLecture);
+		totalSoft += calcSoftFive(aSession, aLecture);
+		totalSoft += calcSoftSix(aSession, aLecture);
+		totalSoft += calcSoftSeven(aSession, aLecture);
 		return totalSoft;
 	}
 
@@ -94,9 +94,9 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	public static int calcSoftOne(AssignmentMap aMap, Session aSession, Lecture aLecture) {
-		// TODO Auto-generated method stub
+	public static int calcSoftOne(Session aSession, Lecture aLecture) {
 		int penalty = 0;
+		
 		return penalty;
 	}
 	
@@ -107,7 +107,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	public static int calcSoftTwo(AssignmentMap aMap, Session aSession, Lecture aLecture) {
+	public static int calcSoftTwo(Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		Instructor anInstructor = aLecture.getInstructor();
 		List<Lecture> coursesTaughtByInstructor = anInstructor.getInstructedLectures();
@@ -131,7 +131,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	public static int calcSoftThree(AssignmentMap aMap, Session aSession, Lecture aLecture) {
+	public static int calcSoftThree(Session aSession, Lecture aLecture) {
 		// TODO Auto-generated method stub
 		int penalty = 0;
 		return penalty;
@@ -144,7 +144,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	public static int calcSoftFour(AssignmentMap aMap, Session aSession, Lecture aLecture) {
+	public static int calcSoftFour(Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		List<Student> studentsEnrolledInLec = aLecture.getEnrolledStudents();
 		for(Student student : studentsEnrolledInLec){
@@ -174,7 +174,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	public static int calcSoftFive(AssignmentMap aMap, Session aSession, Lecture aLecture) {
+	public static int calcSoftFive(Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		List<Student> studentsEnrolledInLec = aLecture.getEnrolledStudents();
 		for(Student student : studentsEnrolledInLec){
@@ -203,7 +203,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */	
-	public static int calcSoftSix(AssignmentMap aMap, Session aSession, Lecture aLecture) {
+	public static int calcSoftSix(Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		List<Lecture> sessionLectures= aSession.getAssignedLectures();
 		for(Lecture lecture : sessionLectures){
@@ -221,7 +221,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	public static int calcSoftSeven(AssignmentMap aMap, Session aSession, Lecture aLecture) {
+	public static int calcSoftSeven(Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		if(aLecture.getExamLength()!=aSession.getLength()){
 			penalty+=5;
