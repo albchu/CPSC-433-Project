@@ -75,7 +75,7 @@ public class Constraints {
 	 * @param aLecture
 	 * @return total soft constraint penalty calculated
 	 */
-	public static int calcAllSoftCon(AssignmentMap aMap, Session aSession, Lecture aLecture){
+	public static int calcAllSoftCon(Session aSession, Lecture aLecture){
 		int totalSoft = 0;
 		totalSoft += calcSoftOne(aSession, aLecture);
 		totalSoft += calcSoftTwo(aSession, aLecture);
@@ -96,7 +96,16 @@ public class Constraints {
 	 */
 	public static int calcSoftOne(Session aSession, Lecture aLecture) {
 		int penalty = 0;
-		
+		List<Student>enrolledStudents = aLecture.getEnrolledStudents();
+		for(Student student : enrolledStudents){
+			List<Lecture> enrolledLectures = student.getEnrolledLectures();
+			for(Lecture lecture : enrolledLectures){
+				if(lecture.getSession().getDay().equals(aSession.getDay()) && lecture.getSession().getTime().equals(aSession.getTime())){
+					//NEED TO EVENTUALLY CHECK OVERLAP NOT NECESSARILY SAME START
+					penalty+=100;
+				}
+			}
+		}
 		return penalty;
 	}
 	
@@ -111,7 +120,6 @@ public class Constraints {
 		int penalty = 0;
 		Instructor anInstructor = aLecture.getInstructor();
 		List<Lecture> coursesTaughtByInstructor = anInstructor.getInstructedLectures();
-		List<Session> sessionsbyInstructor;
 		for(int i = 0; i < coursesTaughtByInstructor.size(); i++){
 			Session session1;
 			session1 = coursesTaughtByInstructor.get(i).getSession();
@@ -132,8 +140,8 @@ public class Constraints {
 	 * @return int penalty of constraints
 	 */
 	public static int calcSoftThree(Session aSession, Lecture aLecture) {
-		// TODO Auto-generated method stub
 		int penalty = 0;
+		//DO THIS SOMETIME AT THE END
 		return penalty;
 	}
 	
