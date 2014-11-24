@@ -119,15 +119,17 @@ public class Constraints {
 	public static int calcSoftTwo(Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		Instructor anInstructor = aLecture.getInstructor();
-		List<Lecture> coursesTaughtByInstructor = anInstructor.getInstructedLectures();
-		for(int i = 0; i < coursesTaughtByInstructor.size(); i++){
-			Session session1;
-			session1 = coursesTaughtByInstructor.get(i).getSession();
-			if(session1==null){
-				continue;
-			}	
-			if(session1.getTime().equals(aSession.getTime()) && session1.getDay().equals(aSession.getDay()) && !session1.getRoom().equals(aSession.getRoom()))
-				penalty += 20;
+		if(anInstructor != null){
+			List<Lecture> coursesTaughtByInstructor = anInstructor.getInstructedLectures();
+			for(int i = 0; i < coursesTaughtByInstructor.size(); i++){
+				Session session1;
+				session1 = coursesTaughtByInstructor.get(i).getSession();
+				if(session1==null){
+					continue;
+				}	
+				if(session1.getTime().equals(aSession.getTime()) && session1.getDay().equals(aSession.getDay()) && !session1.getRoom().equals(aSession.getRoom()))
+					penalty += 20;
+			}
 		}
 		return penalty;
 	}

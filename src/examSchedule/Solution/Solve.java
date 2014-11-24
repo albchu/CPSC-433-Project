@@ -55,7 +55,7 @@ public class Solve {
 		//COMMENTING OUT TO TRY RECURSION FML
 		int backTrackIndex = 0;
 		boolean solutionsExist = true;
-			while(solutionsExist){
+		while(solutionsExist){
 			//Iterate through lectures until all are assigned
 			while(!unassignedLectures.isEmpty()){
 				Lecture currentLecture = unassignedLectures.get(0);
@@ -77,6 +77,10 @@ public class Solve {
 				//No more valid sessions to try, all have been tried
 				if(backTrackIndex >=validSessions.size()){
 					//A
+					if(assignmentMapCopy.removeAssignment() == null){
+						solutionsExist = false;
+						break;
+					}
 					Assignment removedAssignment = assignmentMapCopy.removeAssignment();
 					Lecture removedLecture = removedAssignment.getLecture();
 					unassignedLectures.add(0, removedLecture);
@@ -101,13 +105,15 @@ public class Solve {
 			
 			//return assignmentMapCopy.exportList();
 			
-			listOfSolutions.add(new SolutionPenaltyPair(assignmentMapCopy.exportList(), curSoftConstraint));;
+			listOfSolutions.add(new SolutionPenaltyPair(assignmentMapCopy.exportList(), assignmentMapCopy.getPenalties()));;
 			Assignment removedAssignment = assignmentMapCopy.removeAssignment();
 			Lecture removedLecture = removedAssignment.getLecture();
 			unassignedLectures.add(0, removedLecture);
 			//index = 0;
 			backTrackIndex = removedAssignment.getBacktrackIndex() + 1;
-			}	
+		}	
+		Collections.sort(listOfSolutions);
+		return(listOfSolutions.get(0).getSolution());
 	}		
 
 	/**
