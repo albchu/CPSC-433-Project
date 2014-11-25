@@ -42,16 +42,13 @@ public class CourseMap
 	 */
 	public Lecture getLecture(String courseName, String lectureName)
 	{
-		if(!courseMap.containsKey(courseName)) //throw new ElementDoesNotExistException("Could not find course: " + courseName + " in course map");
-			addCourse(courseName);
-//		System.out.println("Searching in course: " + courseName);
+		addLecture(courseName, lectureName);
 		for (Lecture lecture : courseMap.get(courseName))
 		{
 			if (lecture.getLectureName().equals(lectureName))
 				return lecture;
 		}
-		addLecture(courseName, lectureName);
-		return getLecture(courseName, lectureName);	//TODO: this is ugly, fucking fix this albert. dont let it stay recursion
+		throw new ElementDoesNotExistException("Could not get the proper lecture object corresponding to " + courseName + "-" + lectureName);
 	}
 	
 	public List<Lecture> getLectures(String courseName)
