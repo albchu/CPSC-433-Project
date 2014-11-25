@@ -3,8 +3,7 @@ package examSchedule.Solution;
 import java.util.ArrayList;
 import java.util.List;
 
-import examSchedule.assignment.Assignment;
-import examSchedule.assignment.AssignmentMap;
+
 import examSchedule.assignment.Session;
 import examSchedule.assignment.Student;
 import examSchedule.course.Instructor;
@@ -79,7 +78,7 @@ public class Constraints {
 		int totalSoft = 0;
 		totalSoft += calcSoftOne(aSession, aLecture);
 		totalSoft += calcSoftTwo(aSession, aLecture);
-		totalSoft += calcSoftThree(aSession, aLecture);
+		//totalSoft += calcSoftThree(aSession, aLecture);
 		totalSoft += calcSoftFour(aSession, aLecture);
 		totalSoft += calcSoftFive(aSession, aLecture);
 		totalSoft += calcSoftSix(aSession, aLecture);
@@ -141,9 +140,13 @@ public class Constraints {
 	 * @param aLecture
 	 * @return int penalty of constraints
 	 */
-	public static int calcSoftThree(Session aSession, Lecture aLecture) {
+	public static int calcSoftThree(List<Lecture> listOfLecs, Session aSession, Lecture aLecture) {
 		int penalty = 0;
-		//DO THIS SOMETIME AT THE END
+		for(Lecture lecture : listOfLecs){
+			if(!(lecture.getSession().getDay().equals(aSession.getDay())&&lecture.getSession().getTime().equals(aSession.getTime()))){
+				penalty += 50;
+			}
+		}
 		return penalty;
 	}
 	
