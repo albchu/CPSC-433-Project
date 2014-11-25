@@ -212,9 +212,17 @@ public class Environment
 				// examLength
 				output.add(predicateForm("examlength", course, lecture.getLectureName(), Integer.toString(lecture.getExamLength())));
 				
-				// instructs
-				output.add(predicateForm("instructs", lecture.getInstructor().getInstructorID(), course, lecture.getLectureName()));
 			}
+		}
+		
+		for(Instructor instructor : instructorMap.getInstructors())
+		{
+			if (instructor.getInstructorID() == null)
+				System.out.println("hasdkfjhas");
+			for(Lecture lecture : instructor.getInstructedLectures())
+				// instructs
+				output.add(predicateForm("instructs", instructor.getInstructorID(), lecture.getCourseName(), lecture.getLectureName()));
+			
 		}
 		
 		for (Instructor instructor : instructorMap.getInstructors())

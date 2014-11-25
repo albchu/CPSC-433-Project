@@ -70,7 +70,9 @@ public class CourseMap
 	
 	public void updateInstructor(String courseName, String lectureName, Instructor instructor)
 	{
-		getLecture(courseName, lectureName).setInstructor(instructor);
+		Lecture lecture = getLecture(courseName, lectureName);
+		lecture.setInstructor(instructor);
+		instructor.addInstructedLecture(lecture);
 	}
 
 	public HashMap<String, List<Lecture>> getCourseMap()
