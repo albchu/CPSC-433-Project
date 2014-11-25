@@ -62,6 +62,50 @@ public class ConstraintTests {
 	}
 	
 	@Test
+	public void SoftCon4failtest() {
+		Student student = new Student("Bob");
+		lecture1.setExamLength(3);
+		Time time = new Time.Builder("9:00").build();
+		session1.setLength(3);
+		session1.setDay("M");
+		lecture1.setSession(session1);
+		lecture1.enrollStudent(student);
+		student.enroll(lecture1);
+		
+		Lecture lecture2 = new Lecture("CPSC413", "L01");
+		Session session2 = new Session("S2");
+		Time time2 = new Time.Builder("3:00").build();
+		session2.setLength(3);
+		session2.setDay("M");
+		lecture2.enrollStudent(student);
+		
+		int violation = Constraints.calcSoftFour(session2, lecture2);
+		Assert.assertEquals("Soft constraint violation is correct", 50, violation);
+	}
+	
+	@Test
+	public void SoftCon4passtest() {
+		Student student = new Student("Bob");
+		lecture1.setExamLength(3);
+		Time time = new Time.Builder("9:00").build();
+		session1.setLength(3);
+		session1.setDay("M");
+		lecture1.setSession(session1);
+		lecture1.enrollStudent(student);
+		student.enroll(lecture1);
+		
+		Lecture lecture2 = new Lecture("CPSC413", "L01");
+		Session session2 = new Session("S2");
+		Time time2 = new Time.Builder("3:00").build();
+		session2.setLength(2);
+		session2.setDay("M");
+		lecture2.enrollStudent(student);
+		
+		int violation = Constraints.calcSoftFour(session2, lecture2);
+		Assert.assertEquals("Soft constraint violation is correct", 0, violation); 
+	}
+	
+	@Test
 	public void SoftCon7failtest() {
 		session1.setLength(3);
 		lecture1.setExamLength(2);	
