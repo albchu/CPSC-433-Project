@@ -127,6 +127,19 @@ public class Environment
 		else throw new PredicateNotRecognizedException("Did not anticipate argument input for '" + predicateName + "' " + predicateList);
 		break;
 			
+		case ("room"):
+			//argsLengthCheck(predicateList, 1);
+			roomID = predicateList.get(0);
+		roomMap.addRoom(roomID);
+		break;
+		
+		case ("capacity"):
+			//argsLengthCheck(predicateList, 2);
+			roomID = predicateList.get(0);
+		capacity = Integer.parseInt(predicateList.get(1));
+		roomMap.updateRoomInfo(roomID, capacity);
+		break;
+		
 		case ("examlength"):
 			//argsLengthCheck(predicateList, 3);
 			courseName = predicateList.get(0);
@@ -160,13 +173,6 @@ public class Environment
 			sessionMap.updateSessionInfo(sessionID, dayID, timeStart, length);
 			break;
 		
-		case ("capacity"):
-			//argsLengthCheck(predicateList, 2);
-			roomID = predicateList.get(0);
-			capacity = Integer.parseInt(predicateList.get(1));
-			roomMap.updateRoomInfo(roomID, capacity);
-			break;
-		
 		case ("instructs"):
 			//argsLengthCheck(predicateList, 3);
 			instructorID = predicateList.get(0);
@@ -182,12 +188,6 @@ public class Environment
 			sessionMap.updateSessionInfo(sessionID, roomMap.getRoom(roomID));
 			break;
 		
-		case ("room"):
-			//argsLengthCheck(predicateList, 1);
-			roomID = predicateList.get(0);
-			roomMap.addRoom(roomID);
-			break;
-			
 			
 		case ("assign"):
 			//argsLengthCheck(predicateList, 3);
