@@ -217,8 +217,6 @@ public class Environment
 		
 		for(Instructor instructor : instructorMap.getInstructors())
 		{
-			if (instructor.getInstructorID() == null)
-				System.out.println("hasdkfjhas");
 			for(Lecture lecture : instructor.getInstructedLectures())
 				// instructs
 				output.add(predicateForm("instructs", instructor.getInstructorID(), lecture.getCourseName(), lecture.getLectureName()));

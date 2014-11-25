@@ -32,16 +32,20 @@ public class AssignmentMap
 	}
 	
 	/**
-	 * Pops off the last assignment
+	 * Pops off the last assignment, if no assignments to remove, will return null
 	 * @return 
 	 */
 	public Assignment removeAssignment()
 	{
-		Assignment assignment = assignments.remove(assignments.size()-1);
-		Session session =  assignment.getSession();
-		Lecture lecture = assignment.getLecture();
-		lecture.setSession(null);
-		session.removeLecture(lecture);
+		Assignment assignment = null;
+		if(assignments.size() != 0)
+		{
+			assignment = assignments.remove(assignments.size()-1);
+			Session session =  assignment.getSession();
+			Lecture lecture = assignment.getLecture();
+			lecture.setSession(null);
+			session.removeLecture(lecture);
+		}
 		return assignment;
 	}
 	
