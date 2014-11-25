@@ -30,7 +30,7 @@ public class AssignmentMap
 		session.addLecture(lecture);
 		assignments.add(assignment);
 	}
-
+	
 	/**
 	 * Pops off the last assignment
 	 * @return 

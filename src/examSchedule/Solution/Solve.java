@@ -55,7 +55,7 @@ public class Solve {
 		//COMMENTING OUT TO TRY RECURSION FML
 		int backTrackIndex = 0;
 		boolean solutionsExist = true;
-			while(solutionsExist){
+		while(solutionsExist){
 			//Iterate through lectures until all are assigned
 			while(!unassignedLectures.isEmpty()){
 				Lecture currentLecture = unassignedLectures.get(0);
@@ -77,6 +77,10 @@ public class Solve {
 				//No more valid sessions to try, all have been tried
 				if(backTrackIndex >=validSessions.size()){
 					//A
+					if(assignmentMapCopy.removeAssignment() == null){
+						solutionsExist = false;
+						break;
+					}
 					Assignment removedAssignment = assignmentMapCopy.removeAssignment();
 					Lecture removedLecture = removedAssignment.getLecture();
 					unassignedLectures.add(0, removedLecture);
@@ -86,6 +90,7 @@ public class Solve {
 					continue;
 				}
 				//Calculate Soft Constraints
+				
 				if(backTrackIndex==0 || sortedSessions.size()==0){
 					sortedSessions = getBestSessions(validSessions, currentLecture);
 				}
@@ -101,13 +106,21 @@ public class Solve {
 			
 			//return assignmentMapCopy.exportList();
 			
-			listOfSolutions.add(new SolutionPenaltyPair(assignmentMapCopy.exportList(), curSoftConstraint));;
+			listOfSolutions.add(new SolutionPenaltyPair(assignmentMapCopy.exportList(), assignmentMapCopy.getPenalties()));;
 			Assignment removedAssignment = assignmentMapCopy.removeAssignment();
 			Lecture removedLecture = removedAssignment.getLecture();
 			unassignedLectures.add(0, removedLecture);
 			//index = 0;
 			backTrackIndex = removedAssignment.getBacktrackIndex() + 1;
-			}	
+		}	
+		Collections.sort(listOfSolutions);
+		System.out.println("Solution:");
+		List<String> finalSolution = listOfSolutions.get(0).getSolution();
+		for(String solutionLine : finalSolution){
+			System.out.println(solutionLine);
+		}
+		System.out.println("Penalty For Solution: -"+listOfSolutions.get(0).getPenalty());
+		return(listOfSolutions.get(0).getSolution());
 	}		
 
 	/**
@@ -135,10 +148,12 @@ public class Solve {
 	 */
 	private List<SessionWorthPair> getBestSessions(List<Session> validSessions, Lecture currentLecture){
 		List<SessionWorthPair> sessionWorthPairList = new ArrayList<SessionWorthPair>();
+		List<Lecture> listOfCourseLectures = courseMapCopy.getLectures(currentLecture.getCourseName());
 		for(Session validSession : validSessions){
 			//Calculate Soft constraints
 			int curSoftConstraint = 0;
 			curSoftConstraint = Constraints.calcAllSoftCon(validSession, currentLecture);
+			curSoftConstraint += Constraints.calcSoftThree(listOfCourseLectures, validSession, currentLecture);
 			sessionWorthPairList.add(new SessionWorthPair(validSession, curSoftConstraint));
 		}
 		//Sort the list in descending order of penalty
