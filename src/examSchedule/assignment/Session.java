@@ -90,8 +90,8 @@ public class Session
 	public void setRoom(Room room)
 	{
 		this.room = room;
+		System.out.println("adding new room");
 		remainingCapacity = room.getCapacity();
-		System.out.println("setting Remaining Cap to:" + room.getCapacity());
 	}
 
 	public int getRemainingCapacity()

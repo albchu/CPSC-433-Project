@@ -7,7 +7,7 @@ import examSchedule.assignment.Student;
 import examSchedule.course.Instructor;
 import examSchedule.course.Lecture;
 import examSchedule.date.Time;
-import examSchedule.Solution.Constraints;
+import examSchedule.solution.Constraints;
 
 import org.junit.*;
 

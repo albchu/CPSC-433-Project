@@ -1,4 +1,4 @@
-package examSchedule.Solution;
+package examSchedule.solution;
 import java.util.*;
 
 import examSchedule.assignment.Assignment;
@@ -47,10 +47,12 @@ public class Solve {
 		listOfSolutions = new ArrayList<SolutionPenaltyPair>();
 		
 		//REFACTORABLE, SHOULDN'T NEED TO ITERATE THROUGH THE LIST
+		System.out.println("Total Number of lectures" + allLectures.size());
 		for(Lecture currentLecture : allLectures){
 			if(currentLecture.getSession()== null)
 				unassignedLectures.add(currentLecture);
 		}
+		
 		System.out.println("Assigned Lectures: " + unassignedLectures.size());
 		//COMMENTING OUT TO TRY RECURSION FML
 		int backTrackIndex = 0;
@@ -61,13 +63,13 @@ public class Solve {
 				Lecture currentLecture = unassignedLectures.get(0);
 				System.out.println("Attempting to assign lecture:" + currentLecture.getCourseName()+", "+currentLecture.getLectureName());
 
-				//calculate hard constraints and save valids
+				//calculate hard constraints and save valid sessions
 				validSessions = getValidSessions(currentLecture, allSessions);
 				
 				//If no valid sessions we need to backtrack
 				if(validSessions.isEmpty()){
 					//B
-					System.out.println("No valid sessions");
+				//	System.out.println("No valid sessions");
 					Assignment removedAssignment = assignmentMapCopy.removeAssignment();
 					Lecture removedLecture = removedAssignment.getLecture();
 					unassignedLectures.add(0, removedLecture);
@@ -79,19 +81,25 @@ public class Solve {
 				//No more valid sessions to try, all have been tried
 				if(backTrackIndex >= validSessions.size()){
 					//A
-					System.out.println("Backtrack up a level");
-					if(assignmentMapCopy.removeAssignment() == null){
+				//	System.out.println("Backtrack up a level");
+					System.out.println("backtrackIndex " + backTrackIndex);
+					
+					Assignment removedAssignment = assignmentMapCopy.removeAssignment();
+					if(removedAssignment == null){
+						System.out.println("backtrackIndex " + backTrackIndex);
 						solutionsExist = false;
 						break;
 					}
-					Assignment removedAssignment = assignmentMapCopy.removeAssignment();
+					
 					Lecture removedLecture = removedAssignment.getLecture();
 					unassignedLectures.add(0, removedLecture);
 					//index = 0;
 					backTrackIndex = removedAssignment.getBacktrackIndex() + 1;
+					
 					sortedSessions.clear();
 					continue;
 				}
+				
 				//Calculate Soft Constraints
 				
 				if(backTrackIndex==0 || sortedSessions.size()==0){
@@ -111,19 +119,26 @@ public class Solve {
 			
 			listOfSolutions.add(new SolutionPenaltyPair(assignmentMapCopy.exportList(), assignmentMapCopy.getPenalties()));;
 			Assignment removedAssignment = assignmentMapCopy.removeAssignment();
+			if(removedAssignment == null){
+				solutionsExist = false;
+				break;
+			}
 			Lecture removedLecture = removedAssignment.getLecture();
 			unassignedLectures.add(0, removedLecture);
-			//index = 0;
 			backTrackIndex = removedAssignment.getBacktrackIndex() + 1;
-		}	
+		}
 		Collections.sort(listOfSolutions);
 		System.out.println("Solution:");
-		List<String> finalSolution = listOfSolutions.get(0).getSolution();
+		int solutionCount = 0;
+		System.out.println("Number of Solutions: " + listOfSolutions.size());
+		List<String> finalSolution = listOfSolutions.get(listOfSolutions.size()-1).getSolution();
 		for(String solutionLine : finalSolution){
+			solutionCount++;
 			System.out.println(solutionLine);
 		}
-		System.out.println("Penalty For Solution: -"+listOfSolutions.get(0).getPenalty());
-		return(listOfSolutions.get(0).getSolution());
+		System.out.println("Assigned: " + solutionCount + "Lectures");
+		System.out.println("Penalty For Solution: -"+listOfSolutions.get(listOfSolutions.size()-1).getPenalty());
+		return(listOfSolutions.get(listOfSolutions.size()-1).getSolution());
 	}		
 
 	/**

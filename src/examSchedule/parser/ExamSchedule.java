@@ -5,7 +5,7 @@ import static examSchedule.common.Utilities.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import examSchedule.Solution.Solve;
+import examSchedule.solution.Solve;
 
 public class ExamSchedule
 {

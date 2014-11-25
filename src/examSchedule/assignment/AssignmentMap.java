@@ -43,7 +43,6 @@ public class AssignmentMap
 			assignment = assignments.remove(assignments.size()-1);
 			Session session =  assignment.getSession();
 			Lecture lecture = assignment.getLecture();
-			session.incrementRemainingCapacity(lecture.getClassSize());
 			lecture.setSession(null);
 			session.removeLecture(lecture);
 		}
@@ -84,10 +83,10 @@ public class AssignmentMap
 		for(Assignment assignment : assignments){
 			// assign
 			penalty += assignment.getPenalty();
-			System.out.println(predicateForm("assign", assignment.getLecture().getCourseName(), assignment.getLecture().getLectureName(), assignment.getSession().getSessionID()));
+			//System.out.println(predicateForm("assign", assignment.getLecture().getCourseName(), assignment.getLecture().getLectureName(), assignment.getSession().getSessionID()));
 			output.add(predicateForm("assign", assignment.getLecture().getCourseName(), assignment.getLecture().getLectureName(), assignment.getSession().getSessionID()));
 		}
-		System.out.println("Penalty: " + penalty);
+		//System.out.println("Penalty: " + penalty);
 		return output;
 	}
 }

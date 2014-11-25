@@ -1,13 +1,13 @@
-package examSchedule.Solution;
+package examSchedule.solution;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 import examSchedule.assignment.Session;
 import examSchedule.assignment.Student;
 import examSchedule.course.Instructor;
 import examSchedule.course.Lecture;
+import examSchedule.date.Time;
 
 public class Constraints {
 
@@ -82,7 +82,7 @@ public class Constraints {
 	 */
 	public static int calcAllSoftCon(Session aSession, Lecture aLecture){
 		int totalSoft = 0;
-		System.out.println("Checking Soft Constaints");
+		//System.out.println("Checking Soft Constaints");
 		totalSoft += calcSoftOne(aSession, aLecture);
 		totalSoft += calcSoftTwo(aSession, aLecture);
 		//totalSoft += calcSoftThree(aSession, aLecture);
@@ -106,10 +106,20 @@ public class Constraints {
 		for(Student student : enrolledStudents){
 			List<Lecture> enrolledLectures = student.getEnrolledLectures();
 			for(Lecture lecture : enrolledLectures){
-				if(lecture.getSession().getDay().equals(aSession.getDay()) && lecture.getSession().getTime().equals(aSession.getTime())){
-					//NEED TO EVENTUALLY CHECK OVERLAP NOT NECESSARILY SAME START
-					penalty+=100;
-				}
+				if(!(lecture.getSession() == null)){
+					if(lecture.getSession().getDay().equals(aSession.getDay())){
+						Time lecSessTime = lecture.getSession().getTime();
+						Time inputSessTime = aSession.getTime();
+						if(lecSessTime.equals(inputSessTime)){
+							//NEED TO EVENTUALLY CHECK OVERLAP NOT NECESSARILY SAME START
+							penalty+=100;
+						}
+						else if(lecSessTime.getDifference(inputSessTime) < lecture.getSession().getLength() || lecSessTime.getDifference(inputSessTime) < aSession.getLength()){
+							penalty+=100;
+						}
+					}
+	
+				}	
 			}
 		}
 		return penalty;
@@ -171,7 +181,10 @@ public class Constraints {
 			List<Lecture> studentsLectures = student.getEnrolledLectures();
 			List<Session> studentSessions = new ArrayList<Session>();
 			for(Lecture lecture: studentsLectures){
-				studentSessions.add(lecture.getSession());
+				Session session = lecture.getSession();
+				if(session != null){
+					studentSessions.add(lecture.getSession());
+				}
 			}
 			int totalTimeOnDay = 0;
 			for(Session session: studentSessions){
@@ -201,14 +214,16 @@ public class Constraints {
 			List<Lecture> studentsLectures = student.getEnrolledLectures();
 			List<Session> studentSessions = new ArrayList<Session>();
 			for(Lecture lecture: studentsLectures){
-				studentSessions.add(lecture.getSession());
+				Session session = lecture.getSession();
+				if(session != null){
+					studentSessions.add(lecture.getSession());
+				}
 			}
-			int totalTimeOnDay = 0;
 			for(Session session: studentSessions){
 				if(session.getDay().equals(aSession.getDay())){
-				//	if(session.getTime().getHour()+session.getLength() == aSession.getTime()){
-						//STILL NEED TO DO
-					//}
+					if(session.getTime().getDifference(aSession.getTime())==aSession.getLength()||session.getTime().getDifference(aSession.getTime())==session.getLength()){
+						penalty+=50;
+					}
 				}
 			}
 
