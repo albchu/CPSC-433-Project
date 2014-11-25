@@ -5,7 +5,7 @@ import static examSchedule.common.Utilities.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-//import examSchedule.Solution.Solve;
+import examSchedule.Solution.Solve;
 
 public class ExamSchedule
 {
@@ -27,13 +27,13 @@ public class ExamSchedule
 		System.out.println("Hi");
 		Environment env = new Environment();
 		PredicateParser.importList(env, inputList);
-		//Solve sol = new Solve(env);
-		//List<String> outputList = sol.generateSolution();
+		Solve sol = new Solve(env);
+		List<String> outputList = sol.generateSolution();
 		
-		List<String> outputList = env.exportList();
+		//List<String> outputList = env.exportList();
 		writeToFile(outputList, filename + ".out");
 		
 		long endTime = System.nanoTime();
-		System.out.println("Took "+ TimeUnit.MILLISECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS) + " ms"); 
+		System.out.println("Took " + TimeUnit.MILLISECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS) + " ms"); 
 	}
 }

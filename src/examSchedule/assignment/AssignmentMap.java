@@ -43,6 +43,7 @@ public class AssignmentMap
 			assignment = assignments.remove(assignments.size()-1);
 			Session session =  assignment.getSession();
 			Lecture lecture = assignment.getLecture();
+			session.incrementRemainingCapacity(lecture.getClassSize());
 			lecture.setSession(null);
 			session.removeLecture(lecture);
 		}

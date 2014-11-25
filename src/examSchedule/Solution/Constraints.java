@@ -19,6 +19,8 @@ public class Constraints {
 	 * @return boolean true if all hard constraints are not violated
 	 */
 	public static boolean calcAllHardCons(Session session, Lecture lecture) {
+		System.out.println("Checking Hard Constaints");
+
 		if (capacityHardCon(session, lecture) && timeLengthHardCon(session, lecture))
 			return true;
 		else {
@@ -33,6 +35,8 @@ public class Constraints {
 	 * @return boolean true if hard constraint not violated
 	 */
 	private static boolean capacityHardCon(Session session, Lecture lecture) {
+		System.out.println("Remaining cap: " + session.getRemainingCapacity());
+		System.out.println("Lecture Size: " + lecture.getClassSize());
 		if ((session.getRemainingCapacity()-lecture.getClassSize()) < 0) 
 			return false;
 		else {
@@ -47,6 +51,8 @@ public class Constraints {
 	 * @return boolean true if hard constraint not violated
 	 */
 	private static boolean timeLengthHardCon(Session session, Lecture lecture) {
+		System.out.println("Exam Length: " + lecture.getExamLength());
+		System.out.println("Session Length: " + session.getLength());
 		if (lecture.getExamLength() > session.getLength()) 
 			return false;
 		else {
@@ -76,6 +82,7 @@ public class Constraints {
 	 */
 	public static int calcAllSoftCon(Session aSession, Lecture aLecture){
 		int totalSoft = 0;
+		System.out.println("Checking Soft Constaints");
 		totalSoft += calcSoftOne(aSession, aLecture);
 		totalSoft += calcSoftTwo(aSession, aLecture);
 		//totalSoft += calcSoftThree(aSession, aLecture);
@@ -126,7 +133,7 @@ public class Constraints {
 				if(session1==null){
 					continue;
 				}	
-				if(session1.getTime().equals(aSession.getTime()) && session1.getDay().equals(aSession.getDay()) && !session1.getRoom().equals(aSession.getRoom()))
+				if((session1.getTime().equals(aSession.getTime()) && session1.getDay().equals(aSession.getDay())) && !(session1.getRoom().equals(aSession.getRoom())))
 					penalty += 20;
 			}
 		}
@@ -143,7 +150,7 @@ public class Constraints {
 	public static int calcSoftThree(List<Lecture> listOfLecs, Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		for(Lecture lecture : listOfLecs){
-			if(!(lecture.getSession().getDay().equals(aSession.getDay())&&lecture.getSession().getTime().equals(aSession.getTime()))){
+			if(lecture.getSession() !=null && !(lecture.getSession().getDay().equals(aSession.getDay())&&lecture.getSession().getTime().equals(aSession.getTime()))){
 				penalty += 50;
 			}
 		}

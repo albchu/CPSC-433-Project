@@ -51,7 +51,7 @@ public class Solve {
 			if(currentLecture.getSession()== null)
 				unassignedLectures.add(currentLecture);
 		}
-		
+		System.out.println("Assigned Lectures: " + unassignedLectures.size());
 		//COMMENTING OUT TO TRY RECURSION FML
 		int backTrackIndex = 0;
 		boolean solutionsExist = true;
@@ -59,13 +59,15 @@ public class Solve {
 			//Iterate through lectures until all are assigned
 			while(!unassignedLectures.isEmpty()){
 				Lecture currentLecture = unassignedLectures.get(0);
-				
+				System.out.println("Attempting to assign lecture:" + currentLecture.getCourseName()+", "+currentLecture.getLectureName());
+
 				//calculate hard constraints and save valids
 				validSessions = getValidSessions(currentLecture, allSessions);
 				
 				//If no valid sessions we need to backtrack
 				if(validSessions.isEmpty()){
 					//B
+					System.out.println("No valid sessions");
 					Assignment removedAssignment = assignmentMapCopy.removeAssignment();
 					Lecture removedLecture = removedAssignment.getLecture();
 					unassignedLectures.add(0, removedLecture);
@@ -75,8 +77,9 @@ public class Solve {
 				}
 				//Backtrack up one more level
 				//No more valid sessions to try, all have been tried
-				if(backTrackIndex >=validSessions.size()){
+				if(backTrackIndex >= validSessions.size()){
 					//A
+					System.out.println("Backtrack up a level");
 					if(assignmentMapCopy.removeAssignment() == null){
 						solutionsExist = false;
 						break;
