@@ -19,7 +19,7 @@ public class Constraints {
 	 * @return boolean true if all hard constraints are not violated
 	 */
 	public static boolean calcAllHardCons(Session session, Lecture lecture) {
-		System.out.println("Checking Hard Constaints");
+		//System.out.println("Checking Hard Constaints");
 
 		if (capacityHardCon(session, lecture) && timeLengthHardCon(session, lecture))
 			return true;
@@ -35,8 +35,8 @@ public class Constraints {
 	 * @return boolean true if hard constraint not violated
 	 */
 	private static boolean capacityHardCon(Session session, Lecture lecture) {
-		System.out.println("Remaining cap: " + session.getRemainingCapacity());
-		System.out.println("Lecture Size: " + lecture.getClassSize());
+	//	System.out.println("Remaining cap: " + session.getRemainingCapacity());
+	//	System.out.println("Lecture Size: " + lecture.getClassSize());
 		if ((session.getRemainingCapacity()-lecture.getClassSize()) < 0) 
 			return false;
 		else {
@@ -51,8 +51,8 @@ public class Constraints {
 	 * @return boolean true if hard constraint not violated
 	 */
 	private static boolean timeLengthHardCon(Session session, Lecture lecture) {
-		System.out.println("Exam Length: " + lecture.getExamLength());
-		System.out.println("Session Length: " + session.getLength());
+	//	System.out.println("Exam Length: " + lecture.getExamLength());
+		//System.out.println("Session Length: " + session.getLength());
 		if (lecture.getExamLength() > session.getLength()) 
 			return false;
 		else {
@@ -226,7 +226,6 @@ public class Constraints {
 					}
 				}
 			}
-
 		}
 		return penalty;
 	}
