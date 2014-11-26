@@ -66,7 +66,8 @@ public class Solve {
 		int backTrackIndex = 0;
 		int solutions = 0;
 		boolean solutionsExist = true;
-		while(solutionsExist&&solutions < 1 ){
+		while(solutionsExist&&solutions < 1){
+			int noValidCount = 0;
 			//Iterate through lectures until all are assigned
 			while(!unassignedLectures.isEmpty()){
 				Lecture currentLecture = unassignedLectures.get(0);
@@ -78,6 +79,19 @@ public class Solve {
 				//If no valid sessions we need to backtrack
 				if(validSessions.isEmpty()){
 					//B
+					noValidCount++;
+					if(noValidCount > 1000){
+						Random randomNum = new Random();
+						for(int i = 0; i < randomNum.nextInt(allLectures.size()-unassignedLectures.size()); i++){
+							backTrackIndex = backtrack(assignmentMapCopy, unassignedLectures);
+							if(backTrackIndex == -1){
+								solutionsExist = false;
+								unassignedLectures.clear();
+							}
+						}
+						sortedSessions.clear();
+						continue;
+					}
 					System.out.println("No valid sessions");
 					backTrackIndex = backtrack(assignmentMapCopy, unassignedLectures);
 					//Assignment removedAssignment = assignmentMapCopy.removeAssignment();
@@ -121,7 +135,7 @@ public class Solve {
 				solutions++;
 				listOfSolutions.add(new SolutionPenaltyPair(assignmentMapCopy.exportList(), assignmentMapCopy.getPenalties()));;
 				Random randomNum = new Random();
-				for(int i = 0; i < randomNum.nextInt(116); i++){
+				for(int i = 0; i < randomNum.nextInt(allLectures.size()); i++){
 					backTrackIndex = backtrack(assignmentMapCopy, unassignedLectures);
 					if(backTrackIndex == -1){
 						solutionsExist = false;
