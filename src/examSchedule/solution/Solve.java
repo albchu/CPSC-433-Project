@@ -58,11 +58,11 @@ public class Solve {
 		int backTrackIndex = 0;
 		int solutions = 0;
 		boolean solutionsExist = true;
-		while(solutionsExist&&solutions < 20000){
+		while(solutionsExist&&solutions < 10000 ){
 			//Iterate through lectures until all are assigned
 			while(!unassignedLectures.isEmpty()){
 				Lecture currentLecture = unassignedLectures.get(0);
-			//System.out.println("Attempting to assign lecture:" + currentLecture.getCourseName()+", "+currentLecture.getLectureName());
+				//System.out.println("Attempting to assign lecture:" + currentLecture.getCourseName()+", "+currentLecture.getLectureName());
 
 				//calculate hard constraints and save valid sessions
 				validSessions = getValidSessions(currentLecture, allSessions);
@@ -82,8 +82,8 @@ public class Solve {
 				//No more valid sessions to try, all have been tried
 				else if(backTrackIndex >= validSessions.size()){
 					//A
-				//	System.out.println("Backtrack up a level");
-				//	System.out.println("backtrackIndex " + backTrackIndex);
+					//System.out.println("Backtrack up a level");
+					//System.out.println("backtrackIndex " + backTrackIndex);
 					backTrackIndex = backtrack(assignmentMapCopy, unassignedLectures);
 
 					if(backTrackIndex == -1){
@@ -132,8 +132,8 @@ public class Solve {
 				}*/
 				sortedSessions.clear();
 			}
-			
 		}
+		
 		Collections.sort(listOfSolutions);
 		System.out.println("Solution:");
 		int solutionCount = 0;

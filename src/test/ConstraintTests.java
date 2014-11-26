@@ -27,16 +27,18 @@ public class ConstraintTests {
 	@Test
 	public void SoftCon1failtest() {
 		Student student = new Student("Bob");
-		lecture1.enrollStudent(student);
+		//lecture1.enrollStudent(student);
 		Time time = new Time.Builder("6:00").build();
 		session1.setTime(time);
 		session1.setDay("M");
 		lecture1.setSession(session1);
 		student.enroll(lecture1);
 		
-		lecture2.enrollStudent(student);
+		//lecture2.enrollStudent(student);
 		session2.setTime(time);
 		session2.setDay("M");
+		student.enroll(lecture2);
+
 		
 		int violation = Constraints.calcSoftOne(session2, lecture2);
 		Assert.assertEquals("Soft constraint violation is incorrect", 100, violation);
@@ -45,17 +47,19 @@ public class ConstraintTests {
 	@Test
 	public void SoftCon1passtest() {
 		Student student = new Student("Bob");
-		lecture1.enrollStudent(student);
+		//lecture1.enrollStudent(student);
 		Time time = new Time.Builder("9:00").build();
 		session1.setTime(time);
 		session1.setDay("M");
 		lecture1.setSession(session1);
 		student.enroll(lecture1);
 		
-		lecture2.enrollStudent(student);
+		//lecture2.enrollStudent(student);
 		Time time2 = new Time.Builder("3:00").build();
 		session2.setTime(time2);
 		session2.setDay("M");
+		student.enroll(lecture2);
+
 		
 		int violation = Constraints.calcSoftOne(session2, lecture2);
 		Assert.assertEquals("Soft constraint violation is incorrect", 0, violation);
@@ -155,12 +159,14 @@ public class ConstraintTests {
 		session1.setLength(3);
 		session1.setDay("M");
 		lecture1.setSession(session1);
-		lecture1.enrollStudent(student);
+		//lecture1.enrollStudent(student);
 		student.enroll(lecture1);
 		
 		session2.setLength(3);
 		session2.setDay("M");
-		lecture2.enrollStudent(student);
+		//lecture2.enrollStudent(student);
+		student.enroll(lecture2);
+
 		
 		int violation = Constraints.calcSoftFour(session2, lecture2);
 		Assert.assertEquals("Soft constraint violation is incorrect", 50, violation);
@@ -173,14 +179,15 @@ public class ConstraintTests {
 		session1.setLength(3);
 		session1.setDay("M");
 		lecture1.setSession(session1);
-		lecture1.enrollStudent(student);
+		//lecture1.enrollStudent(student);
 		student.enroll(lecture1);
 		
 		
 		session2.setLength(2);
 		session2.setDay("M");
-		lecture2.enrollStudent(student);
-		
+		//lecture2.enrollStudent(student);
+		student.enroll(lecture2);
+
 		int violation = Constraints.calcSoftFour(session2, lecture2);
 		Assert.assertEquals("Soft constraint violation is incorrect", 0, violation); 
 	}
@@ -193,7 +200,7 @@ public class ConstraintTests {
 		lecture1.setExamLength(3);
 		session1.setLength(3);
 		session1.setDay("M");
-		lecture1.enrollStudent(student);
+		//lecture1.enrollStudent(student);
 		lecture1.setSession(session1);
 		student.enroll(lecture1);
 		
@@ -203,7 +210,7 @@ public class ConstraintTests {
 		lecture2.setExamLength(3);
 		session2.setLength(3);
 		session2.setDay("M");
-		lecture2.enrollStudent(student);
+		//lecture2.enrollStudent(student);
 		student.enroll(lecture2);
 		
 		int violation = Constraints.calcSoftFive(session2, lecture2);
@@ -218,7 +225,7 @@ public class ConstraintTests {
 		lecture1.setExamLength(3);
 		session1.setLength(3);
 		session1.setDay("M");
-		lecture1.enrollStudent(student);
+		//lecture1.enrollStudent(student);
 		lecture1.setSession(session1);
 		student.enroll(lecture1);
 		
@@ -228,7 +235,7 @@ public class ConstraintTests {
 		lecture2.setExamLength(3);
 		session2.setLength(3);
 		session2.setDay("M");
-		lecture2.enrollStudent(student);
+		//lecture2.enrollStudent(student);
 		student.enroll(lecture2);
 		
 		int violation = Constraints.calcSoftFive(session2, lecture2);

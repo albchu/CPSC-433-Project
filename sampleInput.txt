@@ -4655,4 +4655,4 @@ at(W8-3-EDU272,W,8,3)
 day(M)
 day(T)
 day(W)
-assign(ASTR538, L01, W15-3-EDU272)
+

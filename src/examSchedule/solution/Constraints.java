@@ -106,17 +106,31 @@ public class Constraints {
 		for(Student student : enrolledStudents){
 			List<Lecture> enrolledLectures = student.getEnrolledLectures();
 			for(Lecture lecture : enrolledLectures){
-				if(!(lecture.getSession() == null)){
+				Session session = lecture.getSession();
+				if(!(session == null)){
 					if(lecture.getSession().getDay().equals(aSession.getDay())){
-						Time lecSessTime = lecture.getSession().getTime();
-						Time inputSessTime = aSession.getTime();
-						if(lecSessTime.equals(inputSessTime)){
-							//NEED TO EVENTUALLY CHECK OVERLAP NOT NECESSARILY SAME START
-							penalty+=100;
+					//	Time lecSessTime = lecture.getSession().getTime();
+					//	Time inputSessTime = aSession.getTime();
+						int timeDiff = session.getTime().getDifference(aSession.getTime());
+						if(timeDiff > 0){
+							if(timeDiff <= aSession.getLength()){
+								penalty+=100;
+							}
 						}
-						else if(lecSessTime.getDifference(inputSessTime) < lecture.getSession().getLength() || lecSessTime.getDifference(inputSessTime) < aSession.getLength()){
-							penalty+=100;
+						else{
+							if(Math.abs(timeDiff)<=session.getLength()){
+								penalty+=100;
+							}
 						}
+						
+						//if(lecSessTime.equals(inputSessTime)){
+						//	//NEED TO EVENTUALLY CHECK OVERLAP NOT NECESSARILY SAME START
+						//	penalty+=100;
+						//}
+						
+						//else if(lecSessTime.getDifference(inputSessTime) < lecture.getSession().getLength() || lecSessTime.getDifference(inputSessTime) < aSession.getLength()){
+						//	penalty+=100;
+						//}
 					}
 	
 				}	
@@ -215,14 +229,22 @@ public class Constraints {
 			List<Session> studentSessions = new ArrayList<Session>();
 			for(Lecture lecture: studentsLectures){
 				Session session = lecture.getSession();
-				if(session != null){
+				if(session != null&&!(lecture.equals(aLecture))){
 					studentSessions.add(lecture.getSession());
 				}
 			}
 			for(Session session: studentSessions){
 				if(session.getDay().equals(aSession.getDay())){
-					if(session.getTime().getDifference(aSession.getTime())==aSession.getLength()||session.getTime().getDifference(aSession.getTime())==session.getLength()){
-						penalty+=50;
+					int timeDiff = session.getTime().getDifference(aSession.getTime());
+					if(timeDiff > 0){
+						if(timeDiff == aSession.getLength()){
+							penalty+=50;
+						}
+					}
+					else{
+						if(Math.abs(timeDiff) == session.getLength()){
+							penalty+=50;
+						}
 					}
 				}
 			}
