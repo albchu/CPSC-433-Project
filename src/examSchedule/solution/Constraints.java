@@ -107,18 +107,21 @@ public class Constraints {
 			List<Lecture> enrolledLectures = student.getEnrolledLectures();
 			for(Lecture lecture : enrolledLectures){
 				Session session = lecture.getSession();
-				if(!(session == null)){
+				if(!(session==null || session == aSession)){
 					if(lecture.getSession().getDay().equals(aSession.getDay())){
 					//	Time lecSessTime = lecture.getSession().getTime();
 					//	Time inputSessTime = aSession.getTime();
-						int timeDiff = session.getTime().getDifference(aSession.getTime());
-						if(timeDiff > 0){
-							if(timeDiff <= aSession.getLength()){
+						double timeDiff = session.getTime().getDifference(aSession.getTime());
+						if(timeDiff == 0.0){
+							penalty += 100;
+						}
+						else if(timeDiff > 0.0){
+							if(timeDiff < (double)aSession.getLength()){
 								penalty+=100;
 							}
 						}
 						else{
-							if(Math.abs(timeDiff)<=session.getLength()){
+							if(Math.abs(timeDiff)<(double)session.getLength()){
 								penalty+=100;
 							}
 						}
@@ -154,11 +157,26 @@ public class Constraints {
 			for(int i = 0; i < coursesTaughtByInstructor.size(); i++){
 				Session session1;
 				session1 = coursesTaughtByInstructor.get(i).getSession();
-				if(session1==null){
+				if(session1==null || session1 == aSession){
 					continue;
-				}	
-				if((session1.getTime().equals(aSession.getTime()) && session1.getDay().equals(aSession.getDay())) && !(session1.getRoom().equals(aSession.getRoom())))
-					penalty += 20;
+				}
+				if(session1.getDay().equals(aSession.getDay())&& !(session1.getRoom().equals(aSession.getRoom()))){
+					double timeDiff = session1.getTime().getDifference(aSession.getTime());
+					//System.out.println(timeDiff);
+					if(timeDiff == 0.0){
+						penalty+=20;						
+					}
+					if(timeDiff > 0.0){
+						if(timeDiff < (double)aSession.getLength()){
+							penalty+=20;
+						}
+					}
+					else{
+						if(Math.abs(timeDiff) < (double)session1.getLength()){
+							penalty+=20;
+						}
+					}
+				}
 			}
 		}
 		return penalty;
@@ -235,14 +253,17 @@ public class Constraints {
 			}
 			for(Session session: studentSessions){
 				if(session.getDay().equals(aSession.getDay())){
-					int timeDiff = session.getTime().getDifference(aSession.getTime());
-					if(timeDiff > 0){
-						if(timeDiff == aSession.getLength()){
+					double timeDiff = session.getTime().getDifference(aSession.getTime());
+					if(timeDiff == 0.0){
+						penalty+=50;
+					}
+					else if(timeDiff > 0.0){
+						if(timeDiff == (double)aSession.getLength()){
 							penalty+=50;
 						}
 					}
 					else{
-						if(Math.abs(timeDiff) == session.getLength()){
+						if(Math.abs(timeDiff) == (double)session.getLength()){
 							penalty+=50;
 						}
 					}
@@ -263,7 +284,7 @@ public class Constraints {
 		int penalty = 0;
 		List<Lecture> sessionLectures= aSession.getAssignedLectures();
 		for(Lecture lecture : sessionLectures){
-			if(lecture.getExamLength() < aLecture.getExamLength()){
+			if(lecture.getExamLength() != aLecture.getExamLength()){
 				penalty += 20;
 			}
 		}
