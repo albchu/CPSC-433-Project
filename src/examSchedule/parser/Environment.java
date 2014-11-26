@@ -196,13 +196,13 @@ public class Environment
 			lectureName = predicateList.get(1);
 			sessionID = predicateList.get(2);
 			
-			assignmentMap.addAssignment(sessionMap.getSession(sessionID), courseMap.getLecture(courseName, lectureName), 0, 0);
-			/*
+			Assignment anAssignment = assignmentMap.addAssignment(sessionMap.getSession(sessionID), courseMap.getLecture(courseName, lectureName), 0, 0);
+			anAssignment = assignmentMap.removeAssignment();
 			int penalty = 0;
 			List<Lecture> listOfCourseLectures = courseMap.getLectures(anAssignment.getLecture().getCourseName());
 			penalty = Constraints.calcAllSoftCon(anAssignment.getSession(), anAssignment.getLecture());
 			penalty += Constraints.calcSoftThree(listOfCourseLectures, anAssignment.getSession(), anAssignment.getLecture());
-			anAssignment.setPenalty(penalty);*/
+			anAssignment.setPenalty(penalty);
 			
 			break;
 			

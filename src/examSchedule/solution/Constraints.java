@@ -157,8 +157,19 @@ public class Constraints {
 				if(session1==null){
 					continue;
 				}	
-				if((session1.getTime().equals(aSession.getTime()) && session1.getDay().equals(aSession.getDay())) && !(session1.getRoom().equals(aSession.getRoom())))
-					penalty += 20;
+				if(session1.getDay().equals(aSession.getDay())&& !(session1.getRoom().equals(aSession.getRoom()))){
+					int timeDiff = session1.getTime().getDifference(aSession.getTime());
+					if(timeDiff > 0){
+						if(timeDiff <= aSession.getLength()){
+							penalty+=20;
+						}
+					}
+					else{
+						if(Math.abs(timeDiff)<=session1.getLength()){
+							penalty+=20;
+						}
+					}
+				}
 			}
 		}
 		return penalty;

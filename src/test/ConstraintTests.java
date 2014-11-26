@@ -175,7 +175,7 @@ public class ConstraintTests {
 	}
 	
 	
-/*	@Test
+	@Test
 	// Single instructor supervising two different rooms at 9:00 and 9:30
 	public void SoftCon2failtest3() {
 		Instructor instructor = new Instructor("John");
@@ -201,7 +201,7 @@ public class ConstraintTests {
 
 		int violation = Constraints.calcSoftTwo(session2, lecture2);
 		Assert.assertEquals("Soft constraint violation is incorrect", 20, violation);
-	}*/
+	}
 	
 	@Test
 	public void SoftCon2passtest() {
