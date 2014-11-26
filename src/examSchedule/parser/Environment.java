@@ -101,6 +101,7 @@ public class Environment
 				instructorID = predicateArgs.getNextString();
 				length = Integer.parseInt(predicateArgs.getNextString());
 				courseMap.updateExamLength(courseName, lectureName, length);
+				courseMap.updateInstructor(courseName, lectureName, instructorMap.getInstructor(instructorID));
 			}
 			else throw new PredicateNotRecognizedException("Did not anticipate argument input for '" + predicateName + "' " + predicateArgs);
 			
@@ -120,10 +121,7 @@ public class Environment
 			timeStart = new Time.Builder(predicateArgs.getNextString()).build();
 			length = Integer.parseInt(predicateArgs.getNextString());
 			if(!dayList.contains(dayID))
-			{
 				dayList.add(dayID);
-//				System.out.println("added day: " + dayID);
-			}
 			sessionMap.updateSessionInfo(roomMap.getRoom(roomID), sessionID, dayID, timeStart, length);
 		}
 		else throw new PredicateNotRecognizedException("Did not anticipate argument input for '" + predicateName + "' " + predicateArgs);
