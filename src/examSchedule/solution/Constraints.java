@@ -113,12 +113,12 @@ public class Constraints {
 					//	Time inputSessTime = aSession.getTime();
 						int timeDiff = session.getTime().getDifference(aSession.getTime());
 						if(timeDiff > 0){
-							if(timeDiff <= aSession.getLength()){
+							if(timeDiff < aSession.getLength()){
 								penalty+=100;
 							}
 						}
 						else{
-							if(Math.abs(timeDiff)<=session.getLength()){
+							if(Math.abs(timeDiff)<session.getLength()){
 								penalty+=100;
 							}
 						}
@@ -156,16 +156,16 @@ public class Constraints {
 				session1 = coursesTaughtByInstructor.get(i).getSession();
 				if(session1==null){
 					continue;
-				}	
+				}
 				if(session1.getDay().equals(aSession.getDay())&& !(session1.getRoom().equals(aSession.getRoom()))){
 					int timeDiff = session1.getTime().getDifference(aSession.getTime());
 					if(timeDiff > 0){
-						if(timeDiff <= aSession.getLength()){
+						if(timeDiff < aSession.getLength()){
 							penalty+=20;
 						}
 					}
 					else{
-						if(Math.abs(timeDiff)<=session1.getLength()){
+						if(Math.abs(timeDiff) < session1.getLength()){
 							penalty+=20;
 						}
 					}
@@ -274,7 +274,7 @@ public class Constraints {
 		int penalty = 0;
 		List<Lecture> sessionLectures= aSession.getAssignedLectures();
 		for(Lecture lecture : sessionLectures){
-			if(lecture.getExamLength() < aLecture.getExamLength()){
+			if(lecture.getExamLength() != aLecture.getExamLength()){
 				penalty += 20;
 			}
 		}
