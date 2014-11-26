@@ -19,8 +19,9 @@ public class PredicateParser
 		List<Predicate> courses = new ArrayList<Predicate>();
 		List<Predicate> lectures = new ArrayList<Predicate>();
 		List<Predicate> students = new ArrayList<Predicate>();
-		List<Predicate> sessions = new ArrayList<Predicate>();
 		List<Predicate> rooms = new ArrayList<Predicate>();
+		List<Predicate> capacity = new ArrayList<Predicate>();
+		List<Predicate> sessions = new ArrayList<Predicate>();
 		List<Predicate> remainingPredicates = new ArrayList<Predicate>();	// All the pairs that can all come after 
 		
 		for (String line : predicateList)
@@ -45,6 +46,8 @@ public class PredicateParser
 				sessions.add(new Predicate(predicateName, predicateArgs));
 			else if(predicateName.equals("room"))
 				rooms.add(new Predicate(predicateName, predicateArgs));
+			else if(predicateName.equals("capacity"))
+				capacity.add(new Predicate(predicateName, predicateArgs));
 			else
 				remainingPredicates.add(new Predicate(predicateName, predicateArgs));
 		}
@@ -53,8 +56,9 @@ public class PredicateParser
 		exportToEnv(env, lectures);
 		exportToEnv(env, instructors);
 		exportToEnv(env, students);
-		exportToEnv(env, sessions);
 		exportToEnv(env, rooms);
+		exportToEnv(env, capacity);
+		exportToEnv(env, sessions);
 		exportToEnv(env, remainingPredicates);
 	}
 

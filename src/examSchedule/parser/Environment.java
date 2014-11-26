@@ -124,7 +124,7 @@ public class Environment
 				dayList.add(dayID);
 //				System.out.println("added day: " + dayID);
 			}
-			sessionMap.updateSessionInfo(sessionID, dayID, timeStart, length);
+			sessionMap.updateSessionInfo(roomMap.getRoom(roomID), sessionID, dayID, timeStart, length);
 		}
 		else throw new PredicateNotRecognizedException("Did not anticipate argument input for '" + predicateName + "' " + predicateArgs);
 		break;
