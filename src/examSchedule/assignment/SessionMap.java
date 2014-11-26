@@ -54,7 +54,9 @@ public class SessionMap
 	
 	public void updateSessionInfo(String sessionID, Room room)
 	{
+		
 		Session session = getSession(sessionID);
+		//System.out.println("Updating session room info");
 		session.setRoom(room);
 	}
 //	public void updateSessionInfo(String sessionID, Lecture lecture)

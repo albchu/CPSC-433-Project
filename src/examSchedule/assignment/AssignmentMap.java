@@ -83,10 +83,10 @@ public class AssignmentMap
 		for(Assignment assignment : assignments){
 			// assign
 			penalty += assignment.getPenalty();
-			System.out.println(predicateForm("assign", assignment.getLecture().getCourseName(), assignment.getLecture().getLectureName(), assignment.getSession().getSessionID()));
+			//System.out.println(predicateForm("assign", assignment.getLecture().getCourseName(), assignment.getLecture().getLectureName(), assignment.getSession().getSessionID()));
 			output.add(predicateForm("assign", assignment.getLecture().getCourseName(), assignment.getLecture().getLectureName(), assignment.getSession().getSessionID()));
 		}
-		System.out.println("Penalty: " + penalty);
+		//System.out.println("Penalty: " + penalty);
 		return output;
 	}
 }

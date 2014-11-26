@@ -62,43 +62,90 @@ public class Environment
 		Time timeStart;
 		switch (predicateName)
 		{
+		case ("student"):
+			//argsLengthCheck(predicateList, 1);
+			studentID = predicateList.get(0);
+		studentMap.addStudent(studentID);
+		break;
+		
+		case ("instructor"):	//Technically not needed
+			//argsLengthCheck(predicateList, 1);
+			instructorID = predicateList.get(0);
+		instructorMap.addInstructor(instructorID);
+		break;
+		
 		case ("course"):	//Technically not needed
 			//argsLengthCheck(predicateList, 1);
 			courseName = predicateList.get(0);
 			courseMap.addCourse(courseName);
 			break;
 			
+		case ("day"):
+			//argsLengthCheck(predicateList, 1);
+			dayID = predicateList.get(0);
+		dayList.add(dayID);
+		break;
+		
 		case ("lecture"):
 			//argsLengthCheck(predicateList, 2);
 			courseName = predicateList.get(0);
 			lectureName = predicateList.get(1);
-			courseMap.addLecture(courseName, lectureName);
+			if(predicateList.size() == 2)
+			{
+				courseMap.addLecture(courseName, lectureName);
+			}
+			else if(predicateList.size() == 4)
+			{
+				instructorID = predicateList.get(2);
+				length = Integer.parseInt(predicateList.get(3));
+				courseMap.updateExamLength(courseName, lectureName, length);
+			}
+			else throw new PredicateNotRecognizedException("Did not anticipate argument input for '" + predicateName + "' " + predicateList);
+			
 			break;
 			
+		case ("session"):
+			//argsLengthCheck(predicateList, 1);
+			sessionID = predicateList.get(0);
+		if(predicateList.size() == 1)
+		{
+			sessionMap.addSession(sessionID);
+		}
+		else if(predicateList.size() == 5)
+		{
+			roomID = predicateList.get(1);
+			dayID = predicateList.get(2);
+			timeStart = new Time.Builder(predicateList.get(3)).build();
+			length = Integer.parseInt(predicateList.get(4));
+			if(!dayList.contains(dayID))
+			{
+				dayList.add(dayID);
+				System.out.println("added day: " + dayID);
+			}
+			sessionMap.updateSessionInfo(sessionID, dayID, timeStart, length);
+		}
+		else throw new PredicateNotRecognizedException("Did not anticipate argument input for '" + predicateName + "' " + predicateList);
+		break;
+			
+		case ("room"):
+			//argsLengthCheck(predicateList, 1);
+			roomID = predicateList.get(0);
+		roomMap.addRoom(roomID);
+		break;
+		
+		case ("capacity"):
+			//argsLengthCheck(predicateList, 2);
+			roomID = predicateList.get(0);
+		capacity = Integer.parseInt(predicateList.get(1));
+		roomMap.updateRoomInfo(roomID, capacity);
+		break;
+		
 		case ("examlength"):
 			//argsLengthCheck(predicateList, 3);
 			courseName = predicateList.get(0);
 			lectureName = predicateList.get(1);
 			length = Integer.parseInt(predicateList.get(2));
 			courseMap.updateExamLength(courseName, lectureName, length);
-			break;
-			
-		case ("instructor"):	//Technically not needed
-			//argsLengthCheck(predicateList, 1);
-			instructorID = predicateList.get(0);
-			instructorMap.addInstructor(instructorID);
-			break;
-			
-		case ("student"):
-			//argsLengthCheck(predicateList, 1);
-			studentID = predicateList.get(0);
-			studentMap.addStudent(studentID);
-			break;
-	
-		case ("session"):
-			//argsLengthCheck(predicateList, 1);
-			sessionID = predicateList.get(0);
-			sessionMap.addSession(sessionID);
 			break;
 		
 		case ("enrolled"):
@@ -126,25 +173,12 @@ public class Environment
 			sessionMap.updateSessionInfo(sessionID, dayID, timeStart, length);
 			break;
 		
-		case ("capacity"):
-			//argsLengthCheck(predicateList, 2);
-			roomID = predicateList.get(0);
-			capacity = Integer.parseInt(predicateList.get(1));
-			roomMap.updateRoomInfo(roomID, capacity);
-			break;
-		
 		case ("instructs"):
 			//argsLengthCheck(predicateList, 3);
 			instructorID = predicateList.get(0);
 			courseName = predicateList.get(1);
 			lectureName = predicateList.get(2);
 			courseMap.updateInstructor(courseName, lectureName, instructorMap.getInstructor(instructorID));
-			break;
-		
-		case ("day"):
-			//argsLengthCheck(predicateList, 1);
-			dayID = predicateList.get(0);
-			dayList.add(dayID);
 			break;
 		
 		case ("roomassign"):
@@ -154,12 +188,6 @@ public class Environment
 			sessionMap.updateSessionInfo(sessionID, roomMap.getRoom(roomID));
 			break;
 		
-		case ("room"):
-			//argsLengthCheck(predicateList, 1);
-			roomID = predicateList.get(0);
-			roomMap.addRoom(roomID);
-			break;
-			
 			
 		case ("assign"):
 			//argsLengthCheck(predicateList, 3);

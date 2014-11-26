@@ -10,7 +10,7 @@ import examSchedule.assignment.Student;
 import examSchedule.course.Instructor;
 import examSchedule.course.Lecture;
 import examSchedule.date.Time;
-import examSchedule.Solution.Constraints;
+import examSchedule.solution.Constraints;
 
 import org.junit.*;
 
@@ -89,6 +89,7 @@ public class ConstraintTests {
 		Room room2 = new Room("ST140");
 		room2.setCapacity(250);
 		session2.setRoom(room2);
+
 		
 		int violation = Constraints.calcSoftTwo(session2, lecture2);
 		Assert.assertEquals("Soft constraint violation is incorrect", 20, violation);

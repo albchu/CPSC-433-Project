@@ -24,13 +24,14 @@ public class RoomMap
 	
 	public void updateRoomInfo(String roomID, Integer capacity)
 	{
+		addRoom(roomID);
 		getRoom(roomID).setCapacity(capacity);
 	}
 	
 	public void addRoom(String roomID)
 	{
-		//if(roomMap.containsKey(roomID)) throw new DuplicateRoomException("Room has already been added in room map");
-		roomMap.put(roomID, new Room(roomID));
+		if(!roomMap.containsKey(roomID)) // Will only add a new room if none exists
+			roomMap.put(roomID, new Room(roomID));
 	}
 	
 	public HashMap<String, Room> getRoomMap()
