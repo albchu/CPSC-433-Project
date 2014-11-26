@@ -198,7 +198,6 @@ public class ConstraintTests {
 		Room room2 = new Room("ST140");
 		room2.setCapacity(250);
 		session2.setRoom(room2);
-
 		int violation = Constraints.calcSoftTwo(session2, lecture2);
 		Assert.assertEquals("Soft constraint violation is incorrect", 20, violation);
 	}

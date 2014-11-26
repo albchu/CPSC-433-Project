@@ -74,10 +74,10 @@ public class Time implements Comparable<Time>
 		return String.format("%02d", minute);
 	}
 
-	public int getDifference(Time secondTime)
+	public double getDifference(Time secondTime)
 	{
 		//System.out.println(((this.getMinute() - secondTime.getMinute())));
-		return (this.getHour() - secondTime.getHour() + ((this.getMinute() - secondTime.getMinute())/60));
+		return (double)(((this.getHour() - secondTime.getHour())*100 + ((this.getMinute()/60 - secondTime.getMinute()/0.6)))/100);
 	}
 	
 	public Integer toInteger()
