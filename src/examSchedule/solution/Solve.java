@@ -148,7 +148,12 @@ public class Solve {
 		return(listOfSolutions.get(0).getSolution());
 	}		
 
-	
+	/**
+	 * backtrack: Removes an assignment, adds lecture to unassigned lecture list saves new backtrack index
+	 * @param aMap
+	 * @param unassignedLectures
+	 * @return -1 if no assignment to remove, otherwise remove backTrackIndex
+	 */
 	private int backtrack(AssignmentMap aMap, List<Lecture> unassignedLectures){
 		Assignment removedAssignment = assignmentMapCopy.removeAssignment();
 
