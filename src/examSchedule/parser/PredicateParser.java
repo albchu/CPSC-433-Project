@@ -29,7 +29,7 @@ public class PredicateParser
 				continue;
 			
 			String predicateName = getPredicateName(line).toLowerCase();
-			List<String> predicateArgs = extractArguments(line);
+			String predicateArgs = extractArguments(line);
 			
 			if(predicateName.equals("day"))
 				days.add(new Predicate(predicateName, predicateArgs));
@@ -117,14 +117,14 @@ public class PredicateParser
 			return false;
 	}
 	
-	public static List<String> extractArguments(String line)
+	public static String extractArguments(String line)
 	{
 		Pattern pattern = Pattern.compile("\\((.*?)\\)");
 		Matcher match = pattern.matcher(line);
 		if(match.find())
 		{
 			String argsString = match.group().replaceAll("[(\\s)]", "");
-			return Arrays.asList(argsString.split(","));
+			return argsString;
 		}
 		else throw new RuntimeException("Should have been a valid predicate line: " + line );
 	}

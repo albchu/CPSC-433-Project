@@ -55,7 +55,8 @@ public class Environment
 		if(args.size() != expectedSize) throw new UnexpectedPredicateArgumentsException();
 	}
 	
-	public void importPredicate(String predicateName, List<String> predicateList)
+
+	public void importPredicate(String predicateName, PredicateArgs predicateArgs)
 	{
 		String courseName, lectureName, studentID, sessionID, dayID, roomID, instructorID;
 		int length;
@@ -65,136 +66,152 @@ public class Environment
 		{
 		case ("student"):
 			//argsLengthCheck(predicateList, 1);
-			studentID = predicateList.get(0);
+			studentID = predicateArgs.getNextString();
 		studentMap.addStudent(studentID);
 		break;
 		
 		case ("instructor"):	//Technically not needed
 			//argsLengthCheck(predicateList, 1);
-			instructorID = predicateList.get(0);
+			instructorID = predicateArgs.getNextString();
 		instructorMap.addInstructor(instructorID);
 		break;
 		
 		case ("course"):	//Technically not needed
 			//argsLengthCheck(predicateList, 1);
-			courseName = predicateList.get(0);
+			courseName = predicateArgs.getNextString();
 			courseMap.addCourse(courseName);
 			break;
 			
 		case ("day"):
 			//argsLengthCheck(predicateList, 1);
-			dayID = predicateList.get(0);
+			dayID = predicateArgs.getNextString();
 		dayList.add(dayID);
 		break;
 		
 		case ("lecture"):
 			//argsLengthCheck(predicateList, 2);
-			courseName = predicateList.get(0);
-			lectureName = predicateList.get(1);
-			if(predicateList.size() == 2)
+			courseName = predicateArgs.getNextString();
+			lectureName = predicateArgs.getNextString();
+			if(predicateArgs.size() == 2)
 			{
 				courseMap.addLecture(courseName, lectureName);
 			}
-			else if(predicateList.size() == 4)
+			else if(predicateArgs.size() == 4)
 			{
-				instructorID = predicateList.get(2);
-				length = Integer.parseInt(predicateList.get(3));
+				instructorID = predicateArgs.getNextString();
+				length = Integer.parseInt(predicateArgs.getNextString());
 				courseMap.updateExamLength(courseName, lectureName, length);
 			}
-			else throw new PredicateNotRecognizedException("Did not anticipate argument input for '" + predicateName + "' " + predicateList);
+			else throw new PredicateNotRecognizedException("Did not anticipate argument input for '" + predicateName + "' " + predicateArgs);
 			
 			break;
 			
 		case ("session"):
 			//argsLengthCheck(predicateList, 1);
-			sessionID = predicateList.get(0);
-		if(predicateList.size() == 1)
+			sessionID = predicateArgs.getNextString();
+		if(predicateArgs.size() == 1)
 		{
 			sessionMap.addSession(sessionID);
 		}
-		else if(predicateList.size() == 5)
+		else if(predicateArgs.size() == 5)
 		{
-			roomID = predicateList.get(1);
-			dayID = predicateList.get(2);
-			timeStart = new Time.Builder(predicateList.get(3)).build();
-			length = Integer.parseInt(predicateList.get(4));
+			roomID = predicateArgs.getNextString();
+			dayID = predicateArgs.getNextString();
+			timeStart = new Time.Builder(predicateArgs.getNextString()).build();
+			length = Integer.parseInt(predicateArgs.getNextString());
 			if(!dayList.contains(dayID))
 			{
 				dayList.add(dayID);
-				System.out.println("added day: " + dayID);
+//				System.out.println("added day: " + dayID);
 			}
 			sessionMap.updateSessionInfo(sessionID, dayID, timeStart, length);
 		}
-		else throw new PredicateNotRecognizedException("Did not anticipate argument input for '" + predicateName + "' " + predicateList);
+		else throw new PredicateNotRecognizedException("Did not anticipate argument input for '" + predicateName + "' " + predicateArgs);
 		break;
 			
 		case ("room"):
 			//argsLengthCheck(predicateList, 1);
-			roomID = predicateList.get(0);
+			roomID = predicateArgs.getNextString();
 		roomMap.addRoom(roomID);
 		break;
 		
 		case ("capacity"):
 			//argsLengthCheck(predicateList, 2);
-			roomID = predicateList.get(0);
-		capacity = Integer.parseInt(predicateList.get(1));
+			roomID = predicateArgs.getNextString();
+		capacity = Integer.parseInt(predicateArgs.getNextString());
 		roomMap.updateRoomInfo(roomID, capacity);
 		break;
 		
 		case ("examlength"):
 			//argsLengthCheck(predicateList, 3);
-			courseName = predicateList.get(0);
-			lectureName = predicateList.get(1);
-			length = Integer.parseInt(predicateList.get(2));
+			courseName = predicateArgs.getNextString();
+			lectureName = predicateArgs.getNextString();
+			length = Integer.parseInt(predicateArgs.getNextString());
 			courseMap.updateExamLength(courseName, lectureName, length);
 			break;
 		
 		case ("enrolled"):
 			//System.out.println("Enrolled: " + predicateName + " " + predicateList.toString());
 			//argsLengthCheck(predicateList, 3);
-			studentID = predicateList.get(0);
-			courseName = predicateList.get(1);
-			lectureName = predicateList.get(2);
-			if(!studentMap.contains(studentID)) //throw new ElementDoesNotExistException("The student id: '" + studentID + "' is not in the studentMap");
-				studentMap.addStudent(studentID);
-			studentMap.enroll(studentID, courseMap.getLecture(courseName, lectureName));	// Important to use the same object from courseMap to point to the same objects
+			studentID = predicateArgs.getNextString();
+			if(predicateArgs.size() == 3)
+			{
+				courseName = predicateArgs.getNextString();
+				lectureName = predicateArgs.getNextString();
+				if(!studentMap.contains(studentID)) //throw new ElementDoesNotExistException("The student id: '" + studentID + "' is not in the studentMap");
+					studentMap.addStudent(studentID);
+				studentMap.enroll(studentID, courseMap.getLecture(courseName, lectureName));	// Important to use the same object from courseMap to point to the same objects
+			}
+			else if(predicateArgs.size() == 2)
+			{
+				List<String> courseLecturePairs = predicateArgs.getNextList();
+				if ((courseLecturePairs.size() % 2) != 0) throw new UnexpectedPredicateArgumentsException("Should not expect uneven input");
+				for (int i = 0; i < courseLecturePairs.size(); i +=2)
+				{
+					courseName = courseLecturePairs.get(i);
+					lectureName = courseLecturePairs.get(i+1);
+					if(!studentMap.contains(studentID)) 
+						studentMap.addStudent(studentID);
+					studentMap.enroll(studentID, courseMap.getLecture(courseName, lectureName));	// Important to use the same object from courseMap to point to the same objects
+				}
+			}
 			break;
 		
 		case ("at"):
 			//argsLengthCheck(predicateList, 4);
-			sessionID = predicateList.get(0);
-			dayID = predicateList.get(1);
-			timeStart = new Time.Builder(predicateList.get(2)).build();
-			length = Integer.parseInt(predicateList.get(3));
+			sessionID = predicateArgs.getNextString();
+			dayID = predicateArgs.getNextString();
+			timeStart = new Time.Builder(predicateArgs.getNextString()).build();
+			length = Integer.parseInt(predicateArgs.getNextString());
 			if(!dayList.contains(dayID))
 			{
 				dayList.add(dayID);
-				System.out.println("added day: " + dayID);
+//				System.out.println("added day: " + dayID);
 			}
 			sessionMap.updateSessionInfo(sessionID, dayID, timeStart, length);
 			break;
 		
 		case ("instructs"):
 			//argsLengthCheck(predicateList, 3);
-			instructorID = predicateList.get(0);
-			courseName = predicateList.get(1);
-			lectureName = predicateList.get(2);
+			instructorID = predicateArgs.getNextString();
+			courseName = predicateArgs.getNextString();
+			lectureName = predicateArgs.getNextString();
 			courseMap.updateInstructor(courseName, lectureName, instructorMap.getInstructor(instructorID));
 			break;
 		
 		case ("roomassign"):
 			//argsLengthCheck(predicateList, 2);
-			sessionID = predicateList.get(0);
-			roomID = predicateList.get(1);
+			sessionID = predicateArgs.getNextString();
+			roomID = predicateArgs.getNextString();
 			sessionMap.updateSessionInfo(sessionID, roomMap.getRoom(roomID));
 			break;
 		
 			
 		case ("assign"):
 			//argsLengthCheck(predicateList, 3);
-			courseName = predicateList.get(0);
-			lectureName = predicateList.get(1);
-			sessionID = predicateList.get(2);
+			courseName = predicateArgs.getNextString();
+			lectureName = predicateArgs.getNextString();
+			sessionID = predicateArgs.getNextString();
 			
 			assignmentMap.addAssignment(sessionMap.getSession(sessionID), courseMap.getLecture(courseName, lectureName), 0, 0);
 			/*
@@ -208,22 +225,22 @@ public class Environment
 			
 		case ("dayassign"):
 			//argsLengthCheck(predicateList, 3);
-		sessionID = predicateList.get(0);
-		dayID = predicateList.get(1);
+		sessionID = predicateArgs.getNextString();
+		dayID = predicateArgs.getNextString();
 		sessionMap.updateSessionInfo(sessionID, dayID);
 		break;
 		
 		case ("time"):
 			//argsLengthCheck(predicateList, 3);
-			sessionID = predicateList.get(0);
-		timeStart = new Time.Builder(predicateList.get(1)).build();
+			sessionID = predicateArgs.getNextString();
+		timeStart = new Time.Builder(predicateArgs.getNextString()).build();
 		sessionMap.updateSessionInfo(sessionID, timeStart);
 		break;
 		
 		case ("length"):
 			//argsLengthCheck(predicateList, 3);
-			sessionID = predicateList.get(0);
-		length = Integer.parseInt(predicateList.get(1));
+			sessionID = predicateArgs.getNextString();
+		length = Integer.parseInt(predicateArgs.getNextString());
 		sessionMap.updateSessionInfo(sessionID, length);
 		break;
 			
@@ -231,6 +248,7 @@ public class Environment
 			throw new PredicateNotRecognizedException("Could not recognize predicate: '" + predicateName + "'");
 		}
 	}
+	
 	
 	public List<String> exportList()
 	{
