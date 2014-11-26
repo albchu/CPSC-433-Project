@@ -29,16 +29,12 @@ public class CourseMap
 	
 	public void addLecture(String courseName, String lectureName)
 	{
-		boolean exists = false;
 		if(!courseMap.containsKey(courseName)) //throw new ElementDoesNotExistException("Could not find course: " + courseName + " in course map");
 			addCourse(courseName);
 		for(Lecture lecture : courseMap.get(courseName)){
-			if(lecture.getLectureName().equals(lectureName)){
-				exists = true;
+			if(!lecture.getLectureName().equals(lectureName)){
+				courseMap.get(courseName).add(new Lecture(courseName, lectureName));
 			}
-		}
-		if(!exists){
-			courseMap.get(courseName).add(new Lecture(courseName, lectureName));
 		}
 	}
 	

@@ -21,6 +21,7 @@ import examSchedule.course.Lecture;
 import examSchedule.date.Time;
 import examSchedule.exceptions.PredicateNotRecognizedException;
 import examSchedule.exceptions.UnexpectedPredicateArgumentsException;
+import examSchedule.solution.Constraints;
 
 /**
  * Class holds all the information necessary to calculate a solution.
@@ -194,7 +195,15 @@ public class Environment
 			courseName = predicateList.get(0);
 			lectureName = predicateList.get(1);
 			sessionID = predicateList.get(2);
+			
 			assignmentMap.addAssignment(sessionMap.getSession(sessionID), courseMap.getLecture(courseName, lectureName), 0, 0);
+			/*
+			int penalty = 0;
+			List<Lecture> listOfCourseLectures = courseMap.getLectures(anAssignment.getLecture().getCourseName());
+			penalty = Constraints.calcAllSoftCon(anAssignment.getSession(), anAssignment.getLecture());
+			penalty += Constraints.calcSoftThree(listOfCourseLectures, anAssignment.getSession(), anAssignment.getLecture());
+			anAssignment.setPenalty(penalty);*/
+			
 			break;
 			
 		case ("dayassign"):

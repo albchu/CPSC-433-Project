@@ -23,12 +23,13 @@ public class AssignmentMap
 	/*
 	 * Adds an assignment to the map
 	 */
-	public void addAssignment(Session session, Lecture lecture, int backTrackIndex, int penalty)
+	public Assignment addAssignment(Session session, Lecture lecture, int backTrackIndex, int penalty)
 	{
 		Assignment assignment = new Assignment(session, lecture, backTrackIndex, penalty);
 		lecture.setSession(session);
 		session.addLecture(lecture);
 		assignments.add(assignment);
+		return assignment;
 	}
 	
 	/**

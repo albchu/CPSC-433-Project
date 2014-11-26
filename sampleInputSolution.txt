@@ -1,4 +1,4 @@
-assign(AMAT208, L01, M14-2-SS297) M8-3-EDU162
+assign(AMAT208, L01, M14-2-SS297)
 assign(AMAT258, L01, M12-3-EDU162)
 assign(AMAT441, L01, M8-3-KNES38)
 assign(AMAT441, L02, M8-3-KNES38)
@@ -113,7 +113,7 @@ assign(STAT473, L03, T16-2-KNES38)
 assign(STAT495, L01, M14-2-SS297)
 assign(STAT495, L02, T16-3-SS171)
 assign(STAT495, L03, T11-2-SS297)
-//assign(STAT583, L01, M15-3-KNES38)
+assign(STAT583, L01, M15-3-KNES38)
 // Attributes: complete, solved, utility=-50940, 116/116 lectures assigned. 
 // for 60 courses, 116 lectures, 50 instructors, 800 students, 5 rooms, 40 sessions, 0 fixed assignments.
 // searched 4623 nodes, including 124 solved leaves, 0 unsolved leaves, 0 dead-end internal nodes.

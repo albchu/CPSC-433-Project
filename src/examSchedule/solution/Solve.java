@@ -52,13 +52,21 @@ public class Solve {
 			if(currentLecture.getSession()== null)
 				unassignedLectures.add(currentLecture);
 		}
-		
+		/*List<Assignment> allPreAssigns = assignmentMapCopy.getAssignments();
+
+		for(Assignment assignment: allPreAssigns){
+			int penalty = 0;
+			List<Lecture> listOfCourseLectures = courseMapCopy.getLectures(assignment.getLecture().getCourseName());
+			penalty = Constraints.calcAllSoftCon(assignment.getSession(), assignment.getLecture());
+			penalty += Constraints.calcSoftThree(listOfCourseLectures, assignment.getSession(), assignment.getLecture());
+			assignment.setPenalty(penalty);
+		}*/
 		System.out.println("Assigned Lectures: " + unassignedLectures.size());
 
 		int backTrackIndex = 0;
 		int solutions = 0;
 		boolean solutionsExist = true;
-		while(solutionsExist&&solutions < 10000 ){
+		while(solutionsExist&&solutions < 1 ){
 			//Iterate through lectures until all are assigned
 			while(!unassignedLectures.isEmpty()){
 				Lecture currentLecture = unassignedLectures.get(0);
