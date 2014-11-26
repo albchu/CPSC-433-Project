@@ -1,5 +1,8 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import examSchedule.assignment.Assignment;
 import examSchedule.assignment.Room;
 import examSchedule.assignment.Session;
@@ -87,8 +90,43 @@ public class ConstraintTests {
 		room2.setCapacity(250);
 		session2.setRoom(room2);
 		
-		int violation = Constraints.calcSoftOne(session2, lecture2);
+		int violation = Constraints.calcSoftTwo(session2, lecture2);
 		Assert.assertEquals("Soft constraint violation is incorrect", 20, violation);
+	}
+	
+	@Test
+	public void SoftCon3failtest() {
+		session1.setDay("M");
+		Time time = new Time.Builder("9:00").build();
+		session1.setTime(time);
+		lecture1.setSession(session1);
+		List<Lecture> listofLecs = new ArrayList<Lecture>();
+		listofLecs.add(lecture1);
+		
+		Lecture lecture2 = new Lecture("CPSC433", "L02");
+		Session session2 = new Session("S2");
+		Time time2 = new Time.Builder("5:00").build();
+		session2.setTime(time2);
+		session2.setDay("M");
+		int violation = Constraints.calcSoftThree(listofLecs, session2, lecture2);
+		Assert.assertEquals("Soft constraint violation is incorrect", 50, violation);
+	}
+	
+	@Test
+	public void SoftCon3passtest() {
+		session1.setDay("M");
+		Time time = new Time.Builder("9:00").build();
+		session1.setTime(time);
+		lecture1.setSession(session1);
+		List<Lecture> listofLecs = new ArrayList<Lecture>();
+		listofLecs.add(lecture1);
+		
+		Lecture lecture2 = new Lecture("CPSC433", "L02");
+		Session session2 = new Session("S2");
+		session2.setTime(time);
+		session2.setDay("M");
+		int violation = Constraints.calcSoftThree(listofLecs, session2, lecture2);
+		Assert.assertEquals("Soft constraint violation is incorrect", 0, violation);
 	}
 	
 	@Test
