@@ -125,17 +125,7 @@ public class Constraints {
 								penalty+=100;
 							}
 						}
-						
-						//if(lecSessTime.equals(inputSessTime)){
-						//	//NEED TO EVENTUALLY CHECK OVERLAP NOT NECESSARILY SAME START
-						//	penalty+=100;
-						//}
-						
-						//else if(lecSessTime.getDifference(inputSessTime) < lecture.getSession().getLength() || lecSessTime.getDifference(inputSessTime) < aSession.getLength()){
-						//	penalty+=100;
-						//}
 					}
-	
 				}	
 			}
 		}
@@ -192,7 +182,8 @@ public class Constraints {
 	public static int calcSoftThree(List<Lecture> listOfLecs, Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		for(Lecture lecture : listOfLecs){
-			if(lecture.getSession() !=null && !(lecture.getSession().getDay().equals(aSession.getDay())&&lecture.getSession().getTime().equals(aSession.getTime()))){
+			//if(lecture.getSession() !=null && !(lecture.getSession().getDay().equals(aSession.getDay())&&lecture.getSession().getTime().equals(aSession.getTime()))){
+			if(lecture.getSession() != null && lecture.getSession() != aSession){
 				penalty += 50;
 			}
 		}
@@ -228,7 +219,6 @@ public class Constraints {
 				penalty+=50;
 			}
 		}
-		
 		return penalty;
 	}
 	
