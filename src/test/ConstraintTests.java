@@ -89,6 +89,33 @@ public class ConstraintTests {
 	}
 	
 	@Test
+	public void SoftCon2passtest() {
+		Instructor instructor = new Instructor("John");
+		instructor.addInstructedLecture(lecture1);
+		lecture1.setInstructor(instructor);
+		Time time = new Time.Builder("9:00").build();
+		session1.setTime(time);
+		session1.setDay("M");
+		Room room = new Room("ST148");
+		room.setCapacity(250);
+		session1.setRoom(room);
+		lecture1.setSession(session1);
+		
+		
+		lecture2.setInstructor(instructor);
+		instructor.addInstructedLecture(lecture2);
+		session2.setTime(time);
+		session2.setDay("T");
+		Room room2 = new Room("ST140");
+		room2.setCapacity(250);
+		session2.setRoom(room2);
+
+		
+		int violation = Constraints.calcSoftTwo(session2, lecture2);
+		Assert.assertEquals("Soft constraint violation is incorrect", 0, violation);
+	}
+	
+	@Test
 	public void SoftCon3failtest() {
 		session1.setDay("M");
 		Time time = new Time.Builder("9:00").build();
