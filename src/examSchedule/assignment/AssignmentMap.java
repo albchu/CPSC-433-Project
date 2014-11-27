@@ -90,4 +90,9 @@ public class AssignmentMap
 		//System.out.println("Penalty: " + penalty);
 		return output;
 	}
+	
+	public int size()
+	{
+		return assignments.size();
+	}
 }

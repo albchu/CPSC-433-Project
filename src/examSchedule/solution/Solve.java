@@ -52,21 +52,13 @@ public class Solve {
 			if(currentLecture.getSession()== null)
 				unassignedLectures.add(currentLecture);
 		}
-		/*List<Assignment> allPreAssigns = assignmentMapCopy.getAssignments();
-
-		for(Assignment assignment: allPreAssigns){
-			int penalty = 0;
-			List<Lecture> listOfCourseLectures = courseMapCopy.getLectures(assignment.getLecture().getCourseName());
-			penalty = Constraints.calcAllSoftCon(assignment.getSession(), assignment.getLecture());
-			penalty += Constraints.calcSoftThree(listOfCourseLectures, assignment.getSession(), assignment.getLecture());
-			assignment.setPenalty(penalty);
-		}*/
+		int numPreAssign = assignmentMapCopy.size();
 		System.out.println("Assigned Lectures: " + unassignedLectures.size());
 
 		int backTrackIndex = 0;
 		int solutions = 0;
 		boolean solutionsExist = true;
-		while(solutionsExist&&solutions < 1){
+		while(solutionsExist&&solutions < 1000){
 			int noValidCount = 0;
 			//Iterate through lectures until all are assigned
 			while(!unassignedLectures.isEmpty()){
@@ -83,7 +75,7 @@ public class Solve {
 					if(noValidCount > 1000){
 						Random randomNum = new Random();
 						for(int i = 0; i < randomNum.nextInt(allLectures.size()-unassignedLectures.size()); i++){
-							backTrackIndex = backtrack(assignmentMapCopy, unassignedLectures);
+							backTrackIndex = backtrack(numPreAssign, assignmentMapCopy, unassignedLectures);
 							if(backTrackIndex == -1){
 								solutionsExist = false;
 								unassignedLectures.clear();
@@ -93,7 +85,7 @@ public class Solve {
 						continue;
 					}
 					System.out.println("No valid sessions");
-					backTrackIndex = backtrack(assignmentMapCopy, unassignedLectures);
+					backTrackIndex = backtrack(numPreAssign, assignmentMapCopy, unassignedLectures);
 					//Assignment removedAssignment = assignmentMapCopy.removeAssignment();
 					if(backTrackIndex ==-1){
 						solutionsExist = false;
@@ -106,7 +98,7 @@ public class Solve {
 					//A
 					//System.out.println("Backtrack up a level");
 					//System.out.println("backtrackIndex " + backTrackIndex);
-					backTrackIndex = backtrack(assignmentMapCopy, unassignedLectures);
+					backTrackIndex = backtrack(numPreAssign, assignmentMapCopy, unassignedLectures);
 
 					if(backTrackIndex == -1){
 						solutionsExist = false;
@@ -134,13 +126,18 @@ public class Solve {
 				System.out.println("SOLUTION REACHED");
 				solutions++;
 				listOfSolutions.add(new SolutionPenaltyPair(assignmentMapCopy.exportList(), assignmentMapCopy.getPenalties()));;
-				Random randomNum = new Random();
+				/*Random randomNum = new Random();
 				for(int i = 0; i < randomNum.nextInt(allLectures.size()); i++){
-					backTrackIndex = backtrack(assignmentMapCopy, unassignedLectures);
+					backTrackIndex = backtrack(numPreAssign, assignmentMapCopy, unassignedLectures);
 					if(backTrackIndex == -1){
 						solutionsExist = false;
 						continue;
 					}
+				}*/
+				backTrackIndex = backtrack(numPreAssign, assignmentMapCopy, unassignedLectures);
+				if(backTrackIndex == -1){
+					solutionsExist = false;
+					continue;
 				}
 				/*for(int i = 0; i < 25; i++){
 					Assignment removedAssignment = assignmentMapCopy.removeAssignment();
@@ -159,7 +156,17 @@ public class Solve {
 		Collections.sort(listOfSolutions);
 		System.out.println("Solution:");
 		int solutionCount = 0;
-		System.out.println("Number of Solutions: " + listOfSolutions.size());
+		for(SolutionPenaltyPair solutionPair : listOfSolutions){
+			List<String> solution = solutionPair.getSolution();
+			System.out.println("NEW SOLUTION");
+			for(String solutionLine : solution){
+				solutionCount++;
+				System.out.println(solutionLine);
+			}
+			System.out.println();
+
+		}
+		//System.out.println("Number of Solutions: " + listOfSolutions.size());
 		List<String> finalSolution = listOfSolutions.get(0).getSolution();
 		for(String solutionLine : finalSolution){
 			solutionCount++;
@@ -176,14 +183,12 @@ public class Solve {
 	 * @param unassignedLectures
 	 * @return -1 if no assignment to remove, otherwise remove backTrackIndex
 	 */
-	private int backtrack(AssignmentMap aMap, List<Lecture> unassignedLectures){
-		Assignment removedAssignment = assignmentMapCopy.removeAssignment();
-
-		if(removedAssignment == null){
+	private int backtrack(int preAssignNum, AssignmentMap aMap, List<Lecture> unassignedLectures){
+		if(aMap.size() == preAssignNum){
 			//System.out.println("backtrackIndex " + backTrackIndex);
 			return -1;
 		}
-		
+		Assignment removedAssignment = assignmentMapCopy.removeAssignment();
 		Lecture removedLecture = removedAssignment.getLecture();
 		//System.out.println("Removed lecture" + removedLecture.getCourseName()+removedLecture.getLectureName());
 		unassignedLectures.add(0, removedLecture);
