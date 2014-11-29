@@ -116,7 +116,6 @@ public class ConstraintTests {
 		session2.setLength(3);
 		student.enroll(lecture2);
 
-		
 		int violation = Constraints.calcSoftOne(session2, lecture2);
 		Assert.assertEquals("Soft constraint violation is incorrect", 0, violation);
 	}
