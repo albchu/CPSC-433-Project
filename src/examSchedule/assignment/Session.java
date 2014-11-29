@@ -28,8 +28,6 @@ public class Session
 		nullCheck(sessionID);
 		this.sessionID = sessionID;
 		assignedLectures = new ArrayList<Lecture>();
-		System.out.println("Creating Session");
-
 	}
 
 	public String getSessionID()
@@ -90,7 +88,6 @@ public class Session
 	public void setRoom(Room room)
 	{
 		this.room = room;
-		System.out.println("adding new room");
 		remainingCapacity = room.getCapacity();
 	}
 

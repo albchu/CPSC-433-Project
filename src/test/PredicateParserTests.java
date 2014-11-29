@@ -28,18 +28,4 @@ public class PredicateParserTests
 		Assert.assertFalse("Is not expected result", PredicateParser.isValidPredicate(invalidPredicate));
 		Assert.assertTrue("Is not expected result", PredicateParser.isValidPredicate(validPredicate));
 	}
-	
-	@Test
-	public void extractArgumentsTest()
-	{
-		List<String> args = PredicateParser.extractArguments(validPredicate);
-		Assert.assertEquals(1, args.size());
-		
-		args = PredicateParser.extractArguments(validPredicate2);
-		Assert.assertEquals(3, args.size());
-		Assert.assertEquals("S01092916", args.get(0));
-		Assert.assertEquals("AMAT460", args.get(1));
-		Assert.assertEquals("L02", args.get(2));
-		
-	}
 }

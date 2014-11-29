@@ -5,16 +5,16 @@ import java.util.*;
 public class Predicate
 {
 	private String predicate;
-	private List<String> arguments;
+	private PredicateArgs arguments;
 	
 	/**
 	 * Assumptions: line input is a valid predicate
 	 * @param line
 	 */
-	public Predicate(String predicate, List<String> args)
+	public Predicate(String predicate, String args)
 	{
 		this.predicate = predicate;
-		this.arguments = args;
+		this.arguments = new PredicateArgs(args);
 	}
 
 	public String getPredicate()
@@ -22,7 +22,7 @@ public class Predicate
 		return predicate;
 	}
 
-	public List<String> getArguments()
+	public PredicateArgs getArguments()
 	{
 		return arguments;
 	}

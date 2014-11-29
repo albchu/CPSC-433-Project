@@ -26,6 +26,14 @@ public class SessionMap
 		return sessionMap.get(sessionID);
 	}
 	
+	public void updateSessionInfo(Room room, String sessionID, String dayID, Time time, int length)
+	{
+		Session session = getSession(sessionID);
+		session.setRoom(room);
+		session.setDay(dayID);
+		session.setLength(length);
+		session.setTime(time);
+	}
 	public void updateSessionInfo(String sessionID, String dayID, Time time, int length)
 	{
 		Session session = getSession(sessionID);
