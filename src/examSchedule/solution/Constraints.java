@@ -182,8 +182,8 @@ public class Constraints {
 	public static int calcSoftThree(List<Lecture> listOfLecs, Session aSession, Lecture aLecture) {
 		int penalty = 0;
 		for(Lecture lecture : listOfLecs){
-			//if(lecture.getSession() !=null && !(lecture.getSession().getDay().equals(aSession.getDay())&&lecture.getSession().getTime().equals(aSession.getTime()))){
-			if(lecture.getSession() != null && lecture.getSession() != aSession){
+			if(lecture.getSession() !=null && !(lecture.getSession().getDay().equals(aSession.getDay())&&lecture.getSession().getTime().equals(aSession.getTime()))){
+			//if(lecture.getSession() != null && lecture.getSession() != aSession){
 				penalty += 50;
 			}
 		}
