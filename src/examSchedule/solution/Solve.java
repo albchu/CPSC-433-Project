@@ -17,9 +17,9 @@ public class Solve {
 	private SessionMap sessionMapCopy;
 	private AssignmentMap assignmentMapCopy;
 	private List<SessionWorthPair> sortedSessions;
-	private List<SolutionPenaltyPair> listOfSolutions;
-
-	
+	private int bestPenalty;
+	private int solutionCount;
+	SolutionPenaltyPair bestSolution;
 
 	
 	public Solve(Environment env){
@@ -29,6 +29,8 @@ public class Solve {
 		//Create copy of lectures and sessions
 		courseMapCopy = env.getCourseMap();
 		sessionMapCopy = env.getSessionMap();
+		bestPenalty = 0;
+		solutionCount = 0;
 		
 	}
 	
@@ -44,7 +46,6 @@ public class Solve {
 		// Get all sessions
 		List<Session> allSessions = sessionMapCopy.getAllSessions();
 		sortedSessions = new ArrayList<SessionWorthPair>();
-		listOfSolutions = new ArrayList<SolutionPenaltyPair>();
 		
 		//REFACTORABLE, SHOULDN'T NEED TO ITERATE THROUGH THE LIST
 		System.out.println("Total Number of lectures" + allLectures.size());
@@ -58,13 +59,13 @@ public class Solve {
 		int backTrackIndex = 0;
 		int solutions = 0;
 		boolean solutionsExist = true;
-		while(solutionsExist&&solutions < 1000){
+		while(solutionsExist&&solutions < 3){
 			int noValidCount = 0;
 			//Iterate through lectures until all are assigned
 			while(!unassignedLectures.isEmpty()){
 				Lecture currentLecture = unassignedLectures.get(0);
 				//System.out.println("Attempting to assign lecture:" + currentLecture.getCourseName()+", "+currentLecture.getLectureName());
-
+				System.out.println(unassignedLectures.size());
 				//calculate hard constraints and save valid sessions
 				validSessions = getValidSessions(currentLecture, allSessions);
 				
@@ -124,8 +125,10 @@ public class Solve {
 			if(solutionsExist){
 				//return assignmentMapCopy.exportList();
 				System.out.println("SOLUTION REACHED");
-				solutions++;
-				listOfSolutions.add(new SolutionPenaltyPair(assignmentMapCopy.exportList(), assignmentMapCopy.getPenalties()));;
+				solutionCount++;
+				if(bestPenalty < assignmentMapCopy.getPenalties()){
+					bestSolution  = (new SolutionPenaltyPair(assignmentMapCopy.exportList(), assignmentMapCopy.getPenalties()));
+				}
 				/*Random randomNum = new Random();
 				for(int i = 0; i < randomNum.nextInt(allLectures.size()); i++){
 					backTrackIndex = backtrack(numPreAssign, assignmentMapCopy, unassignedLectures);
@@ -134,11 +137,11 @@ public class Solve {
 						continue;
 					}
 				}*/
-				backTrackIndex = backtrack(numPreAssign, assignmentMapCopy, unassignedLectures);
-				if(backTrackIndex == -1){
-					solutionsExist = false;
-					continue;
-				}
+				//backTrackIndex = backtrack(numPreAssign, assignmentMapCopy, unassignedLectures);
+				//if(backTrackIndex == -1){
+				//	solutionsExist = false;
+				//	continue;
+				//}
 				/*for(int i = 0; i < 25; i++){
 					Assignment removedAssignment = assignmentMapCopy.removeAssignment();
 					if(removedAssignment == null){
@@ -153,28 +156,18 @@ public class Solve {
 			}
 		}
 		
-		Collections.sort(listOfSolutions);
-		System.out.println("Solution:");
-		int solutionCount = 0;
-		for(SolutionPenaltyPair solutionPair : listOfSolutions){
-			List<String> solution = solutionPair.getSolution();
-			System.out.println("NEW SOLUTION");
-			for(String solutionLine : solution){
-				solutionCount++;
-				System.out.println(solutionLine);
-			}
-			System.out.println();
+		//Collections.sort(listOfSolutions);
 
-		}
-		//System.out.println("Number of Solutions: " + listOfSolutions.size());
-		List<String> finalSolution = listOfSolutions.get(0).getSolution();
+		System.out.println("Number of Solutions: " + solutionCount);
+		int assignmentCount = 0;
+		List<String> finalSolution = bestSolution.getSolution();
 		for(String solutionLine : finalSolution){
-			solutionCount++;
+			assignmentCount++;
 			System.out.println(solutionLine);
 		}
-		System.out.println("Assigned: " + solutionCount + "Lectures");
-		System.out.println("Penalty For Solution: -"+listOfSolutions.get(0).getPenalty());
-		return(listOfSolutions.get(0).getSolution());
+		System.out.println("Assigned: " + assignmentCount + " Lectures");
+		System.out.println("Penalty For Solution: -"+bestSolution.getPenalty());
+		return(finalSolution);
 	}		
 
 	/**
