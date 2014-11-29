@@ -7,7 +7,6 @@ import examSchedule.assignment.Session;
 import examSchedule.assignment.Student;
 import examSchedule.course.Instructor;
 import examSchedule.course.Lecture;
-import examSchedule.date.Time;
 
 public class Constraints {
 

@@ -125,10 +125,12 @@ public class Solve {
 			if(solutionsExist){
 				//return assignmentMapCopy.exportList();
 				System.out.println("SOLUTION REACHED");
-				solutionCount++;
-				if(bestPenalty < assignmentMapCopy.getPenalties()){
+				if(bestPenalty < assignmentMapCopy.getPenalties() || solutionCount == 0){
 					bestSolution  = (new SolutionPenaltyPair(assignmentMapCopy.exportList(), assignmentMapCopy.getPenalties()));
+					bestPenalty = bestSolution.getPenalty();
 				}
+				solutionCount++;
+
 				/*Random randomNum = new Random();
 				for(int i = 0; i < randomNum.nextInt(allLectures.size()); i++){
 					backTrackIndex = backtrack(numPreAssign, assignmentMapCopy, unassignedLectures);
