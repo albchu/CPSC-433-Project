@@ -444,7 +444,8 @@ public class ConstraintTests {
 		lecture1.setExamLength(2);
 		lecture2.setExamLength(3);
 		session1.addLecture(lecture1);
-		int violation = Constraints.calcSoftSeven(session1, lecture2);
+		lecture1.setSession(session1);
+		int violation = Constraints.calcSoftSix(session1, lecture2);
 		Assert.assertEquals("Soft constraint violation is incorrect", 20, violation);
 	}
 	
