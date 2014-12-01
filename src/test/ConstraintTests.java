@@ -327,6 +327,26 @@ public class ConstraintTests {
 	}
 	
 	@Test
+	// Testing if two lectures for the same course having different exam times but ending at the same time causes this SC to be triggered
+	public void SoftCon3failtest2() {
+		session1.setDay("M");
+		Time time = new Time.Builder("9:00").build();
+		session1.setTime(time);
+		lecture1.setSession(session1);
+		session1.setLength(2);
+		List<Lecture> listofLecs = new ArrayList<Lecture>();
+		listofLecs.add(lecture1);
+		
+		Lecture lecture2 = new Lecture("CPSC433", "L02");
+		Time time2 = new Time.Builder("8:00").build();
+		session2.setTime(time2);
+		session2.setDay("M");
+		session2.setLength(3);
+		int violation = Constraints.calcSoftThree(listofLecs, session2, lecture2);
+		Assert.assertEquals("Soft constraint violation is incorrect", 50, violation);
+	}
+	
+	@Test
 	// Testing if SC passes when two lectures for the same course have the same exam time
 	public void SoftCon3passtest() {
 		session1.setDay("M");
@@ -339,6 +359,25 @@ public class ConstraintTests {
 		Lecture lecture2 = new Lecture("CPSC433", "L02");
 		session2.setTime(time);
 		session2.setDay("M");
+		int violation = Constraints.calcSoftThree(listofLecs, session2, lecture2);
+		Assert.assertEquals("Soft constraint violation is incorrect", 0, violation);
+	}
+	
+	@Test
+	// Testing if SC passes when two lectures for the same course have the same exam time but different lengths
+	public void SoftCon3passtest2() {
+		session1.setDay("M");
+		Time time = new Time.Builder("9:00").build();
+		session1.setTime(time);
+		session1.setLength(3);
+		lecture1.setSession(session1);
+		List<Lecture> listofLecs = new ArrayList<Lecture>();
+		listofLecs.add(lecture1);
+		
+		Lecture lecture2 = new Lecture("CPSC433", "L02");
+		session2.setTime(time);
+		session2.setDay("M");
+		session2.setLength(2);
 		int violation = Constraints.calcSoftThree(listofLecs, session2, lecture2);
 		Assert.assertEquals("Soft constraint violation is incorrect", 0, violation);
 	}
@@ -396,6 +435,25 @@ public class ConstraintTests {
 		Student student = new Student("Bob");
 		lecture1.setExamLength(3);
 		session1.setLength(3);
+		session1.setDay("M");
+		lecture1.setSession(session1);
+		student.enroll(lecture1);
+		
+		
+		session2.setLength(2);
+		session2.setDay("M");
+		student.enroll(lecture2);
+
+		int violation = Constraints.calcSoftFour(session2, lecture2);
+		Assert.assertEquals("Soft constraint violation is incorrect", 0, violation); 
+	}
+	
+	@Test
+	// Testing if SC passes if a student has a total of 4 exam hours in a day
+	public void SoftCon4passtest2() {
+		Student student = new Student("Bob");
+		lecture1.setExamLength(3);
+		session1.setLength(2);
 		session1.setDay("M");
 		lecture1.setSession(session1);
 		student.enroll(lecture1);
@@ -540,6 +598,7 @@ public class ConstraintTests {
 	}
 	
 	@Test
+	// Test if SC passes when a 3 hour exam is scheduled into a 3 hour session
 	public void SoftCon7passtest() {
 		session1.setLength(3);
 		lecture1.setExamLength(3);	
