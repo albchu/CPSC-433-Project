@@ -11,7 +11,7 @@ public class ExamSchedule
 {
 	public static void main(String[] args)
 	{
-		long startTime = System.nanoTime();
+		long startTime = System.currentTimeMillis();
 		
 		// There has to be at least two arguments according to assignment spec page
 		if (args.length != 2)
@@ -28,12 +28,12 @@ public class ExamSchedule
 		Environment env = new Environment();
 		PredicateParser.importList(env, inputList);
 		Solve sol = new Solve(env);
-		List<String> outputList = sol.generateSolution();
+		List<String> outputList = sol.generateSolution(maxTime, startTime);
 		
 		//List<String> outputList = env.exportList();
 		writeToFile(outputList, filename + ".out");
 		
-		long endTime = System.nanoTime();
-		System.out.println("Took " + TimeUnit.MILLISECONDS.convert(endTime - startTime, TimeUnit.NANOSECONDS) + " ms"); 
+		long endTime = System.currentTimeMillis();
+		System.out.println("Took " + (endTime - startTime) + " ms"); 
 	}
 }

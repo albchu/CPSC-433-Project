@@ -1,5 +1,6 @@
 package examSchedule.solution;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import examSchedule.assignment.Assignment;
 import examSchedule.assignment.AssignmentMap;
@@ -38,7 +39,7 @@ public class Solve {
 	 * generateSolution: Generates a list of Lecture-Sessions pair
 	 * @return List<String> List of assignments for the final solution
 	 */
-	public List<String> generateSolution(){
+	public List<String> generateSolution(int maxTime, long startTime){
 		List<Session> validSessions = new ArrayList<Session>();
 		List<Lecture> unassignedLectures = new ArrayList<Lecture>();
 		// Get all lectures 
@@ -46,29 +47,33 @@ public class Solve {
 		// Get all sessions
 		List<Session> allSessions = sessionMapCopy.getAllSessions();
 		sortedSessions = new ArrayList<SessionWorthPair>();
-		
 		//REFACTORABLE, SHOULDN'T NEED TO ITERATE THROUGH THE LIST
-		System.out.println("Total Number of lectures" + allLectures.size());
+		//System.out.println("Total Number of lectures" + allLectures.size());
 		for(Lecture currentLecture : allLectures){
 			if(currentLecture.getSession()== null)
 				unassignedLectures.add(currentLecture);
 		}
 		int numPreAssign = assignmentMapCopy.size();
-		System.out.println("Assigned Lectures: " + unassignedLectures.size());
-
+		//System.out.println("Assigned Lectures: " + unassignedLectures.size());
+		long currentRunTime = 0;
 		int backTrackIndex = 0;
-		int solutions = 0;
 		boolean solutionsExist = true;
-		while(solutionsExist&&solutions < 3){
+		//long curTime = System.currentTimeMillis();
+		//System.out.println(curTime-startTime);
+		//long postLoadTime = curTime - startTime;
+		//System.out.println(postLoadTime);
+		//System.out.println(TimeUnit.MILLISECONDS.convert(postLoadTime, TimeUnit.NANOSECONDS));
+		while(solutionsExist && (int)currentRunTime < (maxTime-10)){
 			int noValidCount = 0;
+
 			//Iterate through lectures until all are assigned
 			while(!unassignedLectures.isEmpty()){
 				Lecture currentLecture = unassignedLectures.get(0);
 				//System.out.println("Attempting to assign lecture:" + currentLecture.getCourseName()+", "+currentLecture.getLectureName());
-				System.out.println(unassignedLectures.size());
+			//	System.out.println(unassignedLectures.size());
 				//calculate hard constraints and save valid sessions
 				validSessions = getValidSessions(currentLecture, allSessions);
-				
+			
 				//If no valid sessions we need to backtrack
 				if(validSessions.isEmpty()){
 					//B
@@ -124,26 +129,37 @@ public class Solve {
 			//Save solution
 			if(solutionsExist){
 				//return assignmentMapCopy.exportList();
-				System.out.println("SOLUTION REACHED");
-				if(bestPenalty < assignmentMapCopy.getPenalties() || solutionCount == 0){
+				System.out.println("SOLUTION REACHED: " + solutionCount);
+				if(bestPenalty > assignmentMapCopy.getPenalties() || solutionCount == 0){
 					bestSolution  = (new SolutionPenaltyPair(assignmentMapCopy.exportList(), assignmentMapCopy.getPenalties()));
 					bestPenalty = bestSolution.getPenalty();
 				}
 				solutionCount++;
-
-				/*Random randomNum = new Random();
-				for(int i = 0; i < randomNum.nextInt(allLectures.size()); i++){
+				long curTime = System.currentTimeMillis();
+				currentRunTime = curTime - startTime;
+				//long 
+				//System.out.println(currentRunTime);
+				Random randomNum = new Random();
+				/*for(int i = 0; i < allLectures.size(); i++){
 					backTrackIndex = backtrack(numPreAssign, assignmentMapCopy, unassignedLectures);
 					if(backTrackIndex == -1){
 						solutionsExist = false;
 						continue;
 					}
 				}*/
-				//backTrackIndex = backtrack(numPreAssign, assignmentMapCopy, unassignedLectures);
-				//if(backTrackIndex == -1){
-				//	solutionsExist = false;
-				//	continue;
-				//}
+				
+				for(int i = 0; i < randomNum.nextInt(allLectures.size()); i++){
+					backTrackIndex = backtrack(numPreAssign, assignmentMapCopy, unassignedLectures);
+					if(backTrackIndex == -1){
+						solutionsExist = false;
+						continue;
+					}
+				}
+				/*backTrackIndex = backtrack(numPreAssign, assignmentMapCopy, unassignedLectures);
+				if(backTrackIndex == -1){
+					solutionsExist = false;
+					continue;
+				}
 				/*for(int i = 0; i < 25; i++){
 					Assignment removedAssignment = assignmentMapCopy.removeAssignment();
 					if(removedAssignment == null){
@@ -160,15 +176,19 @@ public class Solve {
 		
 		//Collections.sort(listOfSolutions);
 
-		System.out.println("Number of Solutions: " + solutionCount);
-		int assignmentCount = 0;
+		//System.out.println("Number of Solutions: " + solutionCount);
+		//int assignmentCount = 0;
+		System.out.println("Final Penalty: -" + bestSolution.getPenalty());
 		List<String> finalSolution = bestSolution.getSolution();
-		for(String solutionLine : finalSolution){
+		/*for(String solutionLine : finalSolution){
 			assignmentCount++;
 			System.out.println(solutionLine);
 		}
 		System.out.println("Assigned: " + assignmentCount + " Lectures");
 		System.out.println("Penalty For Solution: -"+bestSolution.getPenalty());
+		*/				
+		//curTime = System.currentTimeMillis();
+		//System.out.println("Final time before writing to file " + (startTime - curTime));
 		return(finalSolution);
 	}		
 
