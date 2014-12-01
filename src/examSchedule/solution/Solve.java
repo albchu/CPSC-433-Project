@@ -129,7 +129,7 @@ public class Solve {
 			//Save solution
 			if(solutionsExist){
 				//return assignmentMapCopy.exportList();
-				System.out.println("SOLUTION REACHED: " + solutionCount);
+				System.out.println("SOLUTION REACHED: " + solutionCount+1);
 				if(bestPenalty > assignmentMapCopy.getPenalties() || solutionCount == 0){
 					bestSolution  = (new SolutionPenaltyPair(assignmentMapCopy.exportList(), assignmentMapCopy.getPenalties()));
 					bestPenalty = bestSolution.getPenalty();
@@ -137,7 +137,6 @@ public class Solve {
 				solutionCount++;
 				long curTime = System.currentTimeMillis();
 				currentRunTime = curTime - startTime;
-				//long 
 				//System.out.println(currentRunTime);
 				Random randomNum = new Random();
 				/*for(int i = 0; i < allLectures.size(); i++){
