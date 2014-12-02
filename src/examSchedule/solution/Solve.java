@@ -32,7 +32,6 @@ public class Solve {
 		sessionMapCopy = env.getSessionMap();
 		bestPenalty = 0;
 		solutionCount = 0;
-		
 	}
 	
 	/**
