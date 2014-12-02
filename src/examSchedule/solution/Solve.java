@@ -63,7 +63,7 @@ public class Solve {
 		//long postLoadTime = curTime - startTime;
 		//System.out.println(postLoadTime);
 		//System.out.println(TimeUnit.MILLISECONDS.convert(postLoadTime, TimeUnit.NANOSECONDS));
-		while(solutionsExist && (int)currentRunTime < (maxTime-10)){
+		while(solutionsExist && solutionCount < 100){
 			int noValidCount = 0;
 
 			//Iterate through lectures until all are assigned
@@ -114,7 +114,11 @@ public class Solve {
 				}
 				else{
 					//Calculate Soft Constraints
-					if(backTrackIndex==0 || sortedSessions.size()==0){
+					/*List<Session> validSessionResize = new ArrayList<Session>();
+					for(int i = 0; i < 40||i < validSessions.size(); i++){
+						validSessionResize.add(validSessions.get(i));
+					}
+					*/if(backTrackIndex==0 || sortedSessions.size()==0){
 						sortedSessions = getBestSessions(validSessions, currentLecture);
 					}
 					//Add assignment
@@ -129,7 +133,7 @@ public class Solve {
 			//Save solution
 			if(solutionsExist){
 				//return assignmentMapCopy.exportList();
-				System.out.println("SOLUTION REACHED: " + solutionCount+1);
+				System.out.println("SOLUTION REACHED: " + (solutionCount+1));
 				if(bestPenalty > assignmentMapCopy.getPenalties() || solutionCount == 0){
 					bestSolution  = (new SolutionPenaltyPair(assignmentMapCopy.exportList(), assignmentMapCopy.getPenalties()));
 					bestPenalty = bestSolution.getPenalty();

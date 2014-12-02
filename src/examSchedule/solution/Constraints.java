@@ -85,8 +85,8 @@ public class Constraints {
 		totalSoft += calcSoftOne(aSession, aLecture);
 		totalSoft += calcSoftTwo(aSession, aLecture);
 		//totalSoft += calcSoftThree(aSession, aLecture);
-		totalSoft += calcSoftFour(aSession, aLecture);
-		totalSoft += calcSoftFive(aSession, aLecture);
+		//totalSoft += calcSoftFour(aSession, aLecture);
+		//totalSoft += calcSoftFive(aSession, aLecture);
 		totalSoft += calcSoftSix(aSession, aLecture);
 		totalSoft += calcSoftSeven(aSession, aLecture);
 		return totalSoft;
@@ -98,15 +98,20 @@ public class Constraints {
 	 * @param aSession
 	 * @param aLecture
 	 * @return int penalty of constraints
-	 */
+	 */	
 	public static int calcSoftOne(Session aSession, Lecture aLecture) {
 		int penalty = 0;
+		
 		List<Student>enrolledStudents = aLecture.getEnrolledStudents();
 		for(Student student : enrolledStudents){
 			List<Lecture> enrolledLectures = student.getEnrolledLectures();
+			List<Session> studentSessions = new ArrayList<Session>();
 			for(Lecture lecture : enrolledLectures){
 				Session session = lecture.getSession();
-				if(!(session==null || session == aSession)){
+				if(!(session==null)){
+					studentSessions.add(session);
+				}
+				if(!(session==null || session.equals(aSession))){
 					if(lecture.getSession().getDay().equals(aSession.getDay())){
 					//	Time lecSessTime = lecture.getSession().getTime();
 					//	Time inputSessTime = aSession.getTime();
@@ -125,8 +130,32 @@ public class Constraints {
 							}
 						}
 					}
-				}	
+				}
 			}
+			int totalTimeOnDay = 0;
+			for(Session session2: studentSessions){
+				if(session2.getDay().equals(aSession.getDay())){
+					double timeDiff = session2.getTime().getDifference(aSession.getTime());
+					if(timeDiff == 0.0){
+						penalty+=50;
+					}
+					else if(timeDiff > 0.0){
+						if(timeDiff == (double)aSession.getLength()){
+							penalty+=50;
+						}
+					}
+					else{
+						if(Math.abs(timeDiff) == (double)session2.getLength()){
+							penalty+=50;
+						}
+					}
+					totalTimeOnDay += (session2.getLength() + aSession.getLength());
+				}
+			}
+			if(totalTimeOnDay > 5){
+				penalty+=50;
+			}
+			
 		}
 		return penalty;
 	}

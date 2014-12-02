@@ -27,6 +27,8 @@ public class ExamSchedule
 		System.out.println("Hi");
 		Environment env = new Environment();
 		PredicateParser.importList(env, inputList);
+		long importEndTime = System.currentTimeMillis();
+		System.out.println("Took " + (importEndTime - startTime) + " ms to import"); 
 		Solve sol = new Solve(env);
 		List<String> outputList = sol.generateSolution(maxTime, startTime);
 		
