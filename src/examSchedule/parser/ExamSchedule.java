@@ -30,13 +30,13 @@ public class ExamSchedule
 		Session session = env.getSessionMap().getSession("M11-2-SS171");
 		long importEndTime = System.currentTimeMillis();
 		System.out.println("Took " + (importEndTime - startTime) + " ms to import"); 
-//		Solve sol = new Solve(env);
-//		List<String> outputList = sol.generateSolution(maxTime, startTime);
-//		
-//		//List<String> outputList = env.exportList();
-//		writeToFile(outputList, filename + ".out");
-//		
-//		long endTime = System.currentTimeMillis();
-//		System.out.println("Took " + (endTime - startTime) + " ms"); 
+		Solve sol = new Solve(env);
+		List<String> outputList = sol.generateSolution(maxTime, startTime);
+		
+		//List<String> outputList = env.exportList();
+		writeToFile(outputList, filename + ".out");
+		
+		long endTime = System.currentTimeMillis();
+		System.out.println("Took " + (endTime - startTime) + " ms"); 
 	}
 }
