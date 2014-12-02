@@ -48,18 +48,19 @@ public class PredicateParser
 //				rooms.add(new Predicate(predicateName, predicateArgs));
 //			else if(predicateName.equals("capacity"))
 //				capacity.add(new Predicate(predicateName, predicateArgs));
-			else
-				remainingPredicates.add(new Predicate(predicateName, predicateArgs));
+//			else
+//				remainingPredicates.add(new Predicate(predicateName, predicateArgs));
+			env.importPredicate(predicateName, new PredicateArgs(predicateArgs));
 		}
-		exportToEnv(env, days);
-		exportToEnv(env, courses);
-		exportToEnv(env, lectures);
-		exportToEnv(env, instructors);
-		exportToEnv(env, students);
-		exportToEnv(env, rooms);
-		exportToEnv(env, capacity);
-		exportToEnv(env, sessions);
-		exportToEnv(env, remainingPredicates);
+//		exportToEnv(env, days);
+//		exportToEnv(env, courses);
+//		exportToEnv(env, lectures);
+//		exportToEnv(env, instructors);
+//		exportToEnv(env, students);
+//		exportToEnv(env, rooms);
+//		exportToEnv(env, capacity);
+//		exportToEnv(env, sessions);
+//		exportToEnv(env, remainingPredicates);
 	}
 
 	public static void exportToEnv(Environment env, List<Predicate> list)
