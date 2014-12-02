@@ -27,7 +27,6 @@ public class PredicateArgs
 	public void importArgs(String argsStr)
 	{
 		String[] tokenized = argsStr.split(",");
-//		boolean isVector = false;
 		for(int i = 0; i < tokenized.length ; i++)
 		{
 			String curArg = tokenized[i];
@@ -43,8 +42,6 @@ public class PredicateArgs
 			else
 				args.add(curArg);
 			
-//			//If end of vector, disable boolean and continue importing values
-//			if (isVector && curArg.contains("]"))
 		}
 	}
 	
