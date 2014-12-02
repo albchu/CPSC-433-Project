@@ -63,7 +63,7 @@ public class Solve {
 		//long postLoadTime = curTime - startTime;
 		//System.out.println(postLoadTime);
 		//System.out.println(TimeUnit.MILLISECONDS.convert(postLoadTime, TimeUnit.NANOSECONDS));
-		while(solutionsExist && solutionCount < 100){
+		while(solutionsExist && currentRunTime < (maxTime-10)){
 			int noValidCount = 0;
 
 			//Iterate through lectures until all are assigned
@@ -114,12 +114,12 @@ public class Solve {
 				}
 				else{
 					//Calculate Soft Constraints
-					/*List<Session> validSessionResize = new ArrayList<Session>();
-					for(int i = 0; i < 40||i < validSessions.size(); i++){
+					List<Session> validSessionResize = new ArrayList<Session>();
+					for(int i = 0; i < 2000 && i < validSessions.size(); i++){
 						validSessionResize.add(validSessions.get(i));
 					}
-					*/if(backTrackIndex==0 || sortedSessions.size()==0){
-						sortedSessions = getBestSessions(validSessions, currentLecture);
+					if(backTrackIndex==0 || sortedSessions.size()==0){
+						sortedSessions = getBestSessions(validSessionResize, currentLecture);
 					}
 					//Add assignment
 					Session bestSession = sortedSessions.get(backTrackIndex).getSession();

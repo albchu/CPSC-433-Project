@@ -19,7 +19,6 @@ public class Constraints {
 	 */
 	public static boolean calcAllHardCons(Session session, Lecture lecture) {
 		//System.out.println("Checking Hard Constaints");
-
 		if (capacityHardCon(session, lecture) && timeLengthHardCon(session, lecture))
 			return true;
 		else {
@@ -108,10 +107,8 @@ public class Constraints {
 			List<Session> studentSessions = new ArrayList<Session>();
 			for(Lecture lecture : enrolledLectures){
 				Session session = lecture.getSession();
-				if(!(session==null)){
-					studentSessions.add(session);
-				}
 				if(!(session==null || session.equals(aSession))){
+					studentSessions.add(session);
 					if(lecture.getSession().getDay().equals(aSession.getDay())){
 					//	Time lecSessTime = lecture.getSession().getTime();
 					//	Time inputSessTime = aSession.getTime();
