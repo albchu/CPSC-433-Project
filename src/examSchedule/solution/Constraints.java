@@ -107,7 +107,7 @@ public class Constraints {
 			List<Session> studentSessions = new ArrayList<Session>();
 			for(Lecture lecture : enrolledLectures){
 				Session session = lecture.getSession();
-				if(!(session==null || session.equals(aSession))){
+				if(!(session==null)){
 					studentSessions.add(session);
 					if(lecture.getSession().getDay().equals(aSession.getDay())){
 					//	Time lecSessTime = lecture.getSession().getTime();
@@ -172,7 +172,7 @@ public class Constraints {
 			for(int i = 0; i < coursesTaughtByInstructor.size(); i++){
 				Session session1;
 				session1 = coursesTaughtByInstructor.get(i).getSession();
-				if(session1==null || session1 == aSession){
+				if(session1==null){
 					continue;
 				}
 				if(session1.getDay().equals(aSession.getDay())&& !(session1.getRoom().equals(aSession.getRoom()))){
