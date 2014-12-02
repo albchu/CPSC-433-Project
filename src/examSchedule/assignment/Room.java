@@ -7,13 +7,15 @@ import examSchedule.exceptions.RoomNegativeCapacityAssignmentException;
 public class Room
 {
 	private String roomID;
-	private Integer capacity;
+	private int capacity;
+	private Session session;
 
 	public Room(String roomID)
 	{
 		nullCheck(roomID);
 		this.roomID = roomID;
-		capacity = null;
+		capacity = 0;
+		session = null;
 	}
 	
 	public String getRoomID()
@@ -26,15 +28,25 @@ public class Room
 	 * @return
 	 * @throws RoomCapacityUnassignedException
 	 */
-	public Integer getCapacity() throws RoomCapacityUnassignedException
+	public int getCapacity() throws RoomCapacityUnassignedException
 	{
-		if (capacity == null) throw new RoomCapacityUnassignedException();
 		return capacity;
 	}
 	
+	public Session getSession()
+	{
+		return session;
+	}
+
+	public void setSession(Session session)
+	{
+		this.session = session;
+	}
+
 	public void setCapacity(int capacity)
 	{
 		if (capacity < 0) throw new RoomNegativeCapacityAssignmentException();
+		if (session != null) session.setRemainingCapacity(capacity);
 		this.capacity = capacity;
 	}
 }

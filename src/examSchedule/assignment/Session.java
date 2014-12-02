@@ -96,6 +96,11 @@ public class Session
 		return remainingCapacity;
 	}
 
+	public void setRemainingCapacity(int remainingCapacity)
+	{
+		this.remainingCapacity = remainingCapacity;
+	}
+
 	public void setDay(String dayID)
 	{
 		this.dayID = dayID;

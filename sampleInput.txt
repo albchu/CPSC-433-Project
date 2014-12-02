@@ -4484,8 +4484,6 @@ capacity(EDU272,54)
 room(KNES38)
 capacity(KNES38,72)
 
-room(SS171)
-capacity(SS171,65)
 
 capacity(SS297,86)
 room(SS297)
@@ -4495,6 +4493,8 @@ room(SS297)
 roomAssign(M11-2-SS171,SS171)
 session(M11-2-SS171)
 at(M11-2-SS171,M,11,2)
+room(SS171)
+capacity(SS171,65)
 
 session(M11-2-SS297)
 roomAssign(M11-2-SS297,SS297)

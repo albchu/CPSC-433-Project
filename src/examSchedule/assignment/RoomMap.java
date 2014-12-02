@@ -17,14 +17,12 @@ public class RoomMap
 	
 	public Room getRoom(String roomID)
 	{
-		if(!roomMap.containsKey(roomID)) //throw new ElementDoesNotExistException("Could not find room in room map");
-			addRoom(roomID);
+		addRoom(roomID);
 		return roomMap.get(roomID);
 	}
 	
 	public void updateRoomInfo(String roomID, Integer capacity)
 	{
-		addRoom(roomID);
 		getRoom(roomID).setCapacity(capacity);
 	}
 	

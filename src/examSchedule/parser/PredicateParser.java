@@ -34,20 +34,20 @@ public class PredicateParser
 			
 			if(predicateName.equals("day"))
 				days.add(new Predicate(predicateName, predicateArgs));
-			else if(predicateName.equals("instructor"))
-				instructors.add(new Predicate(predicateName, predicateArgs));
-			else if(predicateName.equals("course"))
-				courses.add(new Predicate(predicateName, predicateArgs));
-			else if(predicateName.equals("lecture"))
-				lectures.add(new Predicate(predicateName, predicateArgs));
-			else if(predicateName.equals("student"))
-				students.add(new Predicate(predicateName, predicateArgs));
-			else if(predicateName.equals("session"))
-				sessions.add(new Predicate(predicateName, predicateArgs));
-			else if(predicateName.equals("room"))
-				rooms.add(new Predicate(predicateName, predicateArgs));
-			else if(predicateName.equals("capacity"))
-				capacity.add(new Predicate(predicateName, predicateArgs));
+//			else if(predicateName.equals("instructor"))
+//				instructors.add(new Predicate(predicateName, predicateArgs));
+//			else if(predicateName.equals("course"))
+//				courses.add(new Predicate(predicateName, predicateArgs));
+//			else if(predicateName.equals("lecture"))
+//				lectures.add(new Predicate(predicateName, predicateArgs));
+//			else if(predicateName.equals("student"))
+//				students.add(new Predicate(predicateName, predicateArgs));
+//			else if(predicateName.equals("session"))
+//				sessions.add(new Predicate(predicateName, predicateArgs));
+//			else if(predicateName.equals("room"))
+//				rooms.add(new Predicate(predicateName, predicateArgs));
+//			else if(predicateName.equals("capacity"))
+//				capacity.add(new Predicate(predicateName, predicateArgs));
 			else
 				remainingPredicates.add(new Predicate(predicateName, predicateArgs));
 		}

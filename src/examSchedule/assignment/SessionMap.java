@@ -29,6 +29,7 @@ public class SessionMap
 	public void updateSessionInfo(Room room, String sessionID, String dayID, Time time, int length)
 	{
 		Session session = getSession(sessionID);
+		room.setSession(session);
 		session.setRoom(room);
 		session.setDay(dayID);
 		session.setLength(length);
@@ -64,6 +65,7 @@ public class SessionMap
 	{
 		
 		Session session = getSession(sessionID);
+		room.setSession(session);
 		//System.out.println("Updating session room info");
 		session.setRoom(room);
 	}
@@ -80,8 +82,8 @@ public class SessionMap
 
 	public void addSession(String sessionID)
 	{
-		//if(sessionMap.containsKey(sessionID)) throw new DuplicateSessionException("Session has already been added in session map");
-		sessionMap.put(sessionID, new Session(sessionID));
+		if(!sessionMap.containsKey(sessionID)) //throw new DuplicateSessionException("Session has already been added in session map");
+			sessionMap.put(sessionID, new Session(sessionID));
 	}
 	
 	/** 
