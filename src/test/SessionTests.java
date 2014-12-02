@@ -48,7 +48,7 @@ public class SessionTests
 	@Test
 	public void roomSetSizeTest()
 	{
-		Integer expectedSize = 5;
+		int expectedSize = 5;
 		Room room = new Room(roomID );
 		room.setCapacity(expectedSize);
 		session.setRoom(room );

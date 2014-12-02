@@ -27,7 +27,6 @@ public class ExamSchedule
 		List<String> inputList = readToList(filename);
 		Environment env = new Environment();
 		PredicateParser.importList(env, inputList);
-		Session session = env.getSessionMap().getSession("M11-2-SS171");
 		long importEndTime = System.currentTimeMillis();
 		System.out.println("Took " + (importEndTime - startTime) + " ms to import"); 
 //		Solve sol = new Solve(env);
