@@ -26,7 +26,7 @@ public class Utilities
 	 */
 	public static String predicateForm(String predicateName, String... args)
 	{
-		return predicateName.toUpperCase() + "(" + join(args, ", ") + ")";
+		return predicateName.toLowerCase() + "(" + join(args, ", ") + ")";
 	}
 
 	/**
