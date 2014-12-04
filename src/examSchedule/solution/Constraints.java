@@ -18,7 +18,6 @@ public class Constraints {
 	 * @return boolean true if all hard constraints are not violated
 	 */
 	public static boolean calcAllHardCons(Session session, Lecture lecture) {
-		//System.out.println("Checking Hard Constaints");
 		if (capacityHardCon(session, lecture) && timeLengthHardCon(session, lecture))
 			return true;
 		else {
@@ -33,8 +32,6 @@ public class Constraints {
 	 * @return boolean true if hard constraint not violated
 	 */
 	private static boolean capacityHardCon(Session session, Lecture lecture) {
-	//	System.out.println("Remaining cap: " + session.getRemainingCapacity());
-	//	System.out.println("Lecture Size: " + lecture.getClassSize());
 		if ((session.getRemainingCapacity()-lecture.getClassSize()) < 0) 
 			return false;
 		else {
@@ -49,8 +46,6 @@ public class Constraints {
 	 * @return boolean true if hard constraint not violated
 	 */
 	private static boolean timeLengthHardCon(Session session, Lecture lecture) {
-	//	System.out.println("Exam Length: " + lecture.getExamLength());
-		//System.out.println("Session Length: " + session.getLength());
 		if (lecture.getExamLength() > session.getLength()) 
 			return false;
 		else {
@@ -80,7 +75,7 @@ public class Constraints {
 	 */
 	public static int calcAllSoftCon(Session aSession, Lecture aLecture){
 		int totalSoft = 0;
-		//System.out.println("Checking Soft Constaints");
+		// Commented blocks are a result of combining constraint checks for less iteration done
 		totalSoft += calcSoftOne(aSession, aLecture);
 		totalSoft += calcSoftTwo(aSession, aLecture);
 		//totalSoft += calcSoftThree(aSession, aLecture);
@@ -110,8 +105,6 @@ public class Constraints {
 				if(!(session==null)){
 					studentSessions.add(session);
 					if(lecture.getSession().getDay().equals(aSession.getDay())){
-					//	Time lecSessTime = lecture.getSession().getTime();
-					//	Time inputSessTime = aSession.getTime();
 						double timeDiff = session.getTime().getDifference(aSession.getTime());
 						if(timeDiff == 0.0){
 							penalty += 100;
@@ -177,7 +170,6 @@ public class Constraints {
 				}
 				if(session1.getDay().equals(aSession.getDay())&& !(session1.getRoom().equals(aSession.getRoom()))){
 					double timeDiff = session1.getTime().getDifference(aSession.getTime());
-					//System.out.println(timeDiff);
 					if(timeDiff == 0.0){
 						penalty+=20;						
 					}
@@ -208,7 +200,6 @@ public class Constraints {
 		int penalty = 0;
 		for(Lecture lecture : listOfLecs){
 			if(lecture.getSession() !=null && !(lecture.getSession().getDay().equals(aSession.getDay())&&lecture.getSession().getTime().equals(aSession.getTime()))){
-			//if(lecture.getSession() != null && lecture.getSession() != aSession){
 				penalty += 50;
 			}
 		}

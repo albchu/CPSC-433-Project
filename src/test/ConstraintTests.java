@@ -27,7 +27,7 @@ public class ConstraintTests {
 	Session session4 = new Session("S4");
 	
 	@Test
-	// Testing if SC triggers when a single student has 2 exams at 6:00
+	// Testing if SC triggers when a single student has 2 exams at 6:00 and is in exams for 6 hours
 	public void SoftCon1failtest1() {
 		Student student = new Student("Bob");
 		Time time = new Time.Builder("6:00").build();
@@ -44,7 +44,7 @@ public class ConstraintTests {
 
 		
 		int violation = Constraints.calcSoftOne(session2, lecture2);
-		Assert.assertEquals("Soft constraint violation is incorrect", 100, violation);
+		Assert.assertEquals("Soft constraint violation is incorrect", 200, violation);
 	}
 	
 	@Test
@@ -72,6 +72,7 @@ public class ConstraintTests {
 	// Testing if SC triggers when:
 	// Student 1: Exams at 6:00 and 6:30
 	// Student 2: Exams at 5:00 and 6:30
+	// Both have exams for longer than 5 hours a day
 	public void SoftCon1failtest3() {
 		Student student = new Student("Bob");
 		Time time = new Time.Builder("6:00").build();
@@ -98,7 +99,7 @@ public class ConstraintTests {
 		student2.enroll(lecture3);
 		
 		int violation = Constraints.calcSoftOne(session3, lecture3);
-		Assert.assertEquals("Soft constraint violation is incorrect", 200, violation);
+		Assert.assertEquals("Soft constraint violation is incorrect", 300, violation);
 	}
 	
 	@Test
@@ -115,7 +116,7 @@ public class ConstraintTests {
 		Time time2 = new Time.Builder("13:00").build();
 		session2.setTime(time2);
 		session2.setDay("M");
-		session2.setLength(3);
+		session2.setLength(1);
 		student.enroll(lecture2);
 
 		int violation = Constraints.calcSoftOne(session2, lecture2);
@@ -123,8 +124,8 @@ public class ConstraintTests {
 	}
 	
 	@Test
-	// Testing if SC passes when a student has two back to back exams
-	public void SoftCon1passtest2() {
+	// Testing if SC trigger when a student has two back to back exams
+	public void SoftCon1failtest4() {
 		Student student = new Student("Bob");
 		Time time = new Time.Builder("9:00").build();
 		session1.setTime(time);
@@ -136,11 +137,11 @@ public class ConstraintTests {
 		Time time2 = new Time.Builder("12:00").build();
 		session2.setTime(time2);
 		session2.setDay("M");
-		session2.setLength(3);
+		session2.setLength(1);
 		student.enroll(lecture2);
 
 		int violation = Constraints.calcSoftOne(session2, lecture2);
-		Assert.assertEquals("Soft constraint violation is incorrect", 0, violation);
+		Assert.assertEquals("Soft constraint violation is incorrect", 50, violation);
 	}
 	
 	@Test

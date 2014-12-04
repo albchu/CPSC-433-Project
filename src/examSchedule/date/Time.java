@@ -76,7 +76,6 @@ public class Time implements Comparable<Time>
 
 	public double getDifference(Time secondTime)
 	{
-		//System.out.println(((this.getMinute() - secondTime.getMinute())));
 		return (double)(((this.getHour() - secondTime.getHour())*100 + ((this.getMinute()/60 - secondTime.getMinute()/0.6)))/100);
 	}
 	

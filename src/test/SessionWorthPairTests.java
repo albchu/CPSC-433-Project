@@ -41,7 +41,6 @@ public class SessionWorthPairTests
 		int prevWorth = -1;
 		for (SessionWorthPair pair : list)
 		{
-//			Assert.assertTrue(pair.getWorth().compareTo(prevWorth) >= 0);
 			System.out.println("Session ID: " + pair.getSession().getSessionID() + " worth: " + pair.getWorth());
 			prevWorth = pair.getWorth();
 		}

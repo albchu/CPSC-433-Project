@@ -69,11 +69,6 @@ public class SessionMap
 		//System.out.println("Updating session room info");
 		session.setRoom(room);
 	}
-//	public void updateSessionInfo(String sessionID, Lecture lecture)
-//	{
-//		Session session = getSession(sessionID);
-//		session.addSessionAssignment(lecture);;
-//	}
 	
 	public HashMap<String, Session> getSessionMap()
 	{

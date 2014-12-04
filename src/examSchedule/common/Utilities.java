@@ -93,7 +93,6 @@ public class Utilities
 		}
 	}
 
-	// join(String array,delimiter)
 	public static String join(String array[], String delimiter)
 	{
 		if (array.length == 0)
